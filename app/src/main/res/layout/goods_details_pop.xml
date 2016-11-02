@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pop_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/pop_img"
+                android:layout_width="105dp"
+                android:layout_height="105dp"
+                android:layout_marginLeft="16dp"
+                android:src="@mipmap/listview1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@+id/pop_img"
+                android:text="¥"
+                android:textColor="#f94426"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@+id/pop_img"
+                android:text="9.8"
+                android:textColor="#f94426"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_toRightOf="@+id/pop_img"
+                android:text="库存"
+                android:textColor="@color/c_black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="42dp"
+                android:layout_toRightOf="@+id/pop_img"
+                android:text="665"
+                android:textColor="@color/c_black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="70dp"
+                android:layout_toRightOf="@+id/pop_img"
+                android:text="件"
+                android:textColor="@color/c_black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="75dp"
+                android:layout_toRightOf="@+id/pop_img"
+                android:text="请选择颜色分类"
+                android:textColor="@color/c_black"
+                android:textSize="15sp" />
+        </RelativeLayout>
+<LinearLayout
+    android:background="#fff"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="30dp"
+        android:text="颜色分类"
+        android:textColor="@color/c_black"
+        android:textSize="15sp" />
+
+    <ScrollView
+        android:layout_width="235dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="12dp" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:background="@drawable/goodstype"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="表板蜡+G-436+出风口刷+边角"
+                android:textColor="@color/c_black"
+                android:gravity="center"/>
+            <TextView
+                android:layout_marginTop="8dp"
+                android:background="@drawable/goodstype"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="表板蜡+G-436+出风口刷+边角"
+                android:textColor="@color/c_black"
+                android:gravity="center"/>
+            <TextView
+                android:layout_marginTop="8dp"
+                android:background="@drawable/goodstype"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="表板蜡+G-436+出风口刷+边角"
+                android:textColor="@color/c_black"
+                android:gravity="center"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/c_gray" />
+
+</LinearLayout>
+
+
+        <RelativeLayout
+            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="23dp"
+                android:text="购买数量"
+                android:textColor="@color/c_black"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="75dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="36dp"
+                android:background="@drawable/shopcar_number"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/pop_down"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="－" />
+
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/c_black" />
+
+                <TextView
+                    android:id="@+id/pop_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="@color/c_black" />
+
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/c_black" />
+
+                <TextView
+                    android:id="@+id/pop_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="＋" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/pop_sure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/car_title"
+            android:text="确定" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/index_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <RadioGroup
+                    android:id="@+id/indexi_viewpage_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="120dp"
+                    android:checkedButton="@+id/index_rtb1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/index_rtb1"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/viewpage_dot"
+                        android:button="@null"
+                        android:enabled="false" />
+
+                    <RadioButton
+
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/viewpage_dot"
+                        android:button="@null"
+                        android:enabled="false" />
+
+                    <RadioButton
+
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/viewpage_dot"
+                        android:button="@null"
+                        android:enabled="false" />
+
+                    <RadioButton
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/viewpage_dot"
+                        android:button="@null"
+                        android:enabled="false" />
+                </RadioGroup>
+            </FrameLayout>
+
+
+            <myview.Index_GrideView
+                android:id="@+id/index_gridview"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="#ffffff"
+                android:numColumns="4">
+
+            </myview.Index_GrideView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="#ffffff">
+
+                <ImageView
+                    android:id="@+id/notice"
+                    android:layout_width="110dp"
+                    android:layout_height="33dp"
+                    android:src="@mipmap/notice" />
+
+                <myview.LooperTextView
+                    android:id="@+id/index_notice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/notice"
+                     />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="#ffffff">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="center_vertical"
+                    android:text="活动促销"
+                    android:textColor="@color/c_blue"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <myview.Index_GrideView
+                android:id="@+id/grid_activity"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:horizontalSpacing="2dp"
+                android:numColumns="2"
+                android:verticalSpacing="2dp">
+
+
+            </myview.Index_GrideView>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginBottom="5dp"
+                android:src="@mipmap/banner_14" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="#ffffff">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="center_vertical"
+                    android:text="新品推荐"
+                    android:textColor="@color/c_blue"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <myview.Index_ListView
+                android:layout_marginTop="5dp"
+                android:id="@+id/index_listview"
+                android:layout_width="match_parent"
+                android:background="#ffffff"
+                android:layout_height="100dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
