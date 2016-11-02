@@ -74,6 +74,7 @@ public class Goods_details_Pop extends PopupWindow implements View.OnClickListen
         switch (v.getId()) {
             case R.id.pop_sure:
                 Intent intent=new Intent(v.getContext(),IndentActivity.class);
+                intent.putExtra("goodsnum",t_num);
                 v.getContext().startActivity(intent);
                 break;
             case R.id.pop_up:

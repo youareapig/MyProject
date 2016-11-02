@@ -22,14 +22,13 @@
         android:layout_alignParentRight="true"
         android:orientation="horizontal"
        >
-        <TextView
+        <ImageView
             android:id="@+id/title_compile"
             android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="编辑"
-            android:textColor="#ffffff"
-            android:textSize="@dimen/half_title"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/delete"
+            android:scaleType="fitCenter"
            />
     </LinearLayout>
 
@@ -46,57 +45,7 @@
         android:layout_marginTop="2dp"
         android:layout_width="match_parent"
         android:layout_height="45dp">
-        <RelativeLayout
-            android:id="@+id/view_delete"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ffffff">
-            <CheckBox
-                android:id="@+id/shopcar_all_compile"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
-                android:button="@null"
-                android:background="@drawable/shopcar_select"
-                />
-            <TextView
-                android:id="@+id/text_all_compile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="全选"
-                android:layout_toRightOf="@+id/shopcar_all_compile"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="12dp"
-                android:textSize="@dimen/half_title"
-                android:textColor="@color/c_black"/>
-            <TextView
-                android:id="@+id/text_compile"
-                android:layout_width="75dp"
-                android:layout_height="33dp"
-                android:gravity="center"
-                android:text="加入收藏"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/text_all_compile"
-                android:layout_marginLeft="70dp"
-                android:background="@drawable/shopcar_collect"
-                android:textSize="@dimen/half_title"
-                />
-            <TextView
-                android:id="@+id/text_delete"
-                android:layout_width="75dp"
-                android:layout_height="33dp"
-                android:gravity="center"
-                android:text="删除"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/text_compile"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/shopcar_delete"
-                android:textSize="@dimen/half_title"
-                />
 
-        </RelativeLayout>
         <RelativeLayout
             android:id="@+id/view_total"
             android:layout_width="match_parent"

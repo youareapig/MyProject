@@ -144,6 +144,7 @@
                 android:textColor="#888888" />
 
             <TextView
+                android:id="@+id/indent_goods_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

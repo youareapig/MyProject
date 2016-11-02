@@ -28,11 +28,10 @@ public class ShopCar extends Fragment implements ShopCar_ListView_Adapter.OnCoun
     private ListView shopcar_listview;
     private List<ShopCar_ListBean> shopcar_list;
     private ShopCar_ListBean bean1, bean2, bean3, bean4;
-    private CheckBox checkBox_all, checkBox_compile;
+    private CheckBox checkBox_all;
     private ShopCar_ListView_Adapter shopCar_listView_adapter;
-    private TextView total_sale, title_compile, shopcar_delete;
+    private TextView total_sale;
     private LinearLayout shopcar_compile;
-    private RelativeLayout view_total, view_delete;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,33 +41,7 @@ public class ShopCar extends Fragment implements ShopCar_ListView_Adapter.OnCoun
         checkBox_all.setOnCheckedChangeListener(this);
         total_sale = (TextView) view.findViewById(R.id.shopcar_totalsale);
         shopcar_compile = (LinearLayout) view.findViewById(R.id.shopcar_compile);
-        view_total = (RelativeLayout) view.findViewById(R.id.view_total);
-        view_delete = (RelativeLayout) view.findViewById(R.id.view_delete);
-        title_compile = (TextView) view.findViewById(R.id.title_compile);
-        checkBox_compile = (CheckBox) view.findViewById(R.id.shopcar_all_compile);
-        checkBox_compile.setOnCheckedChangeListener(this);
-        shopcar_delete = (TextView) view.findViewById(R.id.text_delete);
-        shopcar_delete.setOnClickListener(this);
-        /**编辑*/
-        shopcar_compile.setOnClickListener(new View.OnClickListener() {
-            boolean bool = false;
-
-            @Override
-            public void onClick(View v) {
-                if (bool == false) {
-                    view_total.setVisibility(View.GONE);
-                    view_delete.setVisibility(View.VISIBLE);
-                    title_compile.setText("完成");
-                    bool = true;
-                } else {
-                    view_total.setVisibility(View.VISIBLE);
-                    view_delete.setVisibility(View.GONE);
-                    title_compile.setText("编辑");
-                    bool = false;
-                }
-
-            }
-        });
+        shopcar_compile.setOnClickListener(this);
 
         /**购物车数据*/
         shopcar_list = new ArrayList<>();
@@ -109,9 +82,6 @@ public class ShopCar extends Fragment implements ShopCar_ListView_Adapter.OnCoun
         checkBox_all.setChecked(tag);
         checkBox_all.setOnCheckedChangeListener(this);
 
-        checkBox_compile.setOnCheckedChangeListener(null);
-        checkBox_compile.setChecked(tag);
-        checkBox_compile.setOnCheckedChangeListener(this);
         float totalPrize = getTotalPrize();
         total_sale.setText(totalPrize + "");
     }
@@ -163,13 +133,6 @@ public class ShopCar extends Fragment implements ShopCar_ListView_Adapter.OnCoun
                 float totalPrize = getTotalPrize();
                 total_sale.setText(totalPrize + "");
                 break;
-            case R.id.shopcar_all_compile:
-                for (int i = 0; i < shopcar_list.size(); i++) {
-                    shopcar_list.get(i).setIsCheck(isChecked);
-                    Log.i("tag", isChecked + "" + buttonView + "............");
-                }
-                shopCar_listView_adapter.setlistGoodsBean(shopcar_list);
-                break;
 
         }
 
@@ -181,11 +144,11 @@ public class ShopCar extends Fragment implements ShopCar_ListView_Adapter.OnCoun
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.text_delete:
-                for (int i=0;i<shopcar_list.size();i++){
-                    ShopCar_ListBean shopCar_listBean=shopcar_list.get(i);
+            case R.id.shopcar_compile:
+                for (int i = 0; i < shopcar_list.size(); i++) {
+                    ShopCar_ListBean shopCar_listBean = shopcar_list.get(i);
                     boolean isCheck = shopCar_listBean.getIsCheck();
-                    if (isCheck){
+                    if (isCheck) {
                         shopcar_list.remove(shopCar_listBean);
                         i--;
                         /**更新数据*/
