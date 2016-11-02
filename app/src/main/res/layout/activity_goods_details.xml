@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -42,11 +43,52 @@
                     android:textSize="@dimen/titele" />
             </RelativeLayout>
 
-            <android.support.v4.view.ViewPager
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="310dp"
-                android:background="#fff"
-                 />
+                android:layout_height="310dp">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/goods_details_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <RadioGroup
+                    android:id="@+id/goods_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="280dp"
+                    android:checkedButton="@+id/iv0"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/iv0"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/viewpage_goodsdot"
+                        android:button="@null"
+                        android:clickable="false" />
+
+                    <RadioButton
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/viewpage_goodsdot"
+                        android:button="@null"
+                        android:clickable="false" />
+
+                    <RadioButton
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/viewpage_goodsdot"
+                        android:button="@null"
+                        android:clickable="false" />
+                </RadioGroup>
+            </FrameLayout>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -111,7 +153,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginRight="16dp"
                     android:text="广东广州"
-                    android:textColor="@color/c_black"
+                    android:textColor="#888888"
                     android:textSize="12sp" />
             </RelativeLayout>
 
@@ -260,14 +302,19 @@
                     android:textColor="@color/c_black"
                     android:textSize="@dimen/half_title" />
 
-                <RatingBar
+                <com.hedgehog.ratingbar.RatingBar
+                    android:id="@+id/ratingbar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="100dp"
-                    android:maxHeight="5dp"
-                    android:maxWidth="5dp"
-                    android:numStars="5" />
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    hedgehog:clickable="true"
+                    hedgehog:starCount="5"
+                    hedgehog:starEmpty="@mipmap/star_empty"
+                    hedgehog:starFill="@mipmap/star_full"
+                    hedgehog:starImageHeight="22dp"
+                    hedgehog:starImagePadding="5dp"
+                    hedgehog:starImageWidth="22dp" />
             </RelativeLayout>
 
             <TextView
@@ -296,7 +343,7 @@
                     android:layout_width="62dp"
                     android:layout_height="2.5dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="60dp"
+                    android:layout_marginLeft="50dp"
                     android:src="@mipmap/drag_left" />
 
                 <ImageView
@@ -304,7 +351,7 @@
                     android:layout_height="2.5dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="60dp"
+                    android:layout_marginRight="50dp"
                     android:src="@mipmap/drag_right" />
             </RelativeLayout>
 
@@ -315,10 +362,12 @@
                 android:src="@mipmap/longimage" />
         </LinearLayout>
     </ScrollView>
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="@color/c_gray"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/c_gray" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
