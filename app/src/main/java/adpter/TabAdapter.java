@@ -7,8 +7,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import fragment.WashServiceIntroduce;
-import fragment.WashServiceRange;
+import indexfragment.WashServiceIntroduce;
+import indexfragment.WashServiceRange;
 
 /**
  * Created by Administrator on 2016/11/2 0002.
@@ -19,7 +19,7 @@ public class TabAdapter extends FragmentPagerAdapter{
     public TabAdapter(FragmentManager fm) {
         super(fm);
         str_list.add("服务介绍");
-        str_list.add("服务范围");
+        str_list.add("预约指南");
         fragment_mlist.add(new WashServiceIntroduce());
         fragment_mlist.add(new WashServiceRange());
     }

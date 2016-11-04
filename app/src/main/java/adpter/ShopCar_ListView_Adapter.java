@@ -17,7 +17,7 @@ import com.myproject.R;
 import java.util.List;
 
 import bean.ShopCar_ListBean;
-import fragment.ShopCar;
+import indexfragment.ShopCar;
 
 /**
  * Created by Administrator on 2016/10/27 0027.

@@ -403,6 +403,7 @@
             android:background="@color/c_gray" />
 
         <RelativeLayout
+            android:id="@+id/goods_details_shopcar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
@@ -447,7 +448,7 @@
             android:layout_weight="1"
             android:background="@color/c_blue"
             android:gravity="center"
-            android:text="进入购物车"
+            android:text="加入购物车"
             android:textColor="#fff"
             android:textSize="@dimen/half_title" />
     </LinearLayout>

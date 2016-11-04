@@ -1,4 +1,4 @@
-package fragment;
+package indexfragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

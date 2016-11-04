@@ -17,22 +17,22 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/10/19 0019.
  */
-public class Index_ListView_Adpter extends BaseAdapter{
-    private List<HashMap<String,Object>> l_List;
+public class Pop_brand_Adapter extends BaseAdapter{
+    private List<String> gList;
     private LayoutInflater layoutInflater;
-    public Index_ListView_Adpter(Context context, List<HashMap<String,Object>> gList){
+    public Pop_brand_Adapter(Context context, List<String> gList){
         this.layoutInflater=((Activity) context).getLayoutInflater();
-        this.l_List=gList;
+        this.gList=gList;
 
     }
     @Override
     public int getCount() {
-        return l_List.size();
+        return gList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return l_List.get(position);
+        return gList.get(position);
     }
 
     @Override
@@ -43,23 +43,17 @@ public class Index_ListView_Adpter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder=new ViewHolder();
-        HashMap<String,Object> map=l_List.get(position);
         if (convertView==null){
-            convertView=layoutInflater.inflate(R.layout.index_listview_item,null);
-            holder.imageView= (ImageView) convertView.findViewById(R.id.index_listview_img);
-            holder.textView= (TextView) convertView.findViewById(R.id.index_listview_details);
-            holder.textView1= (TextView) convertView.findViewById(R.id.index_listview_sale);
+            convertView=layoutInflater.inflate(R.layout.pop_brand_item,null);
+            holder.textView= (TextView) convertView.findViewById(R.id.pop_brand_text);
             convertView.setTag(holder);
         }else {
             holder= (ViewHolder) convertView.getTag();
         }
-        holder.imageView.setImageResource((Integer) map.get("img"));
-        holder.textView.setText(map.get("details").toString());
-        holder.textView1.setText(map.get("sale").toString());
+        holder.textView.setText(gList.get(position));
         return convertView;
     }
     class ViewHolder{
-        ImageView imageView;
-        TextView textView,textView1;
+        TextView textView;
     }
 }

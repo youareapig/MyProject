@@ -213,105 +213,139 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
+
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="25dp"
-                        android:src="@mipmap/service1"/>
+                        android:src="@mipmap/service1" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="25dp"
                         android:text="预约服务"
-                        android:textSize="14sp"
                         android:textColor="#888888"
-                        android:layout_centerHorizontal="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="25dp"/>
+                        android:textSize="14sp" />
                 </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="35dp"
+                    android:src="@mipmap/wash_go" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
+
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="25dp"
-                        android:src="@mipmap/service2"/>
+                        android:src="@mipmap/service2" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="25dp"
                         android:text="上门/到店"
-                        android:textSize="14sp"
                         android:textColor="#888888"
-                        android:layout_centerHorizontal="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="25dp"/>
+                        android:textSize="14sp" />
                 </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="35dp"
+                    android:src="@mipmap/wash_go" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
+
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="25dp"
-                        android:src="@mipmap/service3"/>
+                        android:src="@mipmap/service3" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="25dp"
                         android:text="服务操作"
-                        android:textSize="14sp"
                         android:textColor="#888888"
-                        android:layout_centerHorizontal="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="25dp"/>
+                        android:textSize="14sp" />
                 </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="35dp"
+                    android:src="@mipmap/wash_go" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
+
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="25dp"
-                        android:src="@mipmap/service4"/>
+                        android:src="@mipmap/service4" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="25dp"
                         android:text="车辆检测"
-                        android:textSize="14sp"
                         android:textColor="#888888"
-                        android:layout_centerHorizontal="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="25dp"/>
+                        android:textSize="14sp" />
                 </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="35dp"
+                    android:src="@mipmap/wash_go" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
+
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="25dp"
-                        android:src="@mipmap/service5"/>
+                        android:src="@mipmap/service5" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="验收结算"
-                        android:textSize="14sp"
-                        android:textColor="#888888"
-                        android:layout_centerHorizontal="true"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="25dp"/>
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="25dp"
+                        android:text="验收结算"
+                        android:textColor="#888888"
+                        android:textSize="14sp" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

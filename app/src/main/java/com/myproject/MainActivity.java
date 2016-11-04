@@ -1,20 +1,24 @@
 package com.myproject;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
-import fragment.Index;
-import fragment.Personal;
-import fragment.ShopCar;
-import fragment.Store;
+
+import indexfragment.Store;
+import indexfragment.Personal;
+import indexfragment.ShopCar;
+import indexfragment.Classify;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private FragmentManager fragmentManager;
@@ -26,11 +30,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView index_name, store_name, shopcar_name, personal_name;
     private int currentIndex = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        Intent intent = this.getIntent();
+        currentIndex = intent.getIntExtra("fragment_tag", 0);
+        if (currentIndex == 2) {
+            index_img.setImageResource(R.mipmap.store_uncheck);
+            index_name.setTextColor(this.getResources().getColor(R.color.c_black));
+            store_img.setImageResource(R.mipmap.classify_uncheck);
+            store_name.setTextColor(this.getResources().getColor(R.color.c_black));
+            shopcar_img.setImageResource(R.mipmap.shopcar_check);
+            shopcar_name.setTextColor(this.getResources().getColor(R.color.c_blue));
+            personal_img.setImageResource(R.mipmap.person_uncheck);
+            personal_name.setTextColor(this.getResources().getColor(R.color.c_black));
+        }
+        Log.d("tag", "传过来" + currentIndex);
         fragmentManager = this.getSupportFragmentManager();
         if (savedInstanceState != null) {
             currentIndex = savedInstanceState.getInt(CURRENT_FRAGMENT, 0);
@@ -41,8 +59,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             fragmentList.add(fragmentManager.findFragmentByTag(3 + ""));
             restoreFragment();
         } else {
-            fragmentList.add(new Index());
             fragmentList.add(new Store());
+            fragmentList.add(new Classify());
             fragmentList.add(new ShopCar());
             fragmentList.add(new Personal());
             showFragment();
@@ -104,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.shopcar:
                 currentIndex = 2;
+
                 showFragment();
                 index_img.setImageResource(R.mipmap.store_uncheck);
                 index_name.setTextColor(this.getResources().getColor(R.color.c_black));
@@ -172,4 +191,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragment = fragmentList.get(currentIndex);
 
     }
+
+
 }

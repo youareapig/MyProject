@@ -427,6 +427,7 @@
             android:textSize="@dimen/half_title" />
 
         <TextView
+            android:id="@+id/buyatonce"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"

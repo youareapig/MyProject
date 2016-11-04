@@ -9,11 +9,6 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.nostra13.universalimageloader.utils.L;
-
-import fragment.Index;
 
 public class RegistActivity extends AppCompatActivity {
     private CheckBox checkBox_deal;

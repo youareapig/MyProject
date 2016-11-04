@@ -7,4 +7,6 @@
     <color name="c_blue">#449df5</color>
     <color name="c_gray">#e7ebef</color>
     <color name="car_title">#449df5</color>
+    <color name="classify_true">#00000000</color>
+    <color name="classify_false">#fff</color>
 </resources>

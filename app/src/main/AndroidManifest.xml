@@ -12,25 +12,31 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegistActivity" />
-        <activity android:name=".Regist_UserTypeActivity" />
-        <activity android:name=".Regist_StoreActivity" />
-        <activity android:name=".Regist_PersonalActivity" />
-        <activity android:name=".IndentActivity" />
-        <activity android:name=".PayActivity" />
-        <activity android:name=".GoodsListActivity" />
-        <activity android:name=".GoodsDetailsActivity">
-
-        </activity>
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".WashActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegistActivity" />
+        <activity android:name=".Regist_UserTypeActivity" />
+        <activity android:name=".Regist_StoreActivity" />
+        <activity android:name=".Regist_PersonalActivity" />
+        <activity android:name=".IndentActivity" >
+
+        </activity>
+        <activity android:name=".PayActivity" />
+        <activity android:name=".GoodsListActivity" >
+
+        </activity>
+        <activity android:name=".GoodsDetailsActivity">
+
+        </activity>
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".WashActivity">
+
         </activity>
     </application>
 

@@ -87,6 +87,7 @@
                 />
         </RelativeLayout>
         <TextView
+            android:id="@+id/goods_sales"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -95,6 +96,7 @@
             android:textSize="@dimen/half_title"
             android:gravity="center"/>
         <RelativeLayout
+            android:id="@+id/goods_sale_v"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
