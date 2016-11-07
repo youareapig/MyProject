@@ -84,7 +84,6 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 

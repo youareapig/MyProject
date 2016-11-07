@@ -13,14 +13,12 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
 import com.myproject.R;
 import com.myproject.SearchActivity;
-
+import com.myproject.WashActivity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import adpter.Index_GridView_Adpter;
 import adpter.Index_ViewPager_Adapter;
 import myview.Index_GrideView;
@@ -32,7 +30,7 @@ import myview.LooperTextView;
 public class Store extends Fragment implements ViewPager.OnPageChangeListener {
     private Index_GrideView index_grid;
     private List<HashMap<String, Object>> gList;
-    private HashMap<String, Object> gHashMap_by, gHashMap_mr, gHashMap_pj, gHashMap_lt;
+    private HashMap<String, Object> gHashMap_by, gHashMap_mr, gHashMap_pj, gHashMap_lt, gHashMap_wx, gHashMap_pq, gHashMap_tm, gHashMap_nj;
     private ViewPager index_viewpager;
     private int[] icon = {R.mipmap.paly, R.mipmap.paly, R.mipmap.paly, R.mipmap.paly};
     private ImageView[] viewpagerImage;
@@ -49,10 +47,10 @@ public class Store extends Fragment implements ViewPager.OnPageChangeListener {
         index_grid = (Index_GrideView) view.findViewById(R.id.index_gridview);
         index_viewpager = (ViewPager) view.findViewById(R.id.index_viewpager);
         index_rgp = (RadioGroup) view.findViewById(R.id.indexi_viewpage_tag);
-        notice= (LooperTextView) view.findViewById(R.id.index_notice);
-        store_search= (ImageView) view.findViewById(R.id.store_search);
-        /**实现跑马灯效果*/
-        notice_list=new ArrayList<>();
+        notice = (LooperTextView) view.findViewById(R.id.index_notice);
+        store_search = (ImageView) view.findViewById(R.id.store_search);
+        /**实现公告翻滚效果*/
+        notice_list = new ArrayList<>();
         notice_list.add("拒绝囧途，新车必备");
         notice_list.add("新车必备,拒绝囧途!");
         notice.setTipList(notice_list);
@@ -87,32 +85,86 @@ public class Store extends Fragment implements ViewPager.OnPageChangeListener {
         /**分类*/
         gList = new ArrayList<>();
         gHashMap_by = new HashMap();
-        gHashMap_by.put("img", R.mipmap.hairdressing);
-        gHashMap_by.put("id", "美容");
+        gHashMap_by.put("img", R.mipmap.xiche);
+        gHashMap_by.put("id", "洗车");
 
         gHashMap_mr = new HashMap<>();
-        gHashMap_mr.put("img", R.mipmap.penqi);
-        gHashMap_mr.put("id", "维修保养");
+        gHashMap_mr.put("img", R.mipmap.meirong);
+        gHashMap_mr.put("id", "美容");
 
         gHashMap_pj = new HashMap();
-        gHashMap_pj.put("img", R.mipmap.spraylacquer);
-        gHashMap_pj.put("id", "喷漆");
+        gHashMap_pj.put("img", R.mipmap.baoyang);
+        gHashMap_pj.put("id", "保养");
 
         gHashMap_lt = new HashMap();
-        gHashMap_lt.put("img", R.mipmap.sweep);
-        gHashMap_lt.put("id", "扫一扫");
+        gHashMap_lt.put("img", R.mipmap.yanghu);
+        gHashMap_lt.put("id", "养护");
+
+        gHashMap_wx = new HashMap();
+        gHashMap_wx.put("img", R.mipmap.weixiu);
+        gHashMap_wx.put("id", "维修");
+
+        gHashMap_pq = new HashMap();
+        gHashMap_pq.put("img", R.mipmap.panqi);
+        gHashMap_pq.put("id", "喷漆");
+
+        gHashMap_tm = new HashMap();
+        gHashMap_tm.put("img", R.mipmap.tiemo);
+        gHashMap_tm.put("id", "贴膜");
+
+        gHashMap_nj = new HashMap();
+        gHashMap_nj.put("img", R.mipmap.nianjian);
+        gHashMap_nj.put("id", "年检");
 
         gList.add(gHashMap_by);
         gList.add(gHashMap_mr);
         gList.add(gHashMap_pj);
         gList.add(gHashMap_lt);
+        gList.add(gHashMap_wx);
+        gList.add(gHashMap_pq);
+        gList.add(gHashMap_tm);
+        gList.add(gHashMap_nj);
         /**添加适配器*/
         index_grid.setAdapter(new Index_GridView_Adpter(getActivity(), gList));
+        /**首页分类点击事件*/
+        index_grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    //TODO 洗车
+                    case 0:
+                        Intent intent = new Intent(getActivity(), WashActivity.class);
+                        getActivity().startActivity(intent);
+                        break;
+                    case 1:
+                        //TODO 美容
+                        break;
+                    case 2:
+                        //TODO 保养
+                        break;
+                    case 3:
+                        //TODO 养护
+                        break;
+                    case 4:
+                        //TODO 维修
+                        break;
+                    case 5:
+                        //TODO 喷漆
+                        break;
+                    case 6:
+                        //TODO 贴膜
+                        break;
+                    case 7:
+                        //TODO 年检
+                        break;
+                }
+            }
+        });
         /**搜索*/
         store_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), SearchActivity.class);
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
                 startActivity(intent);
             }
         });
@@ -137,6 +189,9 @@ public class Store extends Fragment implements ViewPager.OnPageChangeListener {
 
     }
 
+    /**
+     * 先sleep再sendMessage，否则会出现默认为第二张图
+     */
     class Auto extends Thread {
         @Override
         public void run() {
@@ -147,7 +202,7 @@ public class Store extends Fragment implements ViewPager.OnPageChangeListener {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                handler.sendEmptyMessage(0);
+                 handler.sendEmptyMessage(0);
 
             }
 

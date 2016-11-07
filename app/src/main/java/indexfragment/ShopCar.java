@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.myproject.R;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,10 +45,10 @@ public class ShopCar extends Fragment implements ShopCar_ListView_Adapter.OnCoun
 
         /**购物车数据*/
         shopcar_list = new ArrayList<>();
-        bean1 = new ShopCar_ListBean("米其林轮胎", "200.00", R.mipmap.shopcar_01);
+        bean1 = new ShopCar_ListBean("米其林轮胎", "200.9", R.mipmap.shopcar_01);
         bean2 = new ShopCar_ListBean("米其林轮胎", "200.00", R.mipmap.shopcar_01);
-        bean3 = new ShopCar_ListBean("米其林轮胎", "200.03", R.mipmap.shopcar_01);
-        bean4 = new ShopCar_ListBean("米其林轮胎", "200.08", R.mipmap.shopcar_01);
+        bean3 = new ShopCar_ListBean("米其林轮胎", "200.00", R.mipmap.shopcar_01);
+        bean4 = new ShopCar_ListBean("米其林轮胎", "200.00", R.mipmap.shopcar_01);
         shopcar_list.add(bean1);
         shopcar_list.add(bean2);
         shopcar_list.add(bean3);
@@ -67,7 +68,10 @@ public class ShopCar extends Fragment implements ShopCar_ListView_Adapter.OnCoun
         shopCar_listBean.setEt_count(count);
         shopCar_listView_adapter.setlistGoodsBean(shopcar_list);
         float totalPrize = getTotalPrize();
-        total_sale.setText(totalPrize + "");
+        /**小数点后保留一位*/
+        BigDecimal decimal  =   new  BigDecimal(totalPrize);
+        float totalPrize1=decimal.setScale(2,BigDecimal.ROUND_HALF_UP).floatValue();
+        total_sale.setText(totalPrize1 + "");
     }
 
     @Override
@@ -82,7 +86,9 @@ public class ShopCar extends Fragment implements ShopCar_ListView_Adapter.OnCoun
         checkBox_all.setOnCheckedChangeListener(this);
 
         float totalPrize = getTotalPrize();
-        total_sale.setText(totalPrize + "");
+        BigDecimal decimal  =   new  BigDecimal(totalPrize);
+        float totalPrize1=decimal.setScale(2,BigDecimal.ROUND_HALF_UP).floatValue();
+        total_sale.setText(totalPrize1 + "");
     }
 
     /**
@@ -112,6 +118,8 @@ public class ShopCar extends Fragment implements ShopCar_ListView_Adapter.OnCoun
                 Log.d("tag", shopCar_listBean.getShopcar_name() + "*******************");
                 totalPrize += Float.parseFloat(shopCar_listBean.getPrize()) * (shopCar_listBean.getEt_count());
 
+
+
             }
         }
         return totalPrize;
@@ -130,7 +138,9 @@ public class ShopCar extends Fragment implements ShopCar_ListView_Adapter.OnCoun
                 }
                 shopCar_listView_adapter.setlistGoodsBean(shopcar_list);
                 float totalPrize = getTotalPrize();
-                total_sale.setText(totalPrize + "");
+                BigDecimal decimal  =   new  BigDecimal(totalPrize);
+                float totalPrize1=decimal.setScale(2,BigDecimal.ROUND_HALF_UP).floatValue();
+                total_sale.setText(totalPrize1 + "");
                 break;
 
         }

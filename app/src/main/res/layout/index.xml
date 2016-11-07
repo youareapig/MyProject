@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/car_title">
 
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/saoyisao" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -18,15 +27,18 @@
             android:text="砹轮养车"
             android:textColor="#ffff"
             android:textSize="@dimen/titele" />
+
         <ImageView
             android:id="@+id/store_search"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@mipmap/classfiy_search"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"/>
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/classfiy_search" />
     </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -130,40 +142,57 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:src="@mipmap/banner_14" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:background="#ffffff">
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@mipmap/huodonglogo"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="35dp"
                     android:gravity="center_vertical"
                     android:text="活动推荐"
                     android:textColor="@color/c_blue"
                     android:textSize="14sp" />
             </RelativeLayout>
 
-            <ImageView
-                android:layout_marginTop="4dp"
+            <com.makeramen.roundedimageview.RoundedImageView
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:background="#fff"/>
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="4dp"
+                android:src="@mipmap/huodong"
+                app:riv_corner_radius="15dp" />
 
-            <ImageView
-                android:layout_marginTop="4dp"
+            <com.makeramen.roundedimageview.RoundedImageView
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:background="#fff"/>
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="4dp"
+                android:src="@mipmap/huodong"
+                app:riv_corner_radius="15dp" />
 
-            <ImageView
-                android:layout_marginTop="4dp"
+            <com.makeramen.roundedimageview.RoundedImageView
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:background="#fff"/>
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="4dp"
+                android:src="@mipmap/huodong"
+                app:riv_corner_radius="15dp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

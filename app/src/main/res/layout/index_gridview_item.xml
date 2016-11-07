@@ -10,8 +10,8 @@
         android:layout_marginTop="10dp"
         android:id="@+id/index_gridview_item_img"
         android:layout_centerHorizontal="true"
-        android:layout_width="41dp"
-        android:layout_height="41dp" />
+        android:layout_width="42dp"
+        android:layout_height="42dp" />
     <TextView
         android:id="@+id/index_gridview_item_id"
         android:gravity="center"
