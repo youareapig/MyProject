@@ -13,12 +13,16 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+
 import com.myproject.R;
 import com.myproject.SearchActivity;
 import com.myproject.WashActivity;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import adpter.Index_GridView_Adpter;
 import adpter.Index_ViewPager_Adapter;
 import myview.Index_GrideView;
@@ -27,7 +31,7 @@ import myview.LooperTextView;
 /**
  * Created by Administrator on 2016/10/19 0019.
  */
-public class Store extends Fragment implements ViewPager.OnPageChangeListener {
+public class Store extends Fragment implements ViewPager.OnPageChangeListener, View.OnClickListener {
     private Index_GrideView index_grid;
     private List<HashMap<String, Object>> gList;
     private HashMap<String, Object> gHashMap_by, gHashMap_mr, gHashMap_pj, gHashMap_lt, gHashMap_wx, gHashMap_pq, gHashMap_tm, gHashMap_nj;
@@ -38,7 +42,8 @@ public class Store extends Fragment implements ViewPager.OnPageChangeListener {
     private RadioGroup index_rgp;
     private LooperTextView notice;
     private List<String> notice_list;
-    private ImageView store_search;
+    private RelativeLayout store_search;
+    private RelativeLayout store_saoyisao;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,7 +53,10 @@ public class Store extends Fragment implements ViewPager.OnPageChangeListener {
         index_viewpager = (ViewPager) view.findViewById(R.id.index_viewpager);
         index_rgp = (RadioGroup) view.findViewById(R.id.indexi_viewpage_tag);
         notice = (LooperTextView) view.findViewById(R.id.index_notice);
-        store_search = (ImageView) view.findViewById(R.id.store_search);
+        store_search = (RelativeLayout) view.findViewById(R.id.store_search);
+        store_search.setOnClickListener(this);
+        store_saoyisao = (RelativeLayout) view.findViewById(R.id.store_saoyisao);
+        store_saoyisao.setOnClickListener(this);
         /**实现公告翻滚效果*/
         notice_list = new ArrayList<>();
         notice_list.add("拒绝囧途，新车必备");
@@ -160,14 +168,7 @@ public class Store extends Fragment implements ViewPager.OnPageChangeListener {
                 }
             }
         });
-        /**搜索*/
-        store_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SearchActivity.class);
-                startActivity(intent);
-            }
-        });
+
         return view;
     }
 
@@ -189,6 +190,18 @@ public class Store extends Fragment implements ViewPager.OnPageChangeListener {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.store_saoyisao:
+                break;
+            case R.id.store_search:
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
     /**
      * 先sleep再sendMessage，否则会出现默认为第二张图
      */
@@ -202,7 +215,7 @@ public class Store extends Fragment implements ViewPager.OnPageChangeListener {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                 handler.sendEmptyMessage(0);
+                handler.sendEmptyMessage(0);
 
             }
 

@@ -17,13 +17,24 @@
             android:text="分类"
             android:textColor="#ffff"
             android:textSize="@dimen/titele" />
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@mipmap/classfiy_search"
-            android:layout_centerVertical="true"
+        <RelativeLayout
+            android:id="@+id/classfiy_search"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"/>
+            android:background="@drawable/btn">
+
+            <ImageView
+
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/classfiy_search" />
+        </RelativeLayout>
+
     </RelativeLayout>
     <LinearLayout
         android:layout_marginTop="12dp"

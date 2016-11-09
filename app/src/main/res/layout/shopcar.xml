@@ -16,12 +16,14 @@
         android:textColor="#ffffff"/>
     <LinearLayout
         android:id="@+id/shopcar_compile"
-        android:layout_width="55dp"
+        android:layout_width="50dp"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:orientation="horizontal"
+        android:background="@drawable/btn"
        >
+
         <ImageView
             android:id="@+id/title_compile"
             android:layout_gravity="center_vertical"
@@ -29,6 +31,7 @@
             android:layout_height="20dp"
             android:src="@mipmap/delete"
             android:scaleType="fitCenter"
+            android:layout_marginLeft="15dp"
            />
     </LinearLayout>
 
@@ -88,12 +91,14 @@
                 android:layout_toRightOf="@+id/text_sum"
                 android:layout_centerVertical="true"
                 android:textSize="@dimen/half_title"
+                android:text="0"
                 android:textColor="#f94426"/>
             <TextView
+                android:id="@+id/clearing"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:background="@color/car_title"
+                android:background="@drawable/btn"
                 android:text="结算"
                 android:textSize="@dimen/half_title"
                 android:textColor="#ffffff"

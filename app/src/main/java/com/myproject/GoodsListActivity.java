@@ -26,7 +26,7 @@ import adpter.Pop_brand_Adapter;
 import bean.GoodsList_Bean;
 
 public class GoodsListActivity extends AppCompatActivity implements OnClickListener {
-    private RelativeLayout goodslist_brand,goods_sale;
+    private RelativeLayout goodslist_brand,goods_sale,goods_details_back;
     private PopupWindow popupWindow;
     private ListView goodslist_listview;
     private List<GoodsList_Bean> goodslist_list = new ArrayList<>();
@@ -46,6 +46,8 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         goodslist_listview = (ListView) findViewById(R.id.goodslist_listview);
         goods_sale = (RelativeLayout) findViewById(R.id.goods_sale_v);
         goods_sales = (TextView) findViewById(R.id.goods_sales);
+        goods_details_back= (RelativeLayout) findViewById(R.id.goods_details_back);
+        goods_details_back.setOnClickListener(this);
         goodslist_brand.setOnClickListener(this);
         goods_sale.setOnClickListener(this);
         goods_sales.setOnClickListener(this);
@@ -164,6 +166,9 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
 
                 sales();
                 goodsListListViewAdapter.notifyDataSetChanged();
+                break;
+            case R.id.goods_details_back:
+                finish();
                 break;
 
         }

@@ -1,5 +1,6 @@
 package indexfragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 
 import com.myproject.R;
+import com.myproject.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,19 +30,22 @@ import classifyfragment.Safety;
 /**
  * Created by Administrator on 2016/10/19 0019.
  */
-public class Classify extends Fragment implements RadioGroup.OnCheckedChangeListener {
+public class Classify extends Fragment implements RadioGroup.OnCheckedChangeListener,View.OnClickListener {
     private static final String CURRENT_FRAGMENT = "STATE_FRAGMENT_SHOW";
     private Fragment fragment = new Fragment();
     private List<Fragment> list = new ArrayList<>();
     private int currentIndex = 0;
     private FragmentManager fragmentManager;
     private RadioGroup bgp_classfiy;
+    private RelativeLayout classfiy_search;
 
     //TODO GirdView的适配器没写
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.classify, container, false);
         bgp_classfiy = (RadioGroup) view.findViewById(R.id.classfiy_bgp);
+        classfiy_search= (RelativeLayout) view.findViewById(R.id.classfiy_search);
+        classfiy_search.setOnClickListener(this);
         bgp_classfiy.setOnCheckedChangeListener(this);
         fragmentManager = getActivity().getSupportFragmentManager();
         if (savedInstanceState != null) {
@@ -148,5 +154,15 @@ public class Classify extends Fragment implements RadioGroup.OnCheckedChangeList
 //把当前显示的fragment记录下来
         fragment = list.get(currentIndex);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.classfiy_search:
+                Intent intent=new Intent(getActivity(), SearchActivity.class);
+                getActivity().startActivity(intent);
+                break;
+        }
     }
 }

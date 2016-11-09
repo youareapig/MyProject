@@ -11,14 +11,26 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/car_title">
+<RelativeLayout
+    android:id="@+id/store_saoyisao"
+    android:layout_width="50dp"
+    android:layout_height="match_parent"
+    android:background="@drawable/btn">
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/saoyisao" />
+    <TextView
+        android:layout_width="1dp"
+        android:layout_height="30dp"
+        android:background="#c8c8c8"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/saoyisao" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,16 +39,24 @@
             android:text="砹轮养车"
             android:textColor="#ffff"
             android:textSize="@dimen/titele" />
+<RelativeLayout
+    android:id="@+id/store_search"
+    android:layout_width="40dp"
+    android:layout_height="match_parent"
+    android:layout_alignParentRight="true"
+    android:background="@drawable/btn">
 
-        <ImageView
-            android:id="@+id/store_search"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/classfiy_search" />
+    <ImageView
+
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/classfiy_search" />
+</RelativeLayout>
+
     </RelativeLayout>
 
     <ScrollView

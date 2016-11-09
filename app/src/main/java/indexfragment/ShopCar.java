@@ -1,5 +1,6 @@
 package indexfragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.myproject.PayActivity;
 import com.myproject.R;
 
 import java.math.BigDecimal;
@@ -30,7 +32,7 @@ public class ShopCar extends Fragment implements ShopCar_ListView_Adapter.OnCoun
     private ShopCar_ListBean bean1, bean2, bean3, bean4;
     private CheckBox checkBox_all;
     private ShopCar_ListView_Adapter shopCar_listView_adapter;
-    private TextView total_sale;
+    private TextView total_sale,clearing;
     private LinearLayout shopcar_compile;
 
     @Override
@@ -42,7 +44,8 @@ public class ShopCar extends Fragment implements ShopCar_ListView_Adapter.OnCoun
         total_sale = (TextView) view.findViewById(R.id.shopcar_totalsale);
         shopcar_compile = (LinearLayout) view.findViewById(R.id.shopcar_compile);
         shopcar_compile.setOnClickListener(this);
-
+        clearing= (TextView) view.findViewById(R.id.clearing);
+        clearing.setOnClickListener(this);
         /**购物车数据*/
         shopcar_list = new ArrayList<>();
         bean1 = new ShopCar_ListBean("米其林轮胎", "200.9", R.mipmap.shopcar_01);
@@ -148,11 +151,13 @@ public class ShopCar extends Fragment implements ShopCar_ListView_Adapter.OnCoun
     }
 
     /**
-     * 删除，支付，收藏
+     * 删除，结算
      */
     @Override
     public void onClick(View v) {
+        String getTotal_sale=total_sale.getText().toString();
         switch (v.getId()) {
+            //TODO 删除
             case R.id.shopcar_compile:
                 for (int i = 0; i < shopcar_list.size(); i++) {
                     ShopCar_ListBean shopCar_listBean = shopcar_list.get(i);
@@ -166,6 +171,12 @@ public class ShopCar extends Fragment implements ShopCar_ListView_Adapter.OnCoun
                     }
                 }
 
+                break;
+            //TODO 结算
+            case R.id.clearing:
+                Intent intent=new Intent(getActivity(), PayActivity.class);
+                intent.putExtra("totalsale",getTotal_sale);
+                startActivity(intent);
                 break;
         }
     }
