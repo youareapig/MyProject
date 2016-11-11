@@ -2,38 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="80dp"
-    >
+    android:orientation="vertical">
+
     <TextView
         android:id="@+id/choosecar_item_index"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:background="#c8c8c8"
-        android:text="A"
+        android:layout_height="27dp"
+        android:background="#f7f9fa"
+        android:gravity="center_vertical"
         android:paddingLeft="20dp"
-        android:gravity="center_vertical"/>
-    <ImageView
-        android:id="@+id/choosecar_item_icon"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp"
-        android:src="@mipmap/ic_launcher"
-        android:layout_marginLeft="20dp"/>
-    <TextView
-        android:id="@+id/choosecar_item_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="法拉利"
-        android:textSize="12sp"
-        android:textColor="@color/c_black"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp"
-        android:layout_toRightOf="@+id/choosecar_item_icon"
-        android:layout_marginLeft="8dp"
-        />
-</RelativeLayout>
+        android:text="A" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <ImageView
+            android:id="@+id/choosecar_item_icon"
+            android:layout_width="55dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/choosecar_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/choosecar_item_icon"
+            android:text="法拉利"
+
+            android:textColor="@color/c_black"
+            android:textSize="12sp" />
+    </RelativeLayout>
 </LinearLayout>

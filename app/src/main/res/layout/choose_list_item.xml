@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="2016款"
+        android:gravity="center_vertical"
+        android:textSize="15sp"
+        android:paddingLeft="16dp"
+        android:textColor="#888888"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="1.4TFSI 双离合 进取型"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:textSize="15sp"
+        android:textColor="@color/c_black"/>
+
+</LinearLayout>

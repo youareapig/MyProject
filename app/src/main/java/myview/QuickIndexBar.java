@@ -54,7 +54,7 @@ public class QuickIndexBar extends View{
         //抗锯齿的画笔
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(Color.parseColor("#9d9d9d"));
-        mPaint.setTextSize(40f);
+        mPaint.setTextSize(30f);
         //设置文字粗体
 //        mPaint.setTypeface(Typeface.DEFAULT_BOLD);
     }
@@ -73,7 +73,7 @@ public class QuickIndexBar extends View{
             int textHeight = bounds.height();
             int y = (int) (mCellHeight / 2.0f + textHeight / 2.0f + i * mCellHeight);
             //根据按下的字母，设置画笔的颜色
-            mPaint.setColor(touchIndex == i ? Color.parseColor("#fb005b") : Color.parseColor("#9d9d9d"));
+            mPaint.setColor(touchIndex == i ? Color.parseColor("#fb005b") : Color.parseColor("#121212"));
             canvas.drawText(text, x, y, mPaint);
         }
     }

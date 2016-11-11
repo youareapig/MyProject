@@ -1,9 +1,11 @@
 package com.myproject;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,12 +19,18 @@ public class OrderActivity extends AppCompatActivity {
     private Order_Bean orderBean1, orderBean2, orderBean3, orderBean4;
     private List<Order_Bean> orderBeanList;
     private ListView orderListView;
+    private TextView order_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         orderListView= (ListView) findViewById(R.id.order_listview);
+        order_title= (TextView) findViewById(R.id.order_title);
+        //TODO 设置标题
+        Intent intent=this.getIntent();
+        String resultTitle=intent.getStringExtra("title");
+        order_title.setText(resultTitle);
         //TODO 数据
         orderBeanList = new ArrayList<>();
         orderBean1 = new Order_Bean(getDate(), 650, 0, "已完成", R.mipmap.shopcar_01, "米其林轮胎", 650, 1, 650);

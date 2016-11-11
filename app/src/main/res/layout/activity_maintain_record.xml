@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.myproject.OrderActivity">
+    tools:context="com.myproject.MaintainRecordActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -22,19 +22,33 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/order_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="全部订单"
+            android:text="保养记录"
             android:textColor="#ffff"
             android:textSize="@dimen/titele" />
     </RelativeLayout>
-    <ListView
-        android:id="@+id/order_listview"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="200dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:src="@mipmap/baoyangbanner"
+            android:scaleType="centerCrop"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:src="@mipmap/baoyangbanner"
+            android:layout_marginBottom="8dp"/>
+    </RelativeLayout>
+    <ListView
+        android:id="@+id/maintain_listview"
         android:layout_marginTop="8dp"
-        android:dividerHeight="8dp"
-        />
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

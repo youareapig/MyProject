@@ -28,8 +28,8 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="12dp"
+                        android:layout_height="20dp"
                         android:layout_centerInParent="true"
                         android:src="@mipmap/back" />
                 </RelativeLayout>
@@ -310,8 +310,8 @@
                     android:layout_gravity="center"
                     hedgehog:clickable="true"
                     hedgehog:starCount="5"
-                    hedgehog:starEmpty="@mipmap/star_empty"
-                    hedgehog:starFill="@mipmap/star_full"
+                    hedgehog:starEmpty="@mipmap/star"
+                    hedgehog:starFill="@mipmap/star_check"
                     hedgehog:starImageHeight="22dp"
                     hedgehog:starImagePadding="5dp"
                     hedgehog:starImageWidth="22dp" />
