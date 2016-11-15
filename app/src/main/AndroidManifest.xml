@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.myproject">
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name="init.Init"
@@ -12,14 +15,16 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity" >
+
+        </activity>
         <activity android:name=".RegistActivity" />
         <activity android:name=".Regist_UserTypeActivity" />
         <activity android:name=".Regist_StoreActivity" />
@@ -37,10 +42,18 @@
         <activity android:name=".TransactionActivity" />
         <activity android:name=".ChooseCarTypeActivity" />
         <activity android:name=".ChhoseCarActivity" />
-        <activity android:name=".WaitEvaluateActivity">
+        <activity android:name=".WaitEvaluateActivity" />
+        <activity android:name=".MaintainRecordActivity" />
+        <activity android:name="helpfragment.HelperActivity">
 
         </activity>
-        <activity android:name=".MaintainRecordActivity"></activity>
+        <activity android:name=".SettingActivity" >
+
+        </activity>
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".PersonalInformationActivity">
+
+        </activity>
     </application>
 
 </manifest>

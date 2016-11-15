@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.myproject.PersonalInformationActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/car_title">
+
+        <RelativeLayout
+            android:layout_width="36dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/back" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="个人信息"
+            android:textColor="#ffff"
+            android:textSize="@dimen/titele" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#ffffff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:text="头像"
+            android:textColor="@color/c_black"
+            android:textSize="14sp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userhead"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40dp"
+            android:src="@mipmap/baoyangbanner" />
+
+        <RelativeLayout
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="14dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/go" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="2dp"
+        android:background="#ffffff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:text="用户名"
+            android:textColor="@color/c_black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:text="大王叫我来巡山"
+            android:textSize="12sp" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="2dp"
+        android:background="#ffffff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:text="性别"
+            android:textColor="@color/c_black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/choosesex"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_marginRight="16dp"
+            android:text="大王叫我来巡山"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="2dp"
+        android:background="#ffffff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:text="出生日期"
+            android:textColor="@color/c_black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/choose_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:gravity="center"
+            android:text="大王叫我来巡山"
+            android:textSize="12sp" />
+    </RelativeLayout>
+</LinearLayout>

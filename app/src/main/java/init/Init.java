@@ -13,6 +13,8 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 
+import org.xutils.x;
+
 /**
  * Created by Administrator on 2016/10/19 0019.
  */
@@ -22,6 +24,7 @@ public class Init extends Application {
     public void onCreate() {
         super.onCreate();
         initImageLoader(getApplicationContext());
+        x.Ext.init(this);
     }
 
     public void initImageLoader(Context context) {

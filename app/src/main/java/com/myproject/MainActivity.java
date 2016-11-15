@@ -12,9 +12,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import bean.ClassifyBean;
 import indexfragment.Store;
 import indexfragment.Personal;
 import indexfragment.ShopCar;
@@ -29,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView index_img, store_img, shopcar_img, personal_img;
     private TextView index_name, store_name, shopcar_name, personal_name;
     private int currentIndex = 0;
+    private static final String URL="http://192.168.0.108/api.php/Goods/category";
 
 
     @Override
@@ -191,6 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragment = fragmentList.get(currentIndex);
 
     }
+
 
 
 }

@@ -1,4 +1,4 @@
-package classifyfragment;
+package helpfragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 import com.myproject.R;
 
 /**
- * Created by Administrator on 2016/11/4 0004.
+ * Created by Administrator on 2016/11/13 0013.
  */
-public class Decorate extends Fragment{
+public class Help extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.decorate,container,false);
+        View view=inflater.inflate(R.layout.help,container,false);
         return view;
     }
 }

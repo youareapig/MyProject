@@ -19,13 +19,14 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="21dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:src="@mipmap/phone"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             />
         <EditText
+            android:id="@+id/regist_phone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="50dp"
@@ -44,13 +45,15 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="21dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:src="@mipmap/regist_key"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
+            android:scaleType="fitCenter"
             />
         <EditText
+            android:id="@+id/regist_vercode"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="50dp"
@@ -61,6 +64,7 @@
             android:inputType="number"
             />
         <TextView
+            android:id="@+id/regist_getvercode"
             android:gravity="center"
             android:layout_centerVertical="true"
             android:layout_width="80dp"
@@ -80,13 +84,14 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="21dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:src="@mipmap/login_userpwd"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             />
         <EditText
+            android:id="@+id/regist_pwd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="50dp"

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/grid_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/c_black"
+        android:textSize="14sp"
+        />
+    <myview.Index_GrideView
+        android:id="@+id/main_gridview"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="3"
+        android:horizontalSpacing="5dp"
+        android:verticalSpacing="5dp"
+        android:background="#fff"/>
+
+</LinearLayout>
