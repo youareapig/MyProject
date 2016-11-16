@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.myproject.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -63,6 +65,8 @@ public class ClassfiyHalf_Adapter extends BaseAdapter {
             holder= (ViewHolder) convertView.getTag();
         }
         holder.title.setText(childrenBean.getCat_name());
+
+
         holder.grideView.setAdapter(new ClassfiyGrid_Adapter(convertView.getContext(),childrenBean.getChildren1()));
         return convertView;
     }

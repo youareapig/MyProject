@@ -2,6 +2,7 @@ package adpter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,11 +64,25 @@ public class Classfiy_Adapter extends BaseAdapter {
         }
         Log.d("tag",dataBean.getCat_name()+"111111111");
         holder.left_text.setText(dataBean.getCat_name());
+
+        if (position == selectItem) {
+            convertView.setBackgroundColor(Color.parseColor("#00000000"));
+            holder.left_text.setTextColor(Color.parseColor("#449df5"));
+        }
+        else {
+            convertView.setBackgroundColor(Color.parseColor("#ffffff"));
+            holder.left_text.setTextColor(Color.parseColor("#121212"));
+        }
         return convertView;
     }
     class ViewHolder{
         TextView left_text;
 
+    }
+    //TODO 选中状态变化
+    private int  selectItem=-1;
+    public  void setSelectItem(int selectItem) {
+        this.selectItem = selectItem;
     }
 
 }

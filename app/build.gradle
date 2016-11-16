@@ -38,4 +38,5 @@ dependencies {
     compile 'com.alibaba:fastjson:1.1.54.android'
     compile 'com.github.florent37:viewanimator:1.0.3'
     compile 'com.android.support:recyclerview-v7:24.2.0'
+    compile 'liji.library.dev:citypickerview:0.7.0'
 }

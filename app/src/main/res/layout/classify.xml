@@ -48,7 +48,9 @@
             android:id="@+id/left_listview"
             android:layout_width="85dp"
             android:layout_height="match_parent"
-            android:background="#fff"/>
+            android:dividerHeight="2dp"
+
+            />
 
         <LinearLayout
             android:id="@+id/f_layout"
@@ -66,7 +68,8 @@
             <ListView
                 android:id="@+id/main_listview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
