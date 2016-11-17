@@ -32,6 +32,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/setting_personal"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="#ffffff">
@@ -119,6 +120,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/clearcache"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="2dp"
@@ -148,12 +150,12 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/cache"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="30dp"
-            android:text="30M"
             android:textSize="12sp" />
     </RelativeLayout>
 </LinearLayout>
