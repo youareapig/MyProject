@@ -38,33 +38,38 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal">
-
-        <ListView
-            android:id="@+id/left_listview"
-            android:layout_width="85dp"
-            android:layout_height="match_parent"
-            android:dividerHeight="2dp"
-
-            />
+        android:layout_marginTop="12dp">
 
         <LinearLayout
-            android:id="@+id/f_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <ListView
-                android:id="@+id/main_listview"
+                android:id="@+id/left_listview"
+                android:layout_width="85dp"
+                android:layout_height="match_parent"
+                android:dividerHeight="2dp"
+
+                />
+
+            <LinearLayout
+                android:id="@+id/f_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                />
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/main_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

@@ -61,7 +61,7 @@ public class ClassfiyGrid_Adapter extends BaseAdapter {
             holder= (ViewHolder) convertView.getTag();
         }
             holder.name.setText(children1Bean.getCat_name());
-        Log.d("img","三级界面图片"+children1Bean.getPic());
+
         ImageLoader.getInstance().displayImage(HTTP+children1Bean.getPic(),holder.icon);
         return convertView;
     }

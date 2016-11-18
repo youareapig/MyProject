@@ -26,8 +26,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.search:
-                Intent intent =new Intent(SearchActivity.this,GoodsListActivity.class);
-                startActivity(intent);
+//                Intent intent =new Intent(SearchActivity.this,GoodsListActivity.class);
+//                startActivity(intent);
                 break;
         }
     }

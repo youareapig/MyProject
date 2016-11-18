@@ -16,6 +16,12 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -29,19 +35,23 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
     private RelativeLayout goodslist_brand,goods_sale,goods_details_back;
     private PopupWindow popupWindow;
     private ListView goodslist_listview;
-    private List<GoodsList_Bean> goodslist_list = new ArrayList<>();
+    private List<GoodsList_Bean.DataBean> list;
     private List<String> pop_list;
-    private String NAME = "姐夫斯卡拉飞机凯撒蓝方块了撒娇分开了房间";
     private TextView  goods_sales;
     private GoodsList_ListView_Adapter goodsListListViewAdapter;
     private boolean bool = false;
     private GridView pop_grid_brand;
-
+    private static final String URL="http://192.168.0.108/api.php/Goods/goodsLst";
+    private String resultGoodsID;
+    private GoodsList_Bean goodsListBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_list);
+        Intent intent=getIntent();
+        resultGoodsID=intent.getStringExtra("goodsID");
+        Log.d("test","接受的商品ID："+resultGoodsID);
         goodslist_brand = (RelativeLayout) findViewById(R.id.goodslist_brand);
         goodslist_listview = (ListView) findViewById(R.id.goodslist_listview);
         goods_sale = (RelativeLayout) findViewById(R.id.goods_sale_v);
@@ -51,19 +61,8 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         goodslist_brand.setOnClickListener(this);
         goods_sale.setOnClickListener(this);
         goods_sales.setOnClickListener(this);
-        /**
-         * ListView数据
-         */
-        GoodsList_Bean goodsListBean1 = new GoodsList_Bean(R.mipmap.listview1, NAME, 9.8, 800);
-        GoodsList_Bean goodsListBean2 = new GoodsList_Bean(R.mipmap.listview1, NAME, 8.8, 400);
-        GoodsList_Bean goodsListBean3 = new GoodsList_Bean(R.mipmap.listview1, NAME, 16.8, 20);
-        GoodsList_Bean goodsListBean4 = new GoodsList_Bean(R.mipmap.listview1, NAME, 5.8, 600);
-        goodslist_list.add(goodsListBean1);
-        goodslist_list.add(goodsListBean2);
-        goodslist_list.add(goodsListBean3);
-        goodslist_list.add(goodsListBean4);
-        goodsListListViewAdapter = new GoodsList_ListView_Adapter(this, goodslist_list);
-        goodslist_listview.setAdapter(goodsListListViewAdapter);
+        internet(resultGoodsID);
+
         goodslist_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -96,13 +95,15 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
      * 价格从小到大
      */
     public void up() {
-        Collections.sort(goodslist_list, new Comparator<GoodsList_Bean>() {
+        Collections.sort(list, new Comparator<GoodsList_Bean.DataBean>() {
+
+
             @Override
-            public int compare(GoodsList_Bean o1, GoodsList_Bean o2) {
-                return (int) (o1.getGoodslist_sale() - o2.getGoodslist_sale());
-
+            public int compare(GoodsList_Bean.DataBean o1, GoodsList_Bean.DataBean o2) {
+                int sale3= (int) o1.getSales();
+                int sale4= (int) o2.getSales();
+                return sale4-sale3;
             }
-
         });
 
 
@@ -112,14 +113,18 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
      * 价格从大到小
      */
     public void down() {
-        Collections.sort(goodslist_list, new Comparator<GoodsList_Bean>() {
-            @Override
-            public int compare(GoodsList_Bean o1, GoodsList_Bean o2) {
-                return (int) (o2.getGoodslist_sale() - o1.getGoodslist_sale());
 
-            }
+            Collections.sort(list, new Comparator<GoodsList_Bean.DataBean>() {
 
-        });
+                @Override
+                public int compare(GoodsList_Bean.DataBean o1, GoodsList_Bean.DataBean o2) {
+                    int sale1= (int) o1.getSales();
+                    int sale2= (int) o2.getSales();
+                    return  sale1-sale2;
+                }
+            });
+
+
 
 
     }
@@ -127,14 +132,14 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
     /**
      * 销量排序
      */
-    public void sales() {
-        Collections.sort(goodslist_list, new Comparator<GoodsList_Bean>() {
-            @Override
-            public int compare(GoodsList_Bean o1, GoodsList_Bean o2) {
-                return (o2.getGoodslist_person() - o1.getGoodslist_person());
-            }
-        });
-    }
+//    public void sales() {
+//        Collections.sort(goodslist_list, new Comparator<GoodsList_Bean>() {
+//            @Override
+//            public int compare(GoodsList_Bean o1, GoodsList_Bean o2) {
+//                return (o2.getGoodslist_person() - o1.getGoodslist_person());
+//            }
+//        });
+//    }
 
     @Override
     public void onClick(View v) {
@@ -162,11 +167,11 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
 
                 goodsListListViewAdapter.notifyDataSetChanged();
                 break;
-            case R.id.goods_sales:
-
-                sales();
-                goodsListListViewAdapter.notifyDataSetChanged();
-                break;
+//            case R.id.goods_sales:
+//
+//                sales();
+//                goodsListListViewAdapter.notifyDataSetChanged();
+//                break;
             case R.id.goods_details_back:
                 finish();
                 break;
@@ -184,7 +189,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
                 null, false);
         pop_grid_brand= (GridView) customView.findViewById(R.id.pop_brand);
         // 创建PopupWindow实例,宽度和高度
-        popupWindow = new PopupWindow(customView, 720, 160);
+        popupWindow = new PopupWindow(customView, 720, 500);
         // 设置动画效果
        // popupWindow.setAnimationStyle(R.style.AnimationFade);
        //点击外部消失
@@ -192,6 +197,43 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         popupWindow.setOutsideTouchable(true);
         pop_grid_brand.setAdapter(new Pop_brand_Adapter(this,pop_list));
 
+    }
+    public void internet(String carID){
+        RequestParams params=new RequestParams(URL);
+        params.addBodyParameter("cat_id",carID);
+        x.http().post(params, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.d("test","result:"+result);
+                Gson gson=new Gson();
+                goodsListBean=gson.fromJson(result,GoodsList_Bean.class);
+                list=goodsListBean.getData();
+                goodsListListViewAdapter = new GoodsList_ListView_Adapter(GoodsListActivity.this,list);
+                goodslist_listview.setAdapter(goodsListListViewAdapter);
+                Log.d("test","商品介绍:"+list.get(0).getGoods_name());
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Log.d("test","访问服务器出错");
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
     }
 
 }

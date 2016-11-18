@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.myproject.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,32 +21,45 @@ import bean.GoodsList_Bean;
  * Created by Administrator on 2016/10/19 0019.
  */
 public class GoodsList_ListView_Adapter extends BaseAdapter{
-    private List<GoodsList_Bean> list;
+    private static final String HTTP="http://192.168.0.108/";
+    private List<GoodsList_Bean.DataBean> list;
     private LayoutInflater layoutInflater;
-    public GoodsList_ListView_Adapter(Context context, List<GoodsList_Bean> list){
+    public GoodsList_ListView_Adapter(Context context, List<GoodsList_Bean.DataBean> list){
         this.layoutInflater=((Activity) context).getLayoutInflater();
         this.list=list;
 
     }
     @Override
     public int getCount() {
-        return list.size();
+        if (list!=null){
+            return list.size();
+        }else {
+            return 0;
+        }
+
     }
 
     @Override
     public Object getItem(int position) {
-        return list.get(position);
+        if (list!=null){
+            return list.get(position);
+        }else {
+            return null;
+        }
+
     }
 
     @Override
     public long getItemId(int position) {
-        return position;
+            return position;
+
+
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder=new ViewHolder();
-        GoodsList_Bean bean=list.get(position);
+        GoodsList_Bean.DataBean bean=list.get(position);
         if (convertView==null){
             convertView=layoutInflater.inflate(R.layout.goodslist_list_item,null);
             holder.imageView= (ImageView) convertView.findViewById(R.id.goodslist_listview_item_img);
@@ -56,10 +70,10 @@ public class GoodsList_ListView_Adapter extends BaseAdapter{
         }else {
             holder= (ViewHolder) convertView.getTag();
         }
-        holder.imageView.setImageResource(bean.getGoodslist_img());
-        holder.tv_introduce.setText(bean.getGoodslist_img_introduce());
-        holder.tv_sale.setText(bean.getGoodslist_sale()+"");
-        holder.tv_person.setText(bean.getGoodslist_person()+"");
+        ImageLoader.getInstance().displayImage(HTTP+bean.getThumb(),holder.imageView);
+        holder.tv_introduce.setText(bean.getGoods_name());
+        holder.tv_sale.setText(bean.getShop_price());
+        holder.tv_person.setText(bean.getSales()+"");
         return convertView;
     }
     class ViewHolder{
