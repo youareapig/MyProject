@@ -21,7 +21,6 @@ import bean.ClassifyBean;
  * Created by Administrator on 2016/11/14 0014.
  */
 public class Classfiy_Adapter extends BaseAdapter {
-    private int defItem=0;
     private LayoutInflater layoutInflater;
     private List<ClassifyBean.DataBean> list ;
 
@@ -30,10 +29,7 @@ public class Classfiy_Adapter extends BaseAdapter {
         this.layoutInflater=((Activity) context).getLayoutInflater();
 
     }
-    public void setDefSelect(int position) {
-        this.defItem = position;
-        notifyDataSetChanged();
-    }
+
 
     @Override
     public int getCount() {
@@ -64,7 +60,7 @@ public class Classfiy_Adapter extends BaseAdapter {
         }
         Log.d("tag",dataBean.getCat_name()+"111111111");
         holder.left_text.setText(dataBean.getCat_name());
-
+        //选中状态
         if (position == selectItem) {
             convertView.setBackgroundColor(Color.parseColor("#00000000"));
             holder.left_text.setTextColor(Color.parseColor("#449df5"));
@@ -79,8 +75,8 @@ public class Classfiy_Adapter extends BaseAdapter {
         TextView left_text;
 
     }
-    //TODO 选中状态变化
-    private int  selectItem=-1;
+    //TODO 选中状态变化, selectItem=0表示默认选中第一项
+    private int  selectItem=0;
     public  void setSelectItem(int selectItem) {
         this.selectItem = selectItem;
     }

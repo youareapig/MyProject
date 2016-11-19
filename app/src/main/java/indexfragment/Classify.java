@@ -39,8 +39,6 @@ public class Classify extends Fragment implements View.OnClickListener {
     private ListView left_view, main_view;
     private Classfiy_Adapter classfiyAdapter;
     private ProgressDialog progressDialog = null;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private Handler handler;
 
     //TODO GirdView的适配器没写
     @Override
@@ -49,48 +47,15 @@ public class Classify extends Fragment implements View.OnClickListener {
         inivt();
         left_view = (ListView) view.findViewById(R.id.left_listview);
         main_view = (ListView) view.findViewById(R.id.main_listview);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
+
         classfiy_search = (RelativeLayout) view.findViewById(R.id.classfiy_search);
         classfiy_search.setOnClickListener(this);
-        //TODO 等待时颜色变化
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
-                R.color.colorAccent,
-                R.color.colorPrimary,
-                R.color.colorAccent);
-        handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                switch (msg.what) {
-                    case 1:
-                        //TODO 刷新图标消失，true不消失
-                        swipeRefreshLayout.setRefreshing(false);
-                        fresh();
-                        break;
-                }
-            }
-        };
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
 
-                        try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        handler.sendEmptyMessage(1);
-                    }
-                }).start();
 
-            }
-        });
 
         return view;
     }
+
 
     @Override
     public void onClick(View v) {
@@ -141,7 +106,9 @@ public class Classify extends Fragment implements View.OnClickListener {
         //TODO 左边一级分类
         classfiyAdapter = new Classfiy_Adapter(getContext(), classityBean.getData());
         left_view.setAdapter(classfiyAdapter);
-
+        //TODO 默认展示第一项数据
+        ClassfiyHalf_Adapter adapter = new ClassfiyHalf_Adapter(getContext(), classityBean.getData().get(0).getChildren());
+        main_view.setAdapter(adapter);
         left_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -155,6 +122,7 @@ public class Classify extends Fragment implements View.OnClickListener {
                 adapter.notifyDataSetChanged();
             }
         });
+
 
     }
 
