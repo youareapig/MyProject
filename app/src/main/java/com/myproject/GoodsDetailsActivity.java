@@ -1,5 +1,6 @@
 package com.myproject;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -13,27 +14,41 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import adpter.GoodsDetails_Viewpage_Adapter;
+import bean.GoodsDetailsBean;
 import indexfragment.ShopCar;
 import myview.Goods_details_Pop;
 
 public class GoodsDetailsActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
-    private TextView buy;
+    private TextView buy,goods_details_introduce,goods_details_price,goods_details_brank;
     private Goods_details_Pop goodsDetailsPop;
     private ViewPager goods_details_viewpage;
     private ImageView[] goods_details_pager_image;
     private List<Integer> imageList;
     private RadioGroup radioGroup;
     private RelativeLayout goods_details_shopcar;
+    private String resultGoodsid;
+    private ProgressDialog progressDialog = null;
+    private static final String URL="http://192.168.0.105/api.php/Goods/goodsDetail";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_details);
         init();
+        Intent intent=this.getIntent();
+        resultGoodsid=intent.getStringExtra("goodsID");
+        Log.i("goods","商品详情ID"+resultGoodsid);
+        internet(resultGoodsid);
         setGoods_details_viewpage();
     }
 
@@ -45,6 +60,9 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
         goods_details_viewpage.addOnPageChangeListener(this);
         goods_details_shopcar = (RelativeLayout) findViewById(R.id.goods_details_shopcar);
         goods_details_shopcar.setOnClickListener(this);
+        goods_details_introduce= (TextView) findViewById(R.id.goods_details_introduce);
+        goods_details_price= (TextView) findViewById(R.id.goods_details_price);
+        goods_details_brank= (TextView) findViewById(R.id.goods_details_brank);
     }
 
     /**
@@ -98,5 +116,41 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+    public void internet(String goodsId){
+        progressDialog = ProgressDialog.show(GoodsDetailsActivity.this, "请稍后", "玩命加载中....", true);
+        RequestParams params=new RequestParams(URL);
+        params.addBodyParameter("goods_id",goodsId);
+        x.http().post(params, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson=new Gson();
+                GoodsDetailsBean goodsdetailsbean=gson.fromJson(result,GoodsDetailsBean.class);
+                goods_details_introduce.setText(goodsdetailsbean.getData().getGoods_name());
+                goods_details_price.setText(goodsdetailsbean.getData().getShop_price());
+                goods_details_brank.setText(goodsdetailsbean.getData().getBran_name());
+                Log.i("goods",result);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Log.i("goods","请求错误");
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+                progressDialog.cancel();
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
     }
 }

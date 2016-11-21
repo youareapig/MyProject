@@ -14,13 +14,15 @@ import com.myproject.R;
 import java.util.HashMap;
 import java.util.List;
 
+import bean.GoodsList_Bean;
+
 /**
  * Created by Administrator on 2016/10/19 0019.
  */
 public class Pop_brand_Adapter extends BaseAdapter{
-    private List<String> gList;
+    private List<GoodsList_Bean.BrandBean> gList;
     private LayoutInflater layoutInflater;
-    public Pop_brand_Adapter(Context context, List<String> gList){
+    public Pop_brand_Adapter(Context context, List<GoodsList_Bean.BrandBean> gList){
         this.layoutInflater=((Activity) context).getLayoutInflater();
         this.gList=gList;
 
@@ -43,6 +45,7 @@ public class Pop_brand_Adapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder=new ViewHolder();
+        GoodsList_Bean.BrandBean brandBean=gList.get(position);
         if (convertView==null){
             convertView=layoutInflater.inflate(R.layout.pop_brand_item,null);
             holder.textView= (TextView) convertView.findViewById(R.id.pop_brand_text);
@@ -50,7 +53,7 @@ public class Pop_brand_Adapter extends BaseAdapter{
         }else {
             holder= (ViewHolder) convertView.getTag();
         }
-        holder.textView.setText(gList.get(position));
+        holder.textView.setText(brandBean.getBrand_name());
         return convertView;
     }
     class ViewHolder{

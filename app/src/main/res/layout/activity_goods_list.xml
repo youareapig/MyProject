@@ -37,8 +37,9 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"/>
             <EditText
+                android:id="@+id/edit_search"
                 android:layout_toRightOf="@+id/goodslist_search"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_marginLeft="5dp"
                 android:singleLine="true"
                 android:textSize="12sp"
@@ -48,6 +49,7 @@
                 android:background="@null"/>
         </RelativeLayout>
         <ImageView
+            android:id="@+id/serach"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@mipmap/search"
@@ -61,6 +63,7 @@
         android:orientation="horizontal"
         android:background="#ffffff">
         <TextView
+            android:id="@+id/synthesize"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

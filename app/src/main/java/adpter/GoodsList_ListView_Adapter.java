@@ -21,7 +21,7 @@ import bean.GoodsList_Bean;
  * Created by Administrator on 2016/10/19 0019.
  */
 public class GoodsList_ListView_Adapter extends BaseAdapter{
-    private static final String HTTP="http://192.168.0.108/";
+    private static final String HTTP="http://192.168.0.105/";
     private List<GoodsList_Bean.DataBean> list;
     private LayoutInflater layoutInflater;
     public GoodsList_ListView_Adapter(Context context, List<GoodsList_Bean.DataBean> list){

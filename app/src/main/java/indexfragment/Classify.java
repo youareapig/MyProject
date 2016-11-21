@@ -3,16 +3,12 @@ package indexfragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -20,7 +16,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.myproject.R;
 import com.myproject.SearchActivity;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -34,24 +29,20 @@ import bean.ClassifyBean;
  * Created by Administrator on 2016/10/19 0019.
  */
 public class Classify extends Fragment implements View.OnClickListener {
-    private static final String URL = "http://192.168.0.108/api.php/Goods/category";
+    private static final String URL = "http://192.168.0.105/api.php/Goods/category";
     private RelativeLayout classfiy_search;
     private ListView left_view, main_view;
     private Classfiy_Adapter classfiyAdapter;
     private ProgressDialog progressDialog = null;
 
-    //TODO GirdView的适配器没写
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.classify, container, false);
         inivt();
         left_view = (ListView) view.findViewById(R.id.left_listview);
         main_view = (ListView) view.findViewById(R.id.main_listview);
-
         classfiy_search = (RelativeLayout) view.findViewById(R.id.classfiy_search);
         classfiy_search.setOnClickListener(this);
-
-
 
         return view;
     }
@@ -126,36 +117,5 @@ public class Classify extends Fragment implements View.OnClickListener {
 
     }
 
-    public void fresh() {
-        RequestParams params = new RequestParams(URL);
-        x.http().post(params, new Callback.CacheCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                cache(result);
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(getActivity(), "服务器故障,请稍后重试", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-
-            @Override
-            public boolean onCache(String result) {
-                cache(result);
-                return true;
-            }
-        });
-
-    }
 
 }
