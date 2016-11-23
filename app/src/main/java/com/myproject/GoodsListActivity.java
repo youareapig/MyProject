@@ -34,6 +34,7 @@ import java.util.List;
 import adpter.GoodsList_ListView_Adapter;
 import adpter.Pop_brand_Adapter;
 import bean.GoodsList_Bean;
+import utils.MyUrl;
 
 public class GoodsListActivity extends AppCompatActivity implements OnClickListener {
     private RelativeLayout goodslist_brand, goods_sale, goods_details_back;
@@ -45,17 +46,20 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
     private GoodsList_ListView_Adapter goodsListListViewAdapter;
     private boolean bool = false;
     private GridView pop_grid_brand;
-    private static final String URL = "http://192.168.0.105/api.php/Goods/goodsLst";
+    private  String URL;
     private String resultGoodsID;
     private GoodsList_Bean goodsListBean;
     private ImageView serach;
     private EditText edit_search;
     private ProgressDialog progressDialog = null;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_list);
+        MyUrl myUrl=new MyUrl();
+        URL=myUrl.getUrl()+"api.php/Goods/goodsLst";
         Intent intent = getIntent();
         resultGoodsID = intent.getStringExtra("goodsID");
         goodslist_brand = (RelativeLayout) findViewById(R.id.goodslist_brand);
@@ -96,8 +100,8 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
             @Override
             public int compare(GoodsList_Bean.DataBean o1, GoodsList_Bean.DataBean o2) {
                 Log.d("sale","商品价格："+o1.getShop_price()+"         "+o2.getShop_price());
-                int sale3 = Integer.parseInt (o1.getShop_price());
-                int sale4 = Integer.parseInt(o2.getShop_price());
+                int sale3 = Integer.parseInt (o1.getShop_price().trim());
+                int sale4 = Integer.parseInt(o2.getShop_price().trim());
                 Log.d("sale","获取商品价格："+sale3+"         "+sale4);
                 return sale4 - sale3;
             }
@@ -115,8 +119,8 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
 
             @Override
             public int compare(GoodsList_Bean.DataBean o1, GoodsList_Bean.DataBean o2) {
-                int sale1 = Integer.parseInt(o1.getShop_price());
-                int sale2=Integer.parseInt(o2.getShop_price());
+                int sale1 = Integer.parseInt(o1.getShop_price().trim());
+                int sale2=Integer.parseInt(o2.getShop_price().trim());
                 return  (sale1 - sale2);
             }
         });

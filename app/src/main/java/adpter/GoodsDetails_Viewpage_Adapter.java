@@ -1,23 +1,35 @@
 package adpter;
 
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.List;
+
+import bean.GoodsDetailsBean;
 
 /**
  * Created by Administrator on 2016/10/21 0021.
  */
 public class GoodsDetails_Viewpage_Adapter extends PagerAdapter {
     private ImageView[] imageViews;
-
     public GoodsDetails_Viewpage_Adapter(ImageView[] imageViews) {
-        this.imageViews = imageViews;
+        this.imageViews=imageViews;
     }
 
     @Override
     public int getCount() {
-        return imageViews.length;
+        if (imageViews.length==1){
+            return imageViews.length;
+        }else {
+            return Integer.MAX_VALUE;
+        }
+
     }
 
     @Override
@@ -27,12 +39,17 @@ public class GoodsDetails_Viewpage_Adapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((View) object);
+        //TODO 如果图片是两张或者三张或出现bug,注释正常
+        //container.removeView(imageViews[position % imageViews.length]);
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        container.addView(imageViews[position], 0);
-        return imageViews[position];
+        try {
+            container.addView(imageViews[position % imageViews.length], 0);
+        }catch (Exception e){
+
+        }
+        return imageViews[position % imageViews.length];
     }
 }

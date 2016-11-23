@@ -8,13 +8,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -27,35 +30,40 @@ import adpter.GoodsDetails_Viewpage_Adapter;
 import bean.GoodsDetailsBean;
 import indexfragment.ShopCar;
 import myview.Goods_details_Pop;
+import utils.MyUrl;
 
 public class GoodsDetailsActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private TextView buy,goods_details_introduce,goods_details_price,goods_details_brank;
+    private  String IMG;
     private Goods_details_Pop goodsDetailsPop;
     private ViewPager goods_details_viewpage;
     private ImageView[] goods_details_pager_image;
-    private List<Integer> imageList;
-    private RadioGroup radioGroup;
+    private ImageView[] tips;
+    private ViewGroup viewGroup;
+    private List<GoodsDetailsBean.DataBean.PicBean> list;
     private RelativeLayout goods_details_shopcar;
     private String resultGoodsid;
     private ProgressDialog progressDialog = null;
-    private static final String URL="http://192.168.0.105/api.php/Goods/goodsDetail";
-
+    private String URL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_details);
+        MyUrl myUrl=new MyUrl();
+        IMG=myUrl.getUrl();
+        URL=IMG+"api.php/Goods/goodsDetail";
         init();
         Intent intent=this.getIntent();
         resultGoodsid=intent.getStringExtra("goodsID");
         Log.i("goods","商品详情ID"+resultGoodsid);
         internet(resultGoodsid);
-        setGoods_details_viewpage();
+        //setGoods_details_viewpage();
     }
 
     public void init() {
         buy = (TextView) findViewById(R.id.buy);
         goods_details_viewpage = (ViewPager) findViewById(R.id.goods_details_viewpager);
-        radioGroup = (RadioGroup) findViewById(R.id.goods_group);
+        viewGroup= (ViewGroup) findViewById(R.id.viewGroup);
         buy.setOnClickListener(this);
         goods_details_viewpage.addOnPageChangeListener(this);
         goods_details_shopcar = (RelativeLayout) findViewById(R.id.goods_details_shopcar);
@@ -65,22 +73,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
         goods_details_brank= (TextView) findViewById(R.id.goods_details_brank);
     }
 
-    /**
-     * 商品详情viewpager
-     */
-    public void setGoods_details_viewpage() {
-        imageList = new ArrayList<>();
-        imageList.add(R.mipmap.listview1);
-        imageList.add(R.mipmap.listview1);
-        imageList.add(R.mipmap.listview1);
-        goods_details_pager_image = new ImageView[imageList.size()];
-        for (int i = 0; i < imageList.size(); i++) {
-            ImageView imageView = new ImageView(this);
-            imageView.setImageResource(imageList.get(i));
-            goods_details_pager_image[i] = imageView;
-        }
-        goods_details_viewpage.setAdapter(new GoodsDetails_Viewpage_Adapter(goods_details_pager_image));
-    }
+
 
     @Override
     public void onClick(View v) {
@@ -109,8 +102,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onPageSelected(int position) {
-        RadioButton dot = (RadioButton) radioGroup.getChildAt(position);
-        dot.setChecked(true);
+        setImageBackground(position%goods_details_pager_image.length);
     }
 
     @Override
@@ -129,6 +121,35 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                 goods_details_introduce.setText(goodsdetailsbean.getData().getGoods_name());
                 goods_details_price.setText(goodsdetailsbean.getData().getShop_price());
                 goods_details_brank.setText(goodsdetailsbean.getData().getBran_name());
+                list=goodsdetailsbean.getData().getPic();
+                //点点图片数组
+                tips=new ImageView[list.size()];
+                for (int i=0;i<tips.length;i++){
+                    ImageView imageView = new ImageView(GoodsDetailsActivity.this);
+                    imageView.setLayoutParams(new ViewGroup.LayoutParams(20,20));
+                    tips[i] = imageView;
+                    if(i == 0){
+                        tips[i].setBackgroundResource(R.drawable.viewpage_check);
+                    }else{
+                        tips[i].setBackgroundResource(R.drawable.viewpage_goods);
+                    }
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(ViewPager.LayoutParams.WRAP_CONTENT,
+                            ViewPager.LayoutParams.WRAP_CONTENT));
+                    layoutParams.leftMargin = 20;
+                    layoutParams.rightMargin = 20;
+                    viewGroup.addView(imageView);
+                }
+                //图片数组
+                goods_details_pager_image=new ImageView[list.size()];
+                for(int i=0; i<goods_details_pager_image.length; i++){
+                    ImageView imageView = new ImageView(GoodsDetailsActivity.this);
+                    goods_details_pager_image[i] = imageView;
+                    ImageLoader.getInstance().displayImage(IMG+list.get(i).getImg_url(),imageView);
+                }
+
+                goods_details_viewpage.setAdapter(new GoodsDetails_Viewpage_Adapter(goods_details_pager_image));
+                goods_details_viewpage.setOnPageChangeListener(GoodsDetailsActivity.this);
+                goods_details_viewpage.setCurrentItem((goods_details_pager_image.length) * 100);
                 Log.i("goods",result);
             }
 
@@ -152,5 +173,15 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                 return false;
             }
         });
+    }
+    //TODO 切换点点
+    private void setImageBackground(int selectItems){
+        for(int i=0; i<tips.length; i++){
+            if(i == selectItems){
+                tips[i].setBackgroundResource(R.drawable.viewpage_check);
+            }else{
+                tips[i].setBackgroundResource(R.drawable.viewpage_goods);
+            }
+        }
     }
 }

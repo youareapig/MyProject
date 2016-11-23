@@ -16,12 +16,14 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.List;
 
 import bean.ClassifyBean;
+import utils.MyUrl;
 
 /**
  * Created by Administrator on 2016/11/14 0014.
  */
 public class ClassfiyGrid_Adapter extends BaseAdapter {
-    private static final String HTTP="http://192.168.0.105/";
+    MyUrl myUrl=new MyUrl();
+    private String HTTP=myUrl.getUrl();
     private LayoutInflater layoutInflater;
     private List<ClassifyBean.DataBean.ChildrenBean.Children1Bean> list ;
 

@@ -1,65 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/car_title">
-<RelativeLayout
-    android:id="@+id/store_saoyisao"
-    android:layout_width="50dp"
-    android:layout_height="match_parent"
-    android:background="@drawable/btn">
-    <ImageView
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="15dp"
-        android:scaleType="fitCenter"
-        android:src="@mipmap/saoyisao" />
-    <TextView
-        android:layout_width="1dp"
-        android:layout_height="30dp"
-        android:background="#c8c8c8"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"/>
-</RelativeLayout>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="砹轮养车"
-            android:textColor="#ffff"
-            android:textSize="@dimen/titele" />
-<RelativeLayout
-    android:id="@+id/store_search"
-    android:layout_width="40dp"
-    android:layout_height="match_parent"
-    android:layout_alignParentRight="true"
-    android:background="@drawable/btn">
-
-    <ImageView
-
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
-        android:scaleType="fitCenter"
-        android:src="@mipmap/classfiy_search" />
-</RelativeLayout>
-
-    </RelativeLayout>
-
-    <ScrollView
+    <myview.ObservableScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -68,71 +16,20 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <FrameLayout
+            <ImageView
+                android:id="@+id/index_icon"
                 android:layout_width="match_parent"
-                android:layout_height="150dp">
-
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/index_viewpager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <RadioGroup
-                    android:id="@+id/indexi_viewpage_tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="120dp"
-                    android:checkedButton="@+id/index_rtb1"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/index_rtb1"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:layout_margin="2dp"
-                        android:background="@drawable/viewpage_dot"
-                        android:button="@null"
-                        android:enabled="false" />
-
-                    <RadioButton
-
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:layout_margin="2dp"
-                        android:background="@drawable/viewpage_dot"
-                        android:button="@null"
-                        android:enabled="false" />
-
-                    <RadioButton
-
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:layout_margin="2dp"
-                        android:background="@drawable/viewpage_dot"
-                        android:button="@null"
-                        android:enabled="false" />
-
-                    <RadioButton
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:layout_margin="2dp"
-                        android:background="@drawable/viewpage_dot"
-                        android:button="@null"
-                        android:enabled="false" />
-                </RadioGroup>
-            </FrameLayout>
-
+                android:layout_height="150dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/paly" />
 
             <myview.Index_GrideView
                 android:id="@+id/index_gridview"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:background="#ffffff"
-                android:numColumns="4">
+                android:layout_height="157dp"
+                android:background="#fff"
+                android:numColumns="4"/>
 
-            </myview.Index_GrideView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -147,6 +44,16 @@
                     android:layout_height="33dp"
                     android:src="@mipmap/notice" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:text="更多"
+                    android:textColor="@color/c_black"
+                    android:textSize="12sp" />
+
                 <myview.LooperTextView
                     android:id="@+id/index_notice"
                     android:layout_width="wrap_content"
@@ -157,6 +64,45 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_marginTop="4dp"
+                android:background="#fff">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/index_clock" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="35dp"
+                    android:text="活动秒杀"
+                    android:textColor="#f94426"
+                    android:textSize="15sp" />
+
+                <utils.MainDownTimerView
+                    android:id="@+id/maindown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:layout_marginTop="2dp"
+                android:background="#fff">
+
+            </LinearLayout>
 
             <ImageView
                 android:layout_width="match_parent"
@@ -170,12 +116,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:background="#ffffff">
+
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:src="@mipmap/huodonglogo"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="15dp"
+                    android:src="@mipmap/huodonglogo" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -214,5 +161,51 @@
                 android:src="@mipmap/huodong"
                 app:riv_corner_radius="15dp" />
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </myview.ObservableScrollView>
+
+    <RelativeLayout
+        android:id="@+id/indextitle"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:src="@mipmap/sao" />
+
+        <RelativeLayout
+            android:layout_width="225dp"
+            android:layout_height="24dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/index_search">
+
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="4dp"
+                android:src="@mipmap/index_search" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="25dp"
+                android:background="@null"
+                android:hint="请搜索你需要的商品"
+                android:singleLine="true"
+                android:textColor="#ffffff"
+                android:textColorHint="#fff"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:src="@mipmap/index_classfiy" />
+    </RelativeLayout>
+</FrameLayout>

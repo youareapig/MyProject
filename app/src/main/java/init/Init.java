@@ -20,7 +20,6 @@ import org.xutils.x;
  */
 public class Init extends Application {
     public ImageLoaderConfiguration config;
-
     public void onCreate() {
         super.onCreate();
         initImageLoader(getApplicationContext());

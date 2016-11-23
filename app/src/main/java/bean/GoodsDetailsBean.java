@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2016/11/21 0021.
  */
@@ -8,7 +10,7 @@ public class GoodsDetailsBean {
     /**
      * code : 1000
      * message : 数据查询成功
-     * data : {"goods_id":"1","goods_name":"酷斯特/KUST 雪佛兰科鲁兹 刹车灯 奥烁40灯高亮LED刹车灯灯泡 09-14款老科 ","brand_id":"1","cat_id":"3","shop_price":"58.00","sales":"0","thumb":"Uploads/Goodspic/2016-11-19//582fdb6c5c525.jpg","sm_thumb":"Uploads/Goodspic/2016-11-19//sm_582fdb6c5c525.jpg","hints":"0","amount":"100","comments":"0","goods_desc":"&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;img src=&quot;/ueditor/php/upload/image/20161121/1479715539484236.jpg&quot; title=&quot;1479715539484236.jpg&quot; alt=&quot;TB2C.sLmXXXXXXYXXXXXXXXXXXX_!!772344112.jpg_430x430q90.jpg&quot;/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;","note":"&lt;p&gt;&lt;span style=&quot;padding: 0px; margin: 0px; color: rgb(136, 136, 136);&quot;&gt;品牌：&lt;/span&gt;酷斯特&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;","bran_name":"巾帼宝丽曼"}
+     * data : {"goods_id":"1","goods_name":"酷斯特/KUST 雪佛兰科鲁兹 刹车灯 奥烁40灯高亮LED刹车灯灯泡 09-14款老科 ","brand_id":"1","cat_id":"3","shop_price":"58.00","sales":"0","thumb":"Uploads/Goodspic/2016-11-19//582fdb6c5c525.jpg","sm_thumb":"Uploads/Goodspic/2016-11-19//sm_582fdb6c5c525.jpg","hints":"0","amount":"100","comments":"0","goods_desc":"&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;img src=&quot;/ueditor/php/upload/image/20161121/1479715539484236.jpg&quot; title=&quot;1479715539484236.jpg&quot; alt=&quot;TB2C.sLmXXXXXXYXXXXXXXXXXXX_!!772344112.jpg_430x430q90.jpg&quot;/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;","note":"&lt;p&gt;&lt;span style=&quot;padding: 0px; margin: 0px; color: rgb(136, 136, 136);&quot;&gt;品牌：&lt;/span&gt;酷斯特&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;","pic":[{"pic_id":"27","goods_id":"1","img_url":"Uploads/Goodspic/2016-11-21/5832aa253418f.jpg","midimg_url":"Uploads/Goodspic/2016-11-21/mid_5832aa253418f.jpg","smdimg_url":""},{"pic_id":"26","goods_id":"1","img_url":"Uploads/Goodspic/2016-11-21/5832a93ea5989.jpg","midimg_url":"Uploads/Goodspic/2016-11-21/mid_5832a93ea5989.jpg","smdimg_url":""},{"pic_id":"25","goods_id":"1","img_url":"Uploads/Goodspic/2016-11-21/5832a93ea4ba4.jpg","midimg_url":"Uploads/Goodspic/2016-11-21/mid_5832a93ea4ba4.jpg","smdimg_url":""}],"bran_name":"巾帼宝丽曼"}
      */
 
     private int code;
@@ -27,6 +29,7 @@ public class GoodsDetailsBean {
      * comments : 0
      * goods_desc : &lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;img src=&quot;/ueditor/php/upload/image/20161121/1479715539484236.jpg&quot; title=&quot;1479715539484236.jpg&quot; alt=&quot;TB2C.sLmXXXXXXYXXXXXXXXXXXX_!!772344112.jpg_430x430q90.jpg&quot;/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;padding: 0px; margin-top: 0px; margin-bottom: 30px; list-style-type: none; line-height: 1.8;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
      * note : &lt;p&gt;&lt;span style=&quot;padding: 0px; margin: 0px; color: rgb(136, 136, 136);&quot;&gt;品牌：&lt;/span&gt;酷斯特&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
+     * pic : [{"pic_id":"27","goods_id":"1","img_url":"Uploads/Goodspic/2016-11-21/5832aa253418f.jpg","midimg_url":"Uploads/Goodspic/2016-11-21/mid_5832aa253418f.jpg","smdimg_url":""},{"pic_id":"26","goods_id":"1","img_url":"Uploads/Goodspic/2016-11-21/5832a93ea5989.jpg","midimg_url":"Uploads/Goodspic/2016-11-21/mid_5832a93ea5989.jpg","smdimg_url":""},{"pic_id":"25","goods_id":"1","img_url":"Uploads/Goodspic/2016-11-21/5832a93ea4ba4.jpg","midimg_url":"Uploads/Goodspic/2016-11-21/mid_5832a93ea4ba4.jpg","smdimg_url":""}]
      * bran_name : 巾帼宝丽曼
      */
 
@@ -71,6 +74,15 @@ public class GoodsDetailsBean {
         private String goods_desc;
         private String note;
         private String bran_name;
+        /**
+         * pic_id : 27
+         * goods_id : 1
+         * img_url : Uploads/Goodspic/2016-11-21/5832aa253418f.jpg
+         * midimg_url : Uploads/Goodspic/2016-11-21/mid_5832aa253418f.jpg
+         * smdimg_url :
+         */
+
+        private List<PicBean> pic;
 
         public String getGoods_id() {
             return goods_id;
@@ -182,6 +194,62 @@ public class GoodsDetailsBean {
 
         public void setBran_name(String bran_name) {
             this.bran_name = bran_name;
+        }
+
+        public List<PicBean> getPic() {
+            return pic;
+        }
+
+        public void setPic(List<PicBean> pic) {
+            this.pic = pic;
+        }
+
+        public static class PicBean {
+            private String pic_id;
+            private String goods_id;
+            private String img_url;
+            private String midimg_url;
+            private String smdimg_url;
+
+            public String getPic_id() {
+                return pic_id;
+            }
+
+            public void setPic_id(String pic_id) {
+                this.pic_id = pic_id;
+            }
+
+            public String getGoods_id() {
+                return goods_id;
+            }
+
+            public void setGoods_id(String goods_id) {
+                this.goods_id = goods_id;
+            }
+
+            public String getImg_url() {
+                return img_url;
+            }
+
+            public void setImg_url(String img_url) {
+                this.img_url = img_url;
+            }
+
+            public String getMidimg_url() {
+                return midimg_url;
+            }
+
+            public void setMidimg_url(String midimg_url) {
+                this.midimg_url = midimg_url;
+            }
+
+            public String getSmdimg_url() {
+                return smdimg_url;
+            }
+
+            public void setSmdimg_url(String smdimg_url) {
+                this.smdimg_url = smdimg_url;
+            }
         }
     }
 }

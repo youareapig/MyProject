@@ -16,12 +16,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import bean.GoodsList_Bean;
+import utils.MyUrl;
 
 /**
  * Created by Administrator on 2016/10/19 0019.
  */
 public class GoodsList_ListView_Adapter extends BaseAdapter{
-    private static final String HTTP="http://192.168.0.105/";
+    MyUrl myUrl=new MyUrl();
+    private  String HTTP=myUrl.getUrl();
     private List<GoodsList_Bean.DataBean> list;
     private LayoutInflater layoutInflater;
     public GoodsList_ListView_Adapter(Context context, List<GoodsList_Bean.DataBean> list){

@@ -24,12 +24,13 @@ import org.xutils.x;
 import adpter.ClassfiyHalf_Adapter;
 import adpter.Classfiy_Adapter;
 import bean.ClassifyBean;
+import utils.MyUrl;
 
 /**
  * Created by Administrator on 2016/10/19 0019.
  */
 public class Classify extends Fragment implements View.OnClickListener {
-    private static final String URL = "http://192.168.0.105/api.php/Goods/category";
+    private  String URL;
     private RelativeLayout classfiy_search;
     private ListView left_view, main_view;
     private Classfiy_Adapter classfiyAdapter;
@@ -38,6 +39,8 @@ public class Classify extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.classify, container, false);
+        MyUrl myUrl=new MyUrl();
+        URL=myUrl.getUrl()+"api.php/Goods/category";
         inivt();
         left_view = (ListView) view.findViewById(R.id.left_listview);
         main_view = (ListView) view.findViewById(R.id.main_listview);
