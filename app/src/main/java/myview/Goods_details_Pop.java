@@ -9,12 +9,17 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.myproject.IndentActivity;
 import com.myproject.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import init.Init;
+import utils.Global;
 
 /**
  * Created by Administrator on 2016/11/1 0001.
@@ -22,22 +27,27 @@ import com.myproject.R;
 public class Goods_details_Pop extends PopupWindow implements View.OnClickListener {
     private View mMenuView;
     private Button btn_sure;
-    private TextView tv_down, tv_up, tv_num;
-
-
+    private TextView tv_down, tv_up, tv_num,pop_price;
+    private ImageView pop_img;
+    private String IMG;
+    private Global global;
     public Goods_details_Pop(Activity context) {
         super(context);
+        global =new Global();
+        IMG= global.getUrl();
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mMenuView = inflater.inflate(R.layout.goods_details_pop, null);
+
         btn_sure = (Button) mMenuView.findViewById(R.id.pop_sure);
         tv_up = (TextView) mMenuView.findViewById(R.id.pop_up);
         tv_down = (TextView) mMenuView.findViewById(R.id.pop_down);
         tv_num = (TextView) mMenuView.findViewById(R.id.pop_num);
+        pop_img= (ImageView) mMenuView.findViewById(R.id.pop_img);
+        pop_price= (TextView) mMenuView.findViewById(R.id.pop_price);
         tv_up.setOnClickListener(this);
         tv_down.setOnClickListener(this);
         btn_sure.setOnClickListener(this);
-
         this.setContentView(mMenuView);
         //设置SelectPicPopupWindow弹出窗体的宽
         this.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
@@ -65,6 +75,13 @@ public class Goods_details_Pop extends PopupWindow implements View.OnClickListen
                 return true;
             }
         });
+        //TODO 获取全局变量的图片和价格
+        Init init= (Init) context.getApplication();
+        String popImg=init.getPopImg();
+        String popPrice=init.getPopPrice();
+        Log.i("pop","取出的图片:"+popImg+"取出价格"+popPrice);
+        ImageLoader.getInstance().displayImage(IMG+popImg,pop_img);
+        pop_price.setText(popPrice);
     }
 
     @Override

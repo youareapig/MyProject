@@ -2,7 +2,6 @@ package adpter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +15,14 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.List;
 
 import bean.ClassifyBean;
-import utils.MyUrl;
+import utils.Global;
 
 /**
  * Created by Administrator on 2016/11/14 0014.
  */
 public class ClassfiyGrid_Adapter extends BaseAdapter {
-    MyUrl myUrl=new MyUrl();
-    private String HTTP=myUrl.getUrl();
+    Global global =new Global();
+    private String HTTP= global.getUrl();
     private LayoutInflater layoutInflater;
     private List<ClassifyBean.DataBean.ChildrenBean.Children1Bean> list ;
 

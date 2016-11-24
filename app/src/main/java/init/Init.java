@@ -20,7 +20,12 @@ import org.xutils.x;
  */
 public class Init extends Application {
     public ImageLoaderConfiguration config;
+    private String popImg;
+    private String popPrice;
+
     public void onCreate() {
+        popImg="";
+        popPrice="";
         super.onCreate();
         initImageLoader(getApplicationContext());
         x.Ext.init(this);
@@ -52,6 +57,20 @@ public class Init extends Application {
                 .build();
         ImageLoader.getInstance().init(config);
     }
+    public String getPopPrice() {
+        return popPrice;
+    }
 
+    public void setPopPrice(String popPrice) {
+        this.popPrice = popPrice;
+    }
+
+    public String getPopImg() {
+        return popImg;
+    }
+
+    public void setPopImg(String popImg) {
+        this.popImg = popImg;
+    }
 
 }

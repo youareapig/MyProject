@@ -20,6 +20,7 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import bean.UserBean;
+import utils.Global;
 
 public class RegistActivity extends AppCompatActivity {
     private CheckBox checkBox_deal;
@@ -27,11 +28,13 @@ public class RegistActivity extends AppCompatActivity {
     private EditText regist_phone, regist_code, regist_pwd;
     private TextView regist_getVercode;
     private String r_getPhone, r_getCode, r_getPassword, r1_getPhone;
-
+    private String URl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regist);
+        Global global=new Global();
+        URl=global.getUrl()+"api.php/Member/regist";
         checkBox_deal = (CheckBox) findViewById(R.id.regist_deal);
         textView_regist = (TextView) findViewById(R.id.regist);
         regist_phone = (EditText) findViewById(R.id.regist_phone);
@@ -86,7 +89,7 @@ public class RegistActivity extends AppCompatActivity {
 
     public void visit() {
 
-        RequestParams params = new RequestParams("http://192.168.0.108/api.php/Member/regist");
+        RequestParams params = new RequestParams(URl);
         params.addBodyParameter("mobile", r_getPhone);
         params.addBodyParameter("verfiy", r_getCode);
         params.addBodyParameter("password", r_getPassword);
@@ -132,7 +135,7 @@ public class RegistActivity extends AppCompatActivity {
     }
 
     public void getCodeVisit() {
-        RequestParams params = new RequestParams("http://192.168.0.108/api.php/Member/regist");
+        RequestParams params = new RequestParams(URl);
         params.addBodyParameter("mobile", r1_getPhone);
         params.addBodyParameter("type_code", "3");
         x.http().post(params, new Callback.CacheCallback<String>() {

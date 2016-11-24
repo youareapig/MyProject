@@ -1,6 +1,7 @@
 package com.myproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,16 +18,23 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import bean.UserBean;
+import utils.Global;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView btn_login, user_regist;
     private EditText userphone, userpassword;
     private String getUserphone, getUserpassword;
-
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private String URL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Global global=new Global();
+        URL=global.getUrl()+"api.php/Member/login";
+        sharedPreferences = getSharedPreferences("userLogin", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         btn_login = (TextView) findViewById(R.id.login);
         user_regist = (TextView) findViewById(R.id.regist);
         userphone = (EditText) findViewById(R.id.userphone);
@@ -42,7 +50,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.login:
                 if (TextUtils.isEmpty(getUserphone) || TextUtils.isEmpty(getUserpassword)) {
-                    Toast.makeText(LoginActivity.this, "请输入用户名和密码", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     visit();
@@ -56,7 +63,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void visit() {
-        RequestParams params = new RequestParams("http://192.168.0.108/api.php/Member/login");
+        RequestParams params = new RequestParams(URL);
         params.addBodyParameter("mobile", getUserphone);
         params.addBodyParameter("password", getUserpassword);
         x.http().post(params, new Callback.CommonCallback<String>() {
@@ -67,7 +74,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 UserBean userBean = gson.fromJson(result, UserBean.class);
                 Log.d("tag", "返回码:" + userBean.getCode());
                 if (userBean.getCode() == 3000) {
-                    Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                    //TODO 是否登录状态
+                    editor.putString("state","1").apply();
+                    //TODO 保存用户ID
+                    editor.putString("userID",getUserphone).apply();
+                    finish();
                 } else if (userBean.getCode() == -3000) {
                     Toast.makeText(LoginActivity.this, "用户名或者密码错误", Toast.LENGTH_SHORT).show();
                 }

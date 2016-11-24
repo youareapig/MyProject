@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView index_img, store_img, shopcar_img, personal_img;
     private TextView index_name, store_name, shopcar_name, personal_name;
     private int currentIndex = 0;
-    private static final String URL="http://192.168.0.108/api.php/Goods/category";
 
 
     @Override

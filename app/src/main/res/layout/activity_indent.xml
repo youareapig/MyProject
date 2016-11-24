@@ -40,7 +40,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="64dp"
-            android:background="@mipmap/envelope">
+            android:background="#fff">
 
             <TextView
                 android:layout_width="wrap_content"

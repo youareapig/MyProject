@@ -12,18 +12,17 @@ import android.widget.TextView;
 import com.myproject.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.util.HashMap;
 import java.util.List;
 
 import bean.GoodsList_Bean;
-import utils.MyUrl;
+import utils.Global;
 
 /**
  * Created by Administrator on 2016/10/19 0019.
  */
 public class GoodsList_ListView_Adapter extends BaseAdapter{
-    MyUrl myUrl=new MyUrl();
-    private  String HTTP=myUrl.getUrl();
+    Global global =new Global();
+    private  String HTTP= global.getUrl();
     private List<GoodsList_Bean.DataBean> list;
     private LayoutInflater layoutInflater;
     public GoodsList_ListView_Adapter(Context context, List<GoodsList_Bean.DataBean> list){

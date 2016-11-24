@@ -50,8 +50,7 @@
                 android:id="@+id/left_listview"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
-                android:dividerHeight="2dp"
-
+                android:divider="@null"
                 />
 
             <LinearLayout

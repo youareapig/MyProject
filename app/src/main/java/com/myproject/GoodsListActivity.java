@@ -13,7 +13,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -26,7 +25,6 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -34,22 +32,21 @@ import java.util.List;
 import adpter.GoodsList_ListView_Adapter;
 import adpter.Pop_brand_Adapter;
 import bean.GoodsList_Bean;
-import utils.MyUrl;
+import utils.Global;
 
 public class GoodsListActivity extends AppCompatActivity implements OnClickListener {
-    private RelativeLayout goodslist_brand, goods_sale, goods_details_back;
+    private RelativeLayout goodslist_brand, goods_sale, goods_details_back,serach;
     private PopupWindow popupWindow;
     private ListView goodslist_listview;
     private List<GoodsList_Bean.DataBean> list;
     private List<GoodsList_Bean.BrandBean> brandList;
-    private TextView goods_sales,synthesize;
+    private TextView goods_sales,synthesize,goods_pinpai;
     private GoodsList_ListView_Adapter goodsListListViewAdapter;
     private boolean bool = false;
     private GridView pop_grid_brand;
     private  String URL;
     private String resultGoodsID;
     private GoodsList_Bean goodsListBean;
-    private ImageView serach;
     private EditText edit_search;
     private ProgressDialog progressDialog = null;
 
@@ -58,8 +55,8 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_list);
-        MyUrl myUrl=new MyUrl();
-        URL=myUrl.getUrl()+"api.php/Goods/goodsLst";
+        Global global =new Global();
+        URL= global.getUrl()+"api.php/Goods/goodsLst";
         Intent intent = getIntent();
         resultGoodsID = intent.getStringExtra("goodsID");
         goodslist_brand = (RelativeLayout) findViewById(R.id.goodslist_brand);
@@ -67,8 +64,9 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         goods_sale = (RelativeLayout) findViewById(R.id.goods_sale_v);
         goods_sales = (TextView) findViewById(R.id.goods_sales);
         synthesize= (TextView) findViewById(R.id.synthesize);
-        serach= (ImageView) findViewById(R.id.serach);
+        serach= (RelativeLayout) findViewById(R.id.serach);
         edit_search= (EditText) findViewById(R.id.edit_search);
+        goods_pinpai= (TextView) findViewById(R.id.goods_pinpai);
         goods_details_back = (RelativeLayout) findViewById(R.id.goods_details_back);
         goods_details_back.setOnClickListener(this);
         goodslist_brand.setOnClickListener(this);
@@ -100,10 +98,10 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
             @Override
             public int compare(GoodsList_Bean.DataBean o1, GoodsList_Bean.DataBean o2) {
                 Log.d("sale","商品价格："+o1.getShop_price()+"         "+o2.getShop_price());
-                int sale3 = Integer.parseInt (o1.getShop_price().trim());
-                int sale4 = Integer.parseInt(o2.getShop_price().trim());
+                double sale3 = Double.parseDouble(o1.getShop_price());
+                double sale4 = Double.parseDouble(o2.getShop_price());
                 Log.d("sale","获取商品价格："+sale3+"         "+sale4);
-                return sale4 - sale3;
+                return (int) (sale4 - sale3);
             }
         });
 
@@ -119,9 +117,9 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
 
             @Override
             public int compare(GoodsList_Bean.DataBean o1, GoodsList_Bean.DataBean o2) {
-                int sale1 = Integer.parseInt(o1.getShop_price().trim());
-                int sale2=Integer.parseInt(o2.getShop_price().trim());
-                return  (sale1 - sale2);
+                double sale1 = Double.parseDouble(o1.getShop_price().trim());
+                double sale2=Double.parseDouble(o2.getShop_price().trim());
+                return (int) (sale1 - sale2);
             }
         });
 
