@@ -1,9 +1,11 @@
 package com.myproject;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -108,13 +110,20 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                 try {
                     if (state.equals("1")) {
                         addShopcar();
-                    } else {
-                        Intent intent1 = new Intent(GoodsDetailsActivity.this, LoginActivity.class);
-                        startActivity(intent1);
                     }
                 } catch (Exception e) {
-                    Intent intent1 = new Intent(GoodsDetailsActivity.this, LoginActivity.class);
-                    startActivity(intent1);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(GoodsDetailsActivity.this);
+                    builder.setTitle("提示");
+                    builder.setMessage("您还未登陆，确认登陆?");
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(GoodsDetailsActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                    builder.setNegativeButton("取消", null);
+                    builder.show();
                 }
 
                 break;

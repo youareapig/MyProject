@@ -1,9 +1,12 @@
 package com.myproject;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,13 +39,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView index_img, store_img, shopcar_img, personal_img;
     private TextView index_name, store_name, shopcar_name, personal_name;
     private int currentIndex = 0;
-
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        sharedPreferences = getSharedPreferences("userLogin", MODE_PRIVATE);
         Intent intent = this.getIntent();
         currentIndex = intent.getIntExtra("fragment_tag", 0);
         if (currentIndex == 2) {
@@ -141,16 +145,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 personal_name.setTextColor(this.getResources().getColor(R.color.c_black));
                 break;
             case R.id.personal:
-                currentIndex = 3;
-                showFragment();
-                index_img.setImageResource(R.mipmap.store_uncheck);
-                index_name.setTextColor(this.getResources().getColor(R.color.c_black));
-                store_img.setImageResource(R.mipmap.classify_uncheck);
-                store_name.setTextColor(this.getResources().getColor(R.color.c_black));
-                shopcar_img.setImageResource(R.mipmap.shopcar_uncheck);
-                shopcar_name.setTextColor(this.getResources().getColor(R.color.c_black));
-                personal_img.setImageResource(R.mipmap.person_check);
-                personal_name.setTextColor(this.getResources().getColor(R.color.c_blue));
+
+                //TODO 获取状态，判断是否登录 1为登录
+                String state = sharedPreferences.getString("state", null);
+                try {
+                    if (state.equals("1")) {
+                        currentIndex = 3;
+                        showFragment();
+                        index_img.setImageResource(R.mipmap.store_uncheck);
+                        index_name.setTextColor(this.getResources().getColor(R.color.c_black));
+                        store_img.setImageResource(R.mipmap.classify_uncheck);
+                        store_name.setTextColor(this.getResources().getColor(R.color.c_black));
+                        shopcar_img.setImageResource(R.mipmap.shopcar_uncheck);
+                        shopcar_name.setTextColor(this.getResources().getColor(R.color.c_black));
+                        personal_img.setImageResource(R.mipmap.person_check);
+                        personal_name.setTextColor(this.getResources().getColor(R.color.c_blue));
+                    }
+                } catch (Exception e) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("提示");
+                    builder.setMessage("您还未登陆，确认登陆?");
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                    builder.setNegativeButton("取消",null);
+                    builder.show();
+
+                }
                 break;
         }
     }
@@ -198,7 +223,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragment = fragmentList.get(currentIndex);
 
     }
-
 
 
 }

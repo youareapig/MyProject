@@ -45,7 +45,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
     private boolean bool = false;
     private GridView pop_grid_brand;
     private  String URL;
-    private String resultGoodsID;
+    private String resultGoodsID,resultSearch;
     private GoodsList_Bean goodsListBean;
     private EditText edit_search;
     private ProgressDialog progressDialog = null;
@@ -58,7 +58,11 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         Global global =new Global();
         URL= global.getUrl()+"api.php/Goods/goodsLst";
         Intent intent = getIntent();
+        //TODO 分类界面传过来的商品ID
         resultGoodsID = intent.getStringExtra("goodsID");
+        //TODO 首页搜索传过来的搜索内容
+        resultSearch=intent.getStringExtra("seach");
+
         goodslist_brand = (RelativeLayout) findViewById(R.id.goodslist_brand);
         goodslist_listview = (ListView) findViewById(R.id.goodslist_listview);
         goods_sale = (RelativeLayout) findViewById(R.id.goods_sale_v);
@@ -74,7 +78,12 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         goods_sales.setOnClickListener(this);
         synthesize.setOnClickListener(this);
         serach.setOnClickListener(this);
-        internet(resultGoodsID);
+        if (resultSearch!=null){
+            internetSearch(resultSearch);
+            edit_search.setText(resultSearch);
+        }else {
+            internet(resultGoodsID);
+        }
 
         goodslist_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
