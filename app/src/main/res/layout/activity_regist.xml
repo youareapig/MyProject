@@ -73,7 +73,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
             android:textColor="#fff"
-            android:background="@drawable/btn_login_dot"
+            android:background="@drawable/btn_login_up"
             />
     </RelativeLayout>
     <LinearLayout
@@ -125,7 +125,7 @@
             android:layout_marginTop="50dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:background="#878a8d"
+            android:background="@drawable/btn_login_down"
             android:gravity="center"/>
     </RelativeLayout>
 
