@@ -1,6 +1,7 @@
 package com.myproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,10 +32,14 @@ public class RegistActivity extends AppCompatActivity {
     private TextView regist_getVercode;
     private String r_getPhone, r_getCode, r_getPassword, r1_getPhone;
     private String URl;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regist);
+        sharedPreferences = getSharedPreferences("userInformation", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         Global global=new Global();
         URl=global.getUrl()+"api.php/Member/regist";
         checkBox_deal = (CheckBox) findViewById(R.id.regist_deal);
@@ -103,18 +108,19 @@ public class RegistActivity extends AppCompatActivity {
     }
 
     public void visit() {
-
         RequestParams params = new RequestParams(URl);
         params.addBodyParameter("mobile", r_getPhone);
         params.addBodyParameter("verfiy", r_getCode);
         params.addBodyParameter("password", r_getPassword);
-
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 UserBean userBean = gson.fromJson(result, UserBean.class);
+                Log.i("tag","注册:  "+userBean.getCode());
                 if (userBean.getCode() == 3000) {
+                    editor.putString("mobile",r_getPhone).apply();
+                    editor.putString("password",r_getPassword).apply();
                     Intent intent=new Intent(RegistActivity.this,Regist_UserTypeActivity.class);
                     startActivity(intent);
                 } else if (userBean.getCode() == -3000) {
@@ -161,7 +167,6 @@ public class RegistActivity extends AppCompatActivity {
                 UserBean userBean = gson.fromJson(result, UserBean.class);
                 if (userBean.getCode()==-3003){
                     Toast.makeText(RegistActivity.this, "该手机已经注册", Toast.LENGTH_SHORT).show();
-                    return;
                 }else if (userBean.getCode()==3002){
                     CountDownTimerUtils mCountDownTimerUtils = new CountDownTimerUtils(regist_getVercode, 60000, 1000);
                     mCountDownTimerUtils.start();

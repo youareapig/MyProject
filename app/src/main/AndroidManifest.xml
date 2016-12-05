@@ -18,16 +18,18 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
             android:windowSoftInputMode="stateHidden|stateUnchanged">
+
+        </activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegistActivity" />
+        <activity android:name=".Regist_UserTypeActivity" />
+        <activity android:name=".Regist_StoreActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegistActivity" />
-        <activity android:name=".Regist_UserTypeActivity" />
-        <activity android:name=".Regist_StoreActivity" />
         <activity android:name=".Regist_PersonalActivity" />
         <activity android:name=".IndentActivity" />
         <activity android:name=".PayActivity" />
