@@ -9,6 +9,10 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import bean.UserUpLoadData;
+
 
 public class Regist_UserTypeActivity extends AppCompatActivity {
     private TextView textView_next;
