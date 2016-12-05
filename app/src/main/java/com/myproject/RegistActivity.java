@@ -103,17 +103,16 @@ public class RegistActivity extends AppCompatActivity {
     }
 
     public void visit() {
-
         RequestParams params = new RequestParams(URl);
         params.addBodyParameter("mobile", r_getPhone);
         params.addBodyParameter("verfiy", r_getCode);
         params.addBodyParameter("password", r_getPassword);
-
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 UserBean userBean = gson.fromJson(result, UserBean.class);
+                Log.i("tag","注册:  "+userBean.getCode());
                 if (userBean.getCode() == 3000) {
                     Intent intent=new Intent(RegistActivity.this,Regist_UserTypeActivity.class);
                     startActivity(intent);
@@ -161,7 +160,6 @@ public class RegistActivity extends AppCompatActivity {
                 UserBean userBean = gson.fromJson(result, UserBean.class);
                 if (userBean.getCode()==-3003){
                     Toast.makeText(RegistActivity.this, "该手机已经注册", Toast.LENGTH_SHORT).show();
-                    return;
                 }else if (userBean.getCode()==3002){
                     CountDownTimerUtils mCountDownTimerUtils = new CountDownTimerUtils(regist_getVercode, 60000, 1000);
                     mCountDownTimerUtils.start();

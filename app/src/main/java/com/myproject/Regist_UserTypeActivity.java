@@ -10,6 +10,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import bean.UserUpLoadData;
+
 
 public class Regist_UserTypeActivity extends AppCompatActivity {
     private TextView textView_next;
@@ -41,6 +45,7 @@ public class Regist_UserTypeActivity extends AppCompatActivity {
         type_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 finish();
             }
         });
