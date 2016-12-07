@@ -9,10 +9,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-
-import bean.UserUpLoadData;
-
 
 public class Regist_UserTypeActivity extends AppCompatActivity {
     private TextView textView_next;
@@ -34,11 +30,11 @@ public class Regist_UserTypeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (radioButton_personal.isChecked()) {
-                    editor.putString("groupid","2").apply();
+                    editor.putString("groupid","3").apply();
                     Intent p_intent = new Intent(Regist_UserTypeActivity.this, Regist_PersonalActivity.class);
                     startActivity(p_intent);
                 } else if (radioButton_store.isChecked()) {
-                    editor.putString("groupid","3").apply();
+                    editor.putString("groupid","2").apply();
                     Intent s_intent = new Intent(Regist_UserTypeActivity.this, Regist_StoreActivity.class);
                     startActivity(s_intent);
                 }

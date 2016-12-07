@@ -5,16 +5,21 @@ package bean;
  */
 public class UserBean {
 
-
     /**
-     * code : -3003
-     * message : 该用户已经被注册
-     * data :
+     * code : 3000
+     * message : 登陆成功
+     * data : {"userid":"4","mobile":"18140463430","groupid":"3"}
      */
 
     private int code;
     private String message;
-    private String data;
+    /**
+     * userid : 4
+     * mobile : 18140463430
+     * groupid : 3
+     */
+
+    private DataBean data;
 
     public int getCode() {
         return code;
@@ -32,11 +37,41 @@ public class UserBean {
         this.message = message;
     }
 
-    public String getData() {
+    public DataBean getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(DataBean data) {
         this.data = data;
+    }
+
+    public static class DataBean {
+        private String userid;
+        private String mobile;
+        private String groupid;
+
+        public String getUserid() {
+            return userid;
+        }
+
+        public void setUserid(String userid) {
+            this.userid = userid;
+        }
+
+        public String getMobile() {
+            return mobile;
+        }
+
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
+        }
+
+        public String getGroupid() {
+            return groupid;
+        }
+
+        public void setGroupid(String groupid) {
+            this.groupid = groupid;
+        }
     }
 }

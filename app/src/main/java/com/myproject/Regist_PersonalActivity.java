@@ -1,5 +1,6 @@
 package com.myproject;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,12 +12,14 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import utils.ChooseDate;
+import utils.Global;
 
 public class Regist_PersonalActivity extends AppCompatActivity {
     private TextView personal_finish;
@@ -26,10 +29,13 @@ public class Regist_PersonalActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private RadioButton bt_boy,bt_girl;
     private EditText carid;
+    private String mUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regist__personal);
+        Global global=new Global();
+        mUrl=global.getUrl()+"api.php/Member/person";
         sharedPreferences = getSharedPreferences("userInformation", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         personal_finish= (TextView) findViewById(R.id.personal_finish);
@@ -58,7 +64,7 @@ public class Regist_PersonalActivity extends AppCompatActivity {
                 }else if (bt_girl.isChecked()){
                     gender=bt_girl.getText().toString();
                 }
-                if (TextUtils.isEmpty(birthday)||TextUtils.isEmpty(car_number)){
+                if (TextUtils.isEmpty(birthday)||TextUtils.isEmpty(car_number)||birthday.equals("出生年月")){
                     Toast.makeText(Regist_PersonalActivity.this,"请完善个人信息",Toast.LENGTH_SHORT).show();
                 }else {
                     visit(mobile,password,groupid,birthday,gender,car_number);
@@ -76,8 +82,8 @@ public class Regist_PersonalActivity extends AppCompatActivity {
         });
 
     }
-    private void visit(String mobile,String password,String groupid,String birthday,String gender,String car_number){
-        RequestParams params=new RequestParams("http://192.168.0.125/api.php/Member/registAdd");
+    private void visit(final String mobile, String password, String groupid, String birthday, String gender, String car_number){
+        RequestParams params=new RequestParams(mUrl);
         params.addBodyParameter("mobile",mobile);
         params.addBodyParameter("password",password);
         params.addBodyParameter("groupid",groupid);
@@ -88,12 +94,26 @@ public class Regist_PersonalActivity extends AppCompatActivity {
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
-            Log.i("result","请求成功"+result);
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    String mCode=jsonObject.getString("code");
+                    if (mCode.equals("3000")){
+                        Intent intent=new Intent(Regist_PersonalActivity.this,LoginActivity.class);
+                        intent.putExtra("tel",mobile);
+                        startActivity(intent);
+                        finish();
+                    }else if (mCode.equals("-3003")){
+                        Toast.makeText(Regist_PersonalActivity.this,"该手机号已经被注册",Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Log.i("result","请求失败");
+                Toast.makeText(Regist_PersonalActivity.this,"请求超时",Toast.LENGTH_SHORT).show();
             }
 
             @Override

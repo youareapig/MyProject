@@ -1,5 +1,6 @@
 package com.myproject;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private String URL;
+    private ProgressDialog progressDialog = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         userpassword = (EditText) findViewById(R.id.userpassword);
         btn_login.setOnClickListener(this);
         user_regist.setOnClickListener(this);
+        Intent intent =this.getIntent();
+        String tel=intent.getStringExtra("tel");
+        userphone.setText(tel);
     }
 
     @Override
@@ -50,6 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.login:
                 if (TextUtils.isEmpty(getUserphone) || TextUtils.isEmpty(getUserpassword)) {
+                    Toast.makeText(LoginActivity.this, "用户名和密码不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     visit();
@@ -63,21 +69,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void visit() {
+        progressDialog = ProgressDialog.show(this, "请稍后", "登录中....", true);
         RequestParams params = new RequestParams(URL);
         params.addBodyParameter("mobile", getUserphone);
         params.addBodyParameter("password", getUserpassword);
+        Log.i("test","参数"+getUserphone+"      "+getUserpassword);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.d("tag", "接受数据:" + result);
+                Log.i("test","返回"+result);
                 Gson gson = new Gson();
                 UserBean userBean = gson.fromJson(result, UserBean.class);
-                Log.d("tag", "返回码:" + userBean.getCode());
                 if (userBean.getCode() == 3000) {
                     //TODO 是否登录状态
                     editor.putString("state","1").apply();
                     //TODO 保存用户ID
-                    editor.putString("userID",getUserphone).apply();
+                    editor.putString("userID",userBean.getData().getUserid()).apply();
                     finish();
                 } else if (userBean.getCode() == -3000) {
                     Toast.makeText(LoginActivity.this, "用户名或者密码错误", Toast.LENGTH_SHORT).show();
@@ -88,7 +95,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Log.d("tag", "请求错误");
+                Toast.makeText(LoginActivity.this, "服务器故障，请稍后重试！", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -98,7 +105,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onFinished() {
-
+                progressDialog.cancel();
             }
         });
 

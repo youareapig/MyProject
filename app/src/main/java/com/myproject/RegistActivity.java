@@ -97,7 +97,6 @@ public class RegistActivity extends AppCompatActivity {
                     });
                 }
                 if (isChecked == false) {
-                    Log.d("tag", "111111");
                     textView_regist.setEnabled(false);
                     textView_regist.setBackgroundResource(R.drawable.btn_login_down);
                     return;
@@ -117,7 +116,6 @@ public class RegistActivity extends AppCompatActivity {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 UserBean userBean = gson.fromJson(result, UserBean.class);
-                Log.i("tag","注册:  "+userBean.getCode());
                 if (userBean.getCode() == 3000) {
                     editor.putString("mobile",r_getPhone).apply();
                     editor.putString("password",r_getPassword).apply();
@@ -171,13 +169,12 @@ public class RegistActivity extends AppCompatActivity {
                     CountDownTimerUtils mCountDownTimerUtils = new CountDownTimerUtils(regist_getVercode, 60000, 1000);
                     mCountDownTimerUtils.start();
                 }
-                Log.d("tag", "验证码:" + userBean.getCode());
 
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Log.d("tag", "验证码获取失败");
+                Toast.makeText(RegistActivity.this, "请求超时", Toast.LENGTH_SHORT).show();
             }
 
             @Override

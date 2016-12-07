@@ -160,6 +160,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         shopcar_name.setTextColor(this.getResources().getColor(R.color.c_black));
                         personal_img.setImageResource(R.mipmap.person_check);
                         personal_name.setTextColor(this.getResources().getColor(R.color.c_blue));
+                    }else if (state.equals("2")){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setTitle("提示");
+                        builder.setMessage("您还未登陆，确认登陆?");
+                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                        builder.setNegativeButton("取消",null);
+                        builder.show();
                     }
                 } catch (Exception e) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);

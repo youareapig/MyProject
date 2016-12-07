@@ -3,20 +3,31 @@ package com.myproject;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import bean.UserInformationBean;
 import utils.DataCleanManager;
 
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
-    private RelativeLayout setting_address, clearcache,setting_personal;
+    private RelativeLayout setting_address, clearcache, setting_personal;
     private TextView cache;
     private DataCleanManager cleanManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +37,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         cleanManager = new DataCleanManager();
         setting_address = (RelativeLayout) findViewById(R.id.setting_address);
         clearcache = (RelativeLayout) findViewById(R.id.clearcache);
-        setting_personal= (RelativeLayout) findViewById(R.id.setting_personal);
+        setting_personal = (RelativeLayout) findViewById(R.id.setting_personal);
         cache = (TextView) findViewById(R.id.cache);
         clearcache.setOnClickListener(this);
         setting_personal.setOnClickListener(this);
@@ -65,9 +76,12 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.setting_personal:
                 Intent intent1=new Intent(SettingActivity.this,PersonalInformationActivity.class);
                 startActivity(intent1);
+
                 break;
         }
     }
+
+
 
 
 }

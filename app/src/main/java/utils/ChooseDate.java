@@ -65,7 +65,7 @@ public class ChooseDate implements DatePicker.OnDateChangedListener {
 
         calendar.set(datePicker.getYear(), datePicker.getMonth(),
                 datePicker.getDayOfMonth());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         s_date = sdf.format(calendar.getTime());
         dialog.setTitle(s_date);

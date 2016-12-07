@@ -12,24 +12,24 @@
     <application
         android:name="init.Init"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/timo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="stateHidden|stateUnchanged">
-
-        </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegistActivity" />
-        <activity android:name=".Regist_UserTypeActivity" />
-        <activity android:name=".Regist_StoreActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegistActivity" />
+        <activity android:name=".Regist_UserTypeActivity" />
+        <activity android:name=".Regist_StoreActivity" >
+
         </activity>
         <activity android:name=".Regist_PersonalActivity" />
         <activity android:name=".IndentActivity" />

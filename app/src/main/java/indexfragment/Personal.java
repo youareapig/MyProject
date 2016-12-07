@@ -1,40 +1,68 @@
 package indexfragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.myproject.AboutActivity;
 import com.myproject.GarageActivity;
+import com.myproject.LoginActivity;
+import com.myproject.MainActivity;
 import com.myproject.MaintainRecordActivity;
 import com.myproject.OrderActivity;
 import com.myproject.R;
 import com.myproject.SettingActivity;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import bean.UserInformationBean;
+import de.hdodenhof.circleimageview.CircleImageView;
 import helpfragment.HelperActivity;
+import utils.Global;
 
 /**
  * Created by Administrator on 2016/10/19 0019.
  */
 public class Personal extends Fragment implements View.OnClickListener {
-    private TextView personal_allorder;
+    private TextView personal_allorder,sign_out;
     private RelativeLayout wait_pay, wait_receive, wait_install, wait_anzhuang, order_cargarage, order_maintain, help, about, setting;
-
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private String userID,mUrl;
+    private CircleImageView personal_head;
+    private Global global;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.personal, container, false);
+
+        sharedPreferences = getActivity().getSharedPreferences("userLogin", getActivity().MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        userID = sharedPreferences.getString("userID", null);
+        global=new Global();
+        mUrl=global.getUrl()+"api.php/Member/person";
+
         personal_allorder = (TextView) view.findViewById(R.id.personal_allorder);
+        sign_out= (TextView) view.findViewById(R.id.sign_out);
         wait_pay = (RelativeLayout) view.findViewById(R.id.waitpay);
         wait_receive = (RelativeLayout) view.findViewById(R.id.waitreceive);
         wait_install = (RelativeLayout) view.findViewById(R.id.waitinstall);
         wait_anzhuang = (RelativeLayout) view.findViewById(R.id.waitevaluate);
         order_cargarage = (RelativeLayout) view.findViewById(R.id.order_cargarage);
         order_maintain = (RelativeLayout) view.findViewById(R.id.order_maintain);
+        personal_head= (CircleImageView) view.findViewById(R.id.personal_head);
         help = (RelativeLayout) view.findViewById(R.id.help);
         about = (RelativeLayout) view.findViewById(R.id.about);
         setting = (RelativeLayout) view.findViewById(R.id.setting);
@@ -42,7 +70,7 @@ public class Personal extends Fragment implements View.OnClickListener {
         help.setOnClickListener(this);
         about.setOnClickListener(this);
         setting.setOnClickListener(this);
-
+        sign_out.setOnClickListener(this);
         personal_allorder.setOnClickListener(this);
         wait_pay.setOnClickListener(this);
         wait_receive.setOnClickListener(this);
@@ -50,6 +78,7 @@ public class Personal extends Fragment implements View.OnClickListener {
         wait_anzhuang.setOnClickListener(this);
         order_cargarage.setOnClickListener(this);
         order_maintain.setOnClickListener(this);
+        getHeader();
         return view;
     }
 
@@ -103,7 +132,60 @@ public class Personal extends Fragment implements View.OnClickListener {
                 Intent intent9 = new Intent(getActivity(), SettingActivity.class);
                 startActivity(intent9);
                 break;
+            case R.id.sign_out:
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("提示");
+                builder.setMessage("确定退出登录吗？");
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        editor.putString("state","2").apply();
+                        Intent mIntent=new Intent(getActivity(), MainActivity.class);
+                        startActivity(mIntent);
+                        getActivity().finish();
+                    }
+                });
+                builder.setNegativeButton("取消",null);
+                builder.show();
+                break;
 
         }
+    }
+    //TODO 获取用户头像
+    private void getHeader(){
+        RequestParams params = new RequestParams(mUrl);
+        params.addBodyParameter("userid", userID);
+        x.http().post(params, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                UserInformationBean information = gson.fromJson(result, UserInformationBean.class);
+                if (information.getCode() == 3000) {
+                    ImageLoader.getInstance().displayImage(global.getUrl()+information.getData().getHeader(), personal_head);
+
+                } else if (information.getCode() == -3000) {
+                    Toast.makeText(getActivity(), information.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                //Toast.makeText(PersonalInformationActivity.this, "服务器异常", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
     }
 }
