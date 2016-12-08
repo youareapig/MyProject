@@ -35,7 +35,7 @@ public class Regist_PersonalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regist__personal);
         Global global=new Global();
-        mUrl=global.getUrl()+"api.php/Member/person";
+        mUrl=global.getUrl()+"api.php/Member/registAdd";
         sharedPreferences = getSharedPreferences("userInformation", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         personal_finish= (TextView) findViewById(R.id.personal_finish);
@@ -91,12 +91,15 @@ public class Regist_PersonalActivity extends AppCompatActivity {
         params.addBodyParameter("gender",gender);
         params.addBodyParameter("car_type","");
         params.addBodyParameter("car_number",car_number);
+        Log.i("tag",mobile+"  "+password+"  "+groupid+"  "+birthday+"  "+gender+"  "+car_number);
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                Log.i("tag","返回数据:"+result);
                 try {
                     JSONObject jsonObject=new JSONObject(result);
                     String mCode=jsonObject.getString("code");
+                    Log.i("tag",jsonObject.getString("message"));
                     if (mCode.equals("3000")){
                         Intent intent=new Intent(Regist_PersonalActivity.this,LoginActivity.class);
                         intent.putExtra("tel",mobile);

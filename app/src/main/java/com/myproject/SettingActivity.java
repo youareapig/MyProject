@@ -24,7 +24,7 @@ import utils.DataCleanManager;
 
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
-    private RelativeLayout setting_address, clearcache, setting_personal;
+    private RelativeLayout setting_address, clearcache, setting_personal,modification_pwd;
     private TextView cache;
     private DataCleanManager cleanManager;
 
@@ -39,6 +39,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         clearcache = (RelativeLayout) findViewById(R.id.clearcache);
         setting_personal = (RelativeLayout) findViewById(R.id.setting_personal);
         cache = (TextView) findViewById(R.id.cache);
+        modification_pwd= (RelativeLayout) findViewById(R.id.modification_pwd);
+        modification_pwd.setOnClickListener(this);
         clearcache.setOnClickListener(this);
         setting_personal.setOnClickListener(this);
         setting_address.setOnClickListener(this);
@@ -55,7 +57,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.setting_address:
-                Intent intent = new Intent(SettingActivity.this, CompileAddressActivity.class);
+                Intent intent = new Intent(SettingActivity.this, ManageAddressActivity.class);
                 startActivity(intent);
                 break;
             case R.id.clearcache:
@@ -76,7 +78,10 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.setting_personal:
                 Intent intent1=new Intent(SettingActivity.this,PersonalInformationActivity.class);
                 startActivity(intent1);
-
+                break;
+            case R.id.modification_pwd:
+                Intent intent2=new Intent(SettingActivity.this,ModificationPasswordActivity.class);
+                startActivity(intent2);
                 break;
         }
     }

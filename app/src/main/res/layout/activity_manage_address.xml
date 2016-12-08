@@ -19,6 +19,7 @@
                 android:layout_height="20dp"
                 android:layout_centerInParent="true"
                 android:src="@mipmap/back" />
+
         </RelativeLayout>
 
         <TextView
@@ -28,12 +29,24 @@
             android:text="管理收货地址"
             android:textColor="#ffff"
             android:textSize="@dimen/titele" />
+        <RelativeLayout
+            android:id="@+id/addsite"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/addadress"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
     </RelativeLayout>
     <ListView
         android:id="@+id/manageaddress_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="8dp"
-        android:background="#fff"
+
         />
 </LinearLayout>

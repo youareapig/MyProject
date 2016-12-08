@@ -153,6 +153,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 goodsdetailsbean = gson.fromJson(result, GoodsDetailsBean.class);
+                Log.i("tag",result);
                 goods_details_introduce.setText(goodsdetailsbean.getData().getGoods_name());
                 goods_details_price.setText(goodsdetailsbean.getData().getShop_price());
                 goods_details_brank.setText(goodsdetailsbean.getData().getBran_name());

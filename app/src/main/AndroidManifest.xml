@@ -28,9 +28,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegistActivity" />
         <activity android:name=".Regist_UserTypeActivity" />
-        <activity android:name=".Regist_StoreActivity" >
-
-        </activity>
+        <activity android:name=".Regist_StoreActivity" />
         <activity android:name=".Regist_PersonalActivity" />
         <activity android:name=".IndentActivity" />
         <activity android:name=".PayActivity" />
@@ -53,7 +51,9 @@
         <activity android:name=".PersonalInformationActivity" />
         <activity android:name=".CompileAddressActivity" />
         <activity android:name=".ManageAddressActivity" />
-        <activity android:name=".RetrievePasswordActivity"></activity>
+        <activity android:name=".RetrievePasswordActivity" />
+        <activity android:name=".ModificationAddressActivity" />
+        <activity android:name=".ModificationPasswordActivity"></activity>
     </application>
 
 </manifest>

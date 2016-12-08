@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -161,14 +163,20 @@ public class RegistActivity extends AppCompatActivity {
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Gson gson = new Gson();
-                UserBean userBean = gson.fromJson(result, UserBean.class);
-                if (userBean.getCode()==-3003){
-                    Toast.makeText(RegistActivity.this, "该手机已经注册", Toast.LENGTH_SHORT).show();
-                }else if (userBean.getCode()==3002){
-                    CountDownTimerUtils mCountDownTimerUtils = new CountDownTimerUtils(regist_getVercode, 60000, 1000);
+                Log.i("tag","返回信息"+result);
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    String myCode=jsonObject.getString("code");
+                    if (myCode.equals("3002")){
+                        CountDownTimerUtils mCountDownTimerUtils = new CountDownTimerUtils(regist_getVercode, 60000, 1000);
                     mCountDownTimerUtils.start();
+                    }else if (myCode.equals("-3003")){
+                        Toast.makeText(RegistActivity.this, "该手机已经注册", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+
 
             }
 
