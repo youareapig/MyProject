@@ -1,8 +1,17 @@
 package indexfragment;
 
-import android.content.Intent;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,174 +19,208 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.myproject.PayActivity;
+import com.google.gson.Gson;
 import com.myproject.R;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
 import java.util.List;
 
-import adpter.ShopCar_ListView_Adapter;
-import bean.ShopCar_ListBean;
+import adpter.ShopCarAdapter;
+import bean.ShopCarBean;
+import bean.ShopCarData;
+import utils.Global;
+import utils.SpaceItemDecoration;
 
 /**
  * Created by Administrator on 2016/10/19 0019.
  */
-public class ShopCar extends Fragment implements ShopCar_ListView_Adapter.OnCountChangeListener, ShopCar_ListView_Adapter.OnItemCheckedChangeListener, CompoundButton.OnCheckedChangeListener, View.OnClickListener {
-    private ListView shopcar_listview;
-    private List<ShopCar_ListBean> shopcar_list;
-    private ShopCar_ListBean bean1, bean2, bean3, bean4;
+public class ShopCar extends Fragment  {
+    private RecyclerView mRecyclerView;
+    private List<ShopCarBean> shopcar_list;
+    private ShopCarBean bean1, bean2, bean3, bean4;
     private CheckBox checkBox_all;
-    private ShopCar_ListView_Adapter shopCar_listView_adapter;
+    private ShopCarAdapter mShopCarAdapter;
     private TextView total_sale,clearing;
     private LinearLayout shopcar_compile;
-
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private ShopCarAdapter.Callback mCallback;
+    private final String LOG_TAG="ShopCar";
+    private SharedPreferences sp;
+    private boolean isCheck=true;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.shopcar, container, false);
-        shopcar_listview = (ListView) view.findViewById(R.id.shopcar_listview);
-        checkBox_all = (CheckBox) view.findViewById(R.id.shopcar_all);
-        checkBox_all.setOnCheckedChangeListener(this);
-        total_sale = (TextView) view.findViewById(R.id.shopcar_totalsale);
-        shopcar_compile = (LinearLayout) view.findViewById(R.id.shopcar_compile);
-        shopcar_compile.setOnClickListener(this);
-        clearing= (TextView) view.findViewById(R.id.clearing);
-        clearing.setOnClickListener(this);
-        /**购物车数据*/
-        shopcar_list = new ArrayList<>();
-        bean1 = new ShopCar_ListBean("米其林轮胎", "200.9", R.mipmap.shopcar_01);
-        bean2 = new ShopCar_ListBean("米其林轮胎", "200.00", R.mipmap.shopcar_01);
-        bean3 = new ShopCar_ListBean("米其林轮胎", "200.00", R.mipmap.shopcar_01);
-        bean4 = new ShopCar_ListBean("米其林轮胎", "200.00", R.mipmap.shopcar_01);
-        shopcar_list.add(bean1);
-        shopcar_list.add(bean2);
-        shopcar_list.add(bean3);
-        shopcar_list.add(bean4);
+        init(view);
+        mCallback = new ShopCarAdapter.Callback() {
+            @Override
+            public void callBackPrice(double price) {
+                total_sale.setText(price+"");
+            }
+
+            @Override
+            public void callBackGoodsID(StringBuilder goodsID) {
+                reQuestDeleteShopCar(goodsID);
+            }
+
+            @Override
+            public void callBackisCheckAll(boolean b) {
+                if (!b){
+                    isCheck=false;
+                }
+                checkBox_all.setChecked(b);
+            }
+
+        };
         /**添加适配器*/
-        shopCar_listView_adapter = new ShopCar_ListView_Adapter(getActivity(), this, shopcar_list);
-        shopcar_listview.setAdapter(shopCar_listView_adapter);
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(manager);
+        mShopCarAdapter = new ShopCarAdapter(mRecyclerView,mCallback);
+        int spacing = getResources().getDimensionPixelSize(R.dimen.spacing);//为购物车列表没个Item之间加间隔
+        mRecyclerView.addItemDecoration(new SpaceItemDecoration(spacing));
+        mRecyclerView.setAdapter(mShopCarAdapter);
         return view;
     }
 
-    /**
-     * 实现adapter接口
-     */
     @Override
-    public void onCountChangeListener(int count, int position) {
-        ShopCar_ListBean shopCar_listBean = shopcar_list.get(position);
-        shopCar_listBean.setEt_count(count);
-        shopCar_listView_adapter.setlistGoodsBean(shopcar_list);
-        float totalPrize = getTotalPrize();
-        /**小数点后保留一位*/
-        BigDecimal decimal  =   new  BigDecimal(totalPrize);
-        float totalPrize1=decimal.setScale(2,BigDecimal.ROUND_HALF_UP).floatValue();
-        total_sale.setText(totalPrize1 + "");
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        requestShopCarData();
+        //下拉刷新组件，下拉从新进行网络请求
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                requestShopCarData();
+            }
+        });
+        //全选组件或者取消全选
+        checkBox_all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    mShopCarAdapter.allChecked();
+                    mShopCarAdapter.calculatePrice();
+                }else {
+                    if (isCheck){
+                        mShopCarAdapter.allcancel();
+                        mShopCarAdapter.calculatePrice();
+                        isCheck=true;
+                    }
+
+                }
+            }
+        });
+        showDialog();
     }
 
-    @Override
-    public void onItemCheckedChangeListener(boolean isCheck, int position) {
-        ShopCar_ListBean shopCar_listBean = shopcar_list.get(position);
-        shopCar_listBean.setIsCheck(isCheck);
-        shopCar_listView_adapter.setlistGoodsBean(shopcar_list);
-
-        boolean tag = isAllChecked(shopcar_list);
-        checkBox_all.setOnCheckedChangeListener(null);
-        checkBox_all.setChecked(tag);
-        checkBox_all.setOnCheckedChangeListener(this);
-
-        float totalPrize = getTotalPrize();
-        BigDecimal decimal  =   new  BigDecimal(totalPrize);
-        float totalPrize1=decimal.setScale(2,BigDecimal.ROUND_HALF_UP).floatValue();
-        total_sale.setText(totalPrize1 + "");
+    //显示购物车界面编辑对话框
+    public void showDialog(){
+        shopcar_compile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("确认删除");
+                builder.setMessage("是否删除选中的商品？");
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        mShopCarAdapter.deleteCommodity();
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.create().show();
+            }
+        });
     }
+    public void requestShopCarData(){
+        RequestParams params = new RequestParams(Global.SHOPCARDATA);
+        params.addBodyParameter("userid",sp.getString("userID",""));
+        x.http().post(params, new Callback.CacheCallback<String>() {
 
-    /**
-     * 判断是否全选
-     */
-    public boolean isAllChecked(List<ShopCar_ListBean> shopcar_list) {
-        for (int i = 0; i < shopcar_list.size(); i++) {
-            if (shopcar_list.get(i).getIsCheck()) {
-                continue;
-            } else {
+            @Override
+            public void onSuccess(String result) {
+                Log.v(LOG_TAG,"------------->"+result);
+                //获取到数据之后需要把之前加载的数据删除
+                mShopCarAdapter.removeData();
+                total_sale.setText("0");
+                Gson gson = new Gson();
+                ShopCarData carData = gson.fromJson(result,ShopCarData.class);
+                mShopCarAdapter.addData(carData.getData());
+                if (mSwipeRefreshLayout.isRefreshing()){
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(getActivity(), "服务器故障,请稍后重试", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
                 return false;
             }
-        }
-        return true;
+        });
     }
+    public void reQuestDeleteShopCar(StringBuilder goodsIDs){
+        RequestParams params = new RequestParams(Global.SHOPCARDELETEDATA);
+        params.addBodyParameter("userid",sp.getString("userID",""));
+        params.addBodyParameter("goods_id",goodsIDs.toString());
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                mShopCarAdapter.notifyDataSetChanged();
+                total_sale.setText("0");
+                Toast.makeText(getActivity(), "成功删除", Toast.LENGTH_SHORT).show();
+                Log.v(LOG_TAG,"------------>"+result);
+            }
 
-    /**
-     * 计算价格
-     */
-    public float getTotalPrize() {
-        float totalPrize = 0;
-        for (int i = 0; i < shopcar_list.size(); i++) {
-            ShopCar_ListBean shopCar_listBean = shopcar_list.get(i);
-            boolean isCheck = shopCar_listBean.getIsCheck();
-            if (isCheck) {
-                Log.d("tag", shopCar_listBean.getPrize() + "*******************");
-                Log.d("tag", shopCar_listBean.getShopcar_name() + "*******************");
-                totalPrize += Float.parseFloat(shopCar_listBean.getPrize()) * (shopCar_listBean.getEt_count());
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(getActivity(), "删除失败,请稍后重试", Toast.LENGTH_SHORT).show();
+            }
 
-
+            @Override
+            public void onCancelled(CancelledException cex) {
 
             }
-        }
-        return totalPrize;
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
-    /**
-     * 全选事件
-     */
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.shopcar_all:
-                for (int i = 0; i < shopcar_list.size(); i++) {
-                    shopcar_list.get(i).setIsCheck(isChecked);
-                    Log.i("tag", isChecked + "" + buttonView + "............");
-                }
-                shopCar_listView_adapter.setlistGoodsBean(shopcar_list);
-                float totalPrize = getTotalPrize();
-                BigDecimal decimal  =   new  BigDecimal(totalPrize);
-                float totalPrize1=decimal.setScale(2,BigDecimal.ROUND_HALF_UP).floatValue();
-                total_sale.setText(totalPrize1 + "");
-                break;
-
-        }
-
-    }
-
-    /**
-     * 删除，结算
-     */
-    @Override
-    public void onClick(View v) {
-        String getTotal_sale=total_sale.getText().toString();
-        switch (v.getId()) {
-            //TODO 删除
-            case R.id.shopcar_compile:
-                for (int i = 0; i < shopcar_list.size(); i++) {
-                    ShopCar_ListBean shopCar_listBean = shopcar_list.get(i);
-                    boolean isCheck = shopCar_listBean.getIsCheck();
-                    if (isCheck) {
-                        shopcar_list.remove(shopCar_listBean);
-                        i--;
-                        /**更新数据*/
-                        shopCar_listView_adapter.setlistGoodsBean(shopcar_list);
-                        total_sale.setText("0");
-                    }
-                }
-
-                break;
-            //TODO 结算
-            case R.id.clearing:
-                Intent intent=new Intent(getActivity(), PayActivity.class);
-                intent.putExtra("totalsale",getTotal_sale);
-                startActivity(intent);
-                break;
-        }
+    public void init(View view){
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.shopcar_recyclerview);
+        checkBox_all = (CheckBox) view.findViewById(R.id.shopcar_all);
+        total_sale = (TextView) view.findViewById(R.id.shopcar_totalsale);
+        shopcar_compile = (LinearLayout) view.findViewById(R.id.shopcar_compile);
+        clearing= (TextView) view.findViewById(R.id.clearing);
+        mSwipeRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.shopcar_swiperefreshlayout);
+        mSwipeRefreshLayout.setColorSchemeColors(Color.RED);
+        sp=getActivity().getSharedPreferences("userLogin",Context.MODE_PRIVATE);
     }
 }

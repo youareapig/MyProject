@@ -13,6 +13,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class RetrievePasswordActivity extends AppCompatActivity {
+
     @BindView(R.id.retrievrpasswordactivity_back)
     ImageView mBack;
     @BindView(R.id.retrievrpasswordactivity_telephone)
@@ -22,9 +23,9 @@ public class RetrievePasswordActivity extends AppCompatActivity {
     @BindView(R.id.retrievrpasswordactivity_getvercode)
     TextView mGetvercode;
     @BindView(R.id.retrievrpasswordactivity_userpassword)
-    EditText mRetrieverUserpassword;
-    @BindView(R.id.retrievrpasswordactivity_repeatuserpassword)
     EditText mUserpassword;
+    @BindView(R.id.retrievrpasswordactivity_repeatuserpassword)
+    EditText mRepeatuserpassword;
     @BindView(R.id.retrievrpasswordactivity_complete)
     TextView mComplete;
     private Unbinder unbinder;
@@ -41,6 +42,7 @@ public class RetrievePasswordActivity extends AppCompatActivity {
         unbinder.unbind();
         super.onDestroy();
     }
+
 
     @OnClick({R.id.retrievrpasswordactivity_getvercode, R.id.retrievrpasswordactivity_complete})
     public void onClick(View view) {
