@@ -15,7 +15,7 @@
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@mipmap/login_logo" />
+        android:src="@mipmap/logo" />
 </LinearLayout>
 
     <RelativeLayout
@@ -76,6 +76,7 @@
         android:background="#e7ebef">
 
         <TextView
+            android:id="@+id/forgetpassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"

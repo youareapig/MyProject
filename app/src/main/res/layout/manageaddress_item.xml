@@ -49,7 +49,8 @@
             android:layout_marginTop="2dp"
             android:background="#fff">
 
-            <CheckBox
+            <RadioButton
+                android:id="@+id/defaultAddress"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_centerVertical="true"

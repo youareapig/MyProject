@@ -53,7 +53,10 @@
         <activity android:name=".ManageAddressActivity" />
         <activity android:name=".RetrievePasswordActivity" />
         <activity android:name=".ModificationAddressActivity" />
-        <activity android:name=".ModificationPasswordActivity"></activity>
+        <activity
+            android:name=".ModificationPasswordActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".NoticeActivity"></activity>
     </application>
 
 </manifest>
