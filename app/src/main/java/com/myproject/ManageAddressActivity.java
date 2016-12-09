@@ -21,6 +21,7 @@ import java.util.List;
 
 import adpter.ManageAddress_Adapter;
 import bean.AddressBean;
+import bean.DataBean;
 import utils.Global;
 
 public class ManageAddressActivity extends AppCompatActivity implements View.OnClickListener{
@@ -29,7 +30,7 @@ public class ManageAddressActivity extends AppCompatActivity implements View.OnC
     private String userID;
     private Global global;
     private String AddressUrl;
-    private List<AddressBean.DataBean> mlist;
+    private List<DataBean> mlist;
     private ListView manageaddress_listview;
     private ProgressDialog progressDialog = null;
     @Override

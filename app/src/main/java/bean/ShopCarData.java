@@ -11,7 +11,7 @@ import java.util.List;
 public class ShopCarData  {
     private int  code;
     private String message;
-
+    private List<ShopCarBean> data;
     public List<ShopCarBean> getData() {
         return data;
     }
@@ -36,5 +36,5 @@ public class ShopCarData  {
         this.message = message;
     }
 
-    private List<ShopCarBean> data;
+
 }

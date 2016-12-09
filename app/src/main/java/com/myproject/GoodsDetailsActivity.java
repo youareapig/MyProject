@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -47,6 +48,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
     private Init init;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private static final String LOG_TAG="GoodsDetailsActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
         global = new Global();
         IMG = global.getUrl();
         URL = IMG + "api.php/Goods/goodsDetail";
-        AddURL = IMG + "api.php/Cart/carAdd";
+        AddURL = Global.SHOPCARADDDATA;
         init = (Init) getApplication();
         initview();
         sharedPreferences = getSharedPreferences("userLogin", MODE_PRIVATE);
@@ -95,7 +97,6 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                 //显示窗口
                 goodsDetailsPop.showAtLocation(GoodsDetailsActivity.this.findViewById(R.id.buy), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
                 goodsDetailsPop.setOutsideTouchable(true);
-
                 break;
             case R.id.goods_details_shopcar:
                 Intent intent = new Intent(GoodsDetailsActivity.this, MainActivity.class);
@@ -259,4 +260,5 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
             }
         });
     }
+
 }

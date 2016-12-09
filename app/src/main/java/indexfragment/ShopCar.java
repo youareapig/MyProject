@@ -24,11 +24,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.myproject.R;
-
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
-
 import java.util.List;
 
 import adpter.ShopCarAdapter;

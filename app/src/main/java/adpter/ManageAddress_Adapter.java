@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import org.xutils.x;
 import java.util.List;
 
 import bean.AddressBean;
+import bean.DataBean;
 import bean.UpdateAddressBean;
 import utils.Global;
 
@@ -33,14 +35,14 @@ import utils.Global;
  * Created by Administrator on 2016/12/7 0007.
  */
 public class ManageAddress_Adapter extends BaseAdapter {
-    private List<AddressBean.DataBean> list;
+    private List<DataBean> list;
     private LayoutInflater layoutInflater;
     private Global global;
     private String addr_id, userID;
     private SharedPreferences sharedPreferences;
     private Activity context;
 
-    public ManageAddress_Adapter(Activity context, List<AddressBean.DataBean> list) {
+    public ManageAddress_Adapter(Activity context, List<DataBean> list) {
         this.context = context;
         this.layoutInflater = context.getLayoutInflater();
         this.list = list;
@@ -72,9 +74,7 @@ public class ManageAddress_Adapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
-        final AddressBean.DataBean dataBean = list.get(position);
-
-
+        final DataBean dataBean = list.get(position);
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = layoutInflater.inflate(R.layout.manageaddress_item, null);
@@ -83,6 +83,7 @@ public class ManageAddress_Adapter extends BaseAdapter {
             holder.shrAddress = (TextView) convertView.findViewById(R.id.shraddress);
             holder.order_item_pinglun = (TextView) convertView.findViewById(R.id.order_item_pinglun);
             holder.deleteaddress= (TextView) convertView.findViewById(R.id.deleteaddress);
+            holder.mRelativeLayout= (RelativeLayout) convertView.findViewById(R.id.manageaddress_item_check);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -111,6 +112,18 @@ public class ManageAddress_Adapter extends BaseAdapter {
                 updateAddress(updateUrl,position);
             }
         });
+
+        if (context.getIntent().getBooleanExtra("isBack",false)){
+            holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.putExtra("address",dataBean);
+                    context.setResult(0,intent);
+                    context.finish();
+                }
+            });
+        }
         return convertView;
     }
 
@@ -119,6 +132,7 @@ public class ManageAddress_Adapter extends BaseAdapter {
         private TextView shrTel;
         private TextView shrAddress;
         private TextView order_item_pinglun,deleteaddress;
+        private RelativeLayout mRelativeLayout;
     }
 
     //TODO 删除收货地址

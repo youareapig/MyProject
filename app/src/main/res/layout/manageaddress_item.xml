@@ -12,6 +12,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:id="@+id/manageaddress_item_check"
             android:background="#fff">
 
             <TextView

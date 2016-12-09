@@ -1,24 +1,18 @@
 package bean;
 
-import java.util.List;
-
 /**
- * Created by Administrator on 2016/12/7 0007.
+ * Created by Administrator on 2016/12/8.
  */
-public class AddressBean {
-
-
-    private int code;
+public class OrderDataBean {
+    private String code;
     private String message;
+    private DatasBean data;
 
-
-    private List<DataBean> data;
-
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -30,13 +24,11 @@ public class AddressBean {
         this.message = message;
     }
 
-    public List<DataBean> getData() {
+    public DatasBean getData() {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(DatasBean data) {
         this.data = data;
     }
-
-
 }

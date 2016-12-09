@@ -13,13 +13,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.myproject.IndentActivity;
 import com.myproject.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import bean.OrderDataBean;
 import init.Init;
 import utils.Global;
+import utils.RequestUtil;
 
 /**
  * Created by Administrator on 2016/11/1 0001.
@@ -31,8 +39,10 @@ public class Goods_details_Pop extends PopupWindow implements View.OnClickListen
     private ImageView pop_img;
     private String IMG;
     private Global global;
+    private Context mContext;
     public Goods_details_Pop(Activity context) {
         super(context);
+        mContext=context;
         global =new Global();
         IMG= global.getUrl();
         LayoutInflater inflater = (LayoutInflater) context
@@ -90,6 +100,7 @@ public class Goods_details_Pop extends PopupWindow implements View.OnClickListen
         int num = Integer.parseInt(t_num);
         switch (v.getId()) {
             case R.id.pop_sure:
+                //RequestUtil.reQuestSureOrder(mContext,"4","2,3","1,2");
                 Intent intent=new Intent(v.getContext(),IndentActivity.class);
                 intent.putExtra("goodsnum",t_num);
                 v.getContext().startActivity(intent);
@@ -110,4 +121,5 @@ public class Goods_details_Pop extends PopupWindow implements View.OnClickListen
 
         }
     }
+
 }
