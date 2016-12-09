@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.myproject.GoodsListActivity;
+import com.myproject.NoticeActivity;
 import com.myproject.R;
 import com.myproject.SearchActivity;
 
@@ -44,7 +45,7 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
     private LooperTextView notice;
     private List<String> notice_list;
     private MainDownTimerView maindown;
-    private RelativeLayout indextitle;
+    private RelativeLayout indextitle,morenotice;
     private ObservableScrollView scrollView;
     private ImageView index_icon, index_search;
     private int height;
@@ -64,6 +65,8 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
         index_grideView = (Index_GrideView) view.findViewById(R.id.index_gridview);
         index_searchtext = (TextView) view.findViewById(R.id.index_searchtext);
         index_search = (ImageView) view.findViewById(R.id.index_search);
+        morenotice= (RelativeLayout) view.findViewById(R.id.morenotice);
+        morenotice.setOnClickListener(this);
         index_search.setOnClickListener(this);
         index_searchtext.setOnClickListener(this);
         list = new ArrayList<>();
@@ -150,6 +153,10 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
             case R.id.index_searchtext:
                 Intent intent=new Intent(getActivity(), SearchActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.morenotice:
+                Intent intent1=new Intent(getActivity(), NoticeActivity.class);
+                startActivity(intent1);
                 break;
         }
     }

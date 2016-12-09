@@ -22,7 +22,7 @@ import bean.UserBean;
 import utils.Global;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-    private TextView btn_login, user_regist;
+    private TextView btn_login, user_regist,forgetpassword;
     private EditText userphone, userpassword;
     private String getUserphone, getUserpassword;
     private SharedPreferences sharedPreferences;
@@ -41,6 +41,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         user_regist = (TextView) findViewById(R.id.regist);
         userphone = (EditText) findViewById(R.id.userphone);
         userpassword = (EditText) findViewById(R.id.userpassword);
+        forgetpassword= (TextView) findViewById(R.id.forgetpassword);
+        forgetpassword.setOnClickListener(this);
         btn_login.setOnClickListener(this);
         user_regist.setOnClickListener(this);
         Intent intent =this.getIntent();
@@ -65,6 +67,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.regist:
                 Intent intent = new Intent(LoginActivity.this, RegistActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.forgetpassword:
+                Intent intent1=new Intent(LoginActivity.this,RetrievePasswordActivity.class);
+                startActivity(intent1);
+                break;
         }
     }
 

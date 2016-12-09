@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +26,7 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.util.HashMap;
 import java.util.List;
 
 import bean.AddressBean;
@@ -41,6 +44,7 @@ public class ManageAddress_Adapter extends BaseAdapter {
     private String addr_id, userID;
     private SharedPreferences sharedPreferences;
     private Activity context;
+    private HashMap<String, Boolean> states = new HashMap<String, Boolean>();
 
     public ManageAddress_Adapter(Activity context, List<DataBean> list) {
         this.context = context;
@@ -84,6 +88,8 @@ public class ManageAddress_Adapter extends BaseAdapter {
             holder.order_item_pinglun = (TextView) convertView.findViewById(R.id.order_item_pinglun);
             holder.deleteaddress= (TextView) convertView.findViewById(R.id.deleteaddress);
             holder.mRelativeLayout= (RelativeLayout) convertView.findViewById(R.id.manageaddress_item_check);
+            holder.deleteaddress = (TextView) convertView.findViewById(R.id.deleteaddress);
+            holder.defaultAddress = (RadioButton) convertView.findViewById(R.id.defaultAddress);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -91,6 +97,42 @@ public class ManageAddress_Adapter extends BaseAdapter {
         holder.shrName.setText(dataBean.getShr_name());
         holder.shrTel.setText(dataBean.getShr_phone());
         holder.shrAddress.setText(dataBean.getShr_province() + dataBean.getShr_city() + dataBean.getShr_area() + dataBean.getShr_address());
+
+
+        //TODO 设置默认地址
+        //当RadioButton被选中时，将其状态记录进States中，并更新其他RadioButton的状态使它们不被选中
+        holder.defaultAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                global = new Global();
+                addr_id = dataBean.getAddr_id();
+                String setAddressUrl = global.getUrl() + "api.php/Member/changeStatusaddress";
+                //重置，确保最多只有一项被选中
+                for (String key : states.keySet()) {
+                    states.put(key, false);
+                }
+                states.put(String.valueOf(position), holder.defaultAddress.isChecked());
+                notifyDataSetChanged();
+                setAddress(setAddressUrl);
+            }
+
+        });
+        boolean res = true;
+        Log.i("set", "默认选中值" + dataBean.getStatus());
+
+        if (states.get(String.valueOf(position)) == null || states.get(String.valueOf(position)) == false) {
+            Log.i("set", "第一步");
+            res = false;
+            states.put(String.valueOf(position), false);
+        } else {
+            Log.i("set", "第二步");
+            res = true;
+            states.put(String.valueOf(position), true);
+
+        }
+        holder.defaultAddress.setChecked(res);
+
+
         //TODO 删除地址
         holder.order_item_pinglun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +151,7 @@ public class ManageAddress_Adapter extends BaseAdapter {
                 global = new Global();
                 addr_id = dataBean.getAddr_id();
                 String updateUrl = global.getUrl() + "api.php/Member/memberSaveaddress";
-                updateAddress(updateUrl,position);
+                updateAddress(updateUrl);
             }
         });
 
@@ -133,6 +175,8 @@ public class ManageAddress_Adapter extends BaseAdapter {
         private TextView shrAddress;
         private TextView order_item_pinglun,deleteaddress;
         private RelativeLayout mRelativeLayout;
+        private TextView order_item_pinglun, deleteaddress;
+        private RadioButton defaultAddress;
     }
 
     //TODO 删除收货地址
@@ -177,41 +221,76 @@ public class ManageAddress_Adapter extends BaseAdapter {
             }
         });
     }
-    private void updateAddress(String url, final int position){
-        RequestParams params=new RequestParams(url);
-        params.addBodyParameter("userid",userID);
-        params.addBodyParameter("addr_id",addr_id);
+
+    //TODO 修改地址
+    private void updateAddress(String url) {
+        RequestParams params = new RequestParams(url);
+        params.addBodyParameter("userid", userID);
+        params.addBodyParameter("addr_id", addr_id);
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Log.i("delete", "请求成功" + result);
-                Gson gson=new Gson();
-                UpdateAddressBean bean=gson.fromJson(result,UpdateAddressBean.class);
-                String name=bean.getData().getShr_name();
-                String phone=bean.getData().getShr_phone();
-                String province=bean.getData().getShr_province();
-                String city=bean.getData().getShr_city();
-                String county=bean.getData().getShr_area();
-                String addr=bean.getData().getShr_address();
-                String postcode=bean.getData().getZip_code();
-                String addressID=bean.getData().getAddr_id();
-                if (bean.getCode()==3000){
-                    Intent intent=new Intent(context,ModificationAddressActivity.class);
-                    intent.putExtra("updatename",name);
-                    intent.putExtra("updatephone",phone);
-                    intent.putExtra("updateprovince",province);
-                    intent.putExtra("updatecity",city);
-                    intent.putExtra("updatecounty",county);
-                    intent.putExtra("updateaddr",addr);
-                    intent.putExtra("updatepostcode",postcode);
-                    intent.putExtra("updateaddressID",addressID);
+                Gson gson = new Gson();
+                UpdateAddressBean bean = gson.fromJson(result, UpdateAddressBean.class);
+                String name = bean.getData().getShr_name();
+                String phone = bean.getData().getShr_phone();
+                String province = bean.getData().getShr_province();
+                String city = bean.getData().getShr_city();
+                String county = bean.getData().getShr_area();
+                String addr = bean.getData().getShr_address();
+                String postcode = bean.getData().getZip_code();
+                String addressID = bean.getData().getAddr_id();
+                if (bean.getCode() == 3000) {
+                    Intent intent = new Intent(context, ModificationAddressActivity.class);
+                    intent.putExtra("updatename", name);
+                    intent.putExtra("updatephone", phone);
+                    intent.putExtra("updateprovince", province);
+                    intent.putExtra("updatecity", city);
+                    intent.putExtra("updatecounty", county);
+                    intent.putExtra("updateaddr", addr);
+                    intent.putExtra("updatepostcode", postcode);
+                    intent.putExtra("updateaddressID", addressID);
                     context.startActivity(intent);
                 }
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Log.i("delete", "请求失败" );
+                Log.i("delete", "请求失败");
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
+    }
+
+    //TODO 设置默认地址
+    private void setAddress(String setAddressUrl) {
+        RequestParams params = new RequestParams(setAddressUrl);
+        params.addBodyParameter("userid", userID);
+        params.addBodyParameter("addr_id", addr_id);
+        x.http().post(params, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.i("delete", "默认地址设置成功: " + result);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Log.i("delete", "请求失败");
             }
 
             @Override
