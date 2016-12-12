@@ -8,6 +8,7 @@
     android:layout_height="150dp"
     android:background="#fff">
     <EditText
+        android:id="@+id/userinput"
         android:layout_width="328dp"
         android:layout_height="125dp"
         android:background="@drawable/hotsearch"
@@ -20,6 +21,7 @@
         android:layout_centerInParent="true"/>
 </RelativeLayout>
 <TextView
+    android:id="@+id/submit"
     android:layout_width="328dp"
     android:layout_height="40dp"
     android:text="提交"

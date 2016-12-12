@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -154,6 +155,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                 Gson gson = new Gson();
                 goodsdetailsbean = gson.fromJson(result, GoodsDetailsBean.class);
                 Log.i("tag",result);
+                Log.i("tag","HTML地址："+goodsdetailsbean.getData().getGoods_desc());
                 goods_details_introduce.setText(goodsdetailsbean.getData().getGoods_name());
                 goods_details_price.setText(goodsdetailsbean.getData().getShop_price());
                 goods_details_brank.setText(goodsdetailsbean.getData().getBran_name());

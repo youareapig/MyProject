@@ -56,7 +56,8 @@
         <activity
             android:name=".ModificationPasswordActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".NoticeActivity"></activity>
+        <activity android:name=".NoticeActivity" />
+        <activity android:name=".NoticeHtmlActivity"></activity>
     </application>
 
 </manifest>

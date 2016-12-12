@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import java.util.List;
 
 import adpter.Index_GridView_Adpter;
 import bean.GoodsList_Bean;
+import bean.IndexBean;
 import myview.Index_GrideView;
 import myview.LooperTextView;
 import myview.ObservableScrollView;
@@ -45,7 +47,7 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
     private LooperTextView notice;
     private List<String> notice_list;
     private MainDownTimerView maindown;
-    private RelativeLayout indextitle,morenotice;
+    private RelativeLayout indextitle, morenotice;
     private ObservableScrollView scrollView;
     private ImageView index_icon, index_search;
     private int height;
@@ -53,10 +55,14 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
     private List<HashMap<String, Object>> list;
     private HashMap<String, Object> hashMap1, hashMap2, hashMap3, hashMap4, hashMap5, hashMap6, hashMap7, hashMap8;
     private TextView index_searchtext;
+    private Global global;
+    private String indexNoticeUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.index, container, false);
+        global = new Global();
+        indexNoticeUrl = global.getUrl() + "api.php/Index/index";
         notice = (LooperTextView) view.findViewById(R.id.index_notice);
         maindown = (MainDownTimerView) view.findViewById(R.id.maindown);
         scrollView = (ObservableScrollView) view.findViewById(R.id.scrollview);
@@ -65,10 +71,12 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
         index_grideView = (Index_GrideView) view.findViewById(R.id.index_gridview);
         index_searchtext = (TextView) view.findViewById(R.id.index_searchtext);
         index_search = (ImageView) view.findViewById(R.id.index_search);
-        morenotice= (RelativeLayout) view.findViewById(R.id.morenotice);
+        morenotice = (RelativeLayout) view.findViewById(R.id.morenotice);
         morenotice.setOnClickListener(this);
         index_search.setOnClickListener(this);
         index_searchtext.setOnClickListener(this);
+
+
         list = new ArrayList<>();
         hashMap1 = new HashMap<>();
         hashMap1.put("id", "机油");
@@ -116,12 +124,11 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
                 scrollView.setScrollViewListener(Store.this);
             }
         });
-        /**实现公告翻滚效果*/
-        notice_list = new ArrayList<>();
-        notice_list.add("拒绝囧途，新车必备");
-        notice_list.add("新车必备,拒绝囧途!");
-        notice.setTipList(notice_list);
-        maindown.setDownTime(10000);
+
+        //TODO 请求网络接口
+        indexNotice();
+
+
         //TODO 倒计时抢购
         maindown.setDownTimerListener(new OnCountDownTimerListener() {
             @Override
@@ -130,7 +137,7 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
             }
         });
         //TODO 开始计时
-        maindown.startDownTimer();
+        //maindown.startDownTimer();
         return view;
     }
 
@@ -151,14 +158,56 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.index_searchtext:
-                Intent intent=new Intent(getActivity(), SearchActivity.class);
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
                 startActivity(intent);
                 break;
             case R.id.morenotice:
-                Intent intent1=new Intent(getActivity(), NoticeActivity.class);
+                Intent intent1 = new Intent(getActivity(), NoticeActivity.class);
                 startActivity(intent1);
                 break;
         }
+    }
+
+    private void indexNotice() {
+        RequestParams params = new RequestParams(indexNoticeUrl);
+        x.http().post(params, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                IndexBean indexBean = gson.fromJson(result, IndexBean.class);
+                notice_list = new ArrayList<>();
+                if (indexBean.getCode() == 4000) {
+                    for (int i = 0; i < indexBean.getData().getNewsInfo().size(); i++) {
+                        String b = indexBean.getData().getNewsInfo().get(i).getTitle();
+                        notice_list.add(b);
+                    }
+                    /**实现公告翻滚效果*/
+                    notice.setTipList(notice_list);
+                    maindown.setDownTime(10000);
+                }
+                Log.i("tag", "公告请求成功：" + result);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
     }
 
 }
