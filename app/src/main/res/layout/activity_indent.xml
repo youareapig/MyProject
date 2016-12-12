@@ -292,6 +292,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="17dp"
                 android:layout_marginTop="5dp"
+                android:id="@+id/activity_indent_price"
                 android:text="650.00"
                 android:textColor="#f94426"
                 android:textSize="@dimen/half_title" />
@@ -348,6 +349,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="210dp"
+            android:id="@+id/activity_indent_totalprice"
             android:text="650.00"
             android:textColor="#f94426"
             android:textSize="@dimen/half_title" />

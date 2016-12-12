@@ -149,9 +149,7 @@ public class ModificationAddressActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String result) {
                 Log.i("ok", "请求成功: " + result);
-                Intent intent = new Intent(ModificationAddressActivity.this, ManageAddressActivity.class);
-                startActivity(intent);
-                finish();
+                ModificationAddressActivity.this.finish();
             }
 
             @Override

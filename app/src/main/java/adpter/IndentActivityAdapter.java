@@ -14,7 +14,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import bean.GoodsDetailsBean;
 import bean.OrderDataBean;
+import bean.OrderMakeSureBean;
 import bean.orderBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,8 +26,8 @@ import utils.Global;
  * Created by Administrator on 2016/12/8.
  */
 public class IndentActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<orderBean> orderBeen = new ArrayList<>();
-    public void addData(List<orderBean> lists){
+    private List<OrderMakeSureBean> orderBeen = new ArrayList<>();
+    public void addData(List<OrderMakeSureBean> lists){
         orderBeen=lists;
         notifyDataSetChanged();
     }
@@ -40,11 +42,11 @@ public class IndentActivityAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ItemViewHolder viewHolder = (ItemViewHolder) holder;
         if (orderBeen!=null||orderBeen.isEmpty()){
-            orderBean orderBean = orderBeen.get(position);
-            ImageLoader.getInstance().displayImage(Global.SHOPCAR+orderBean.getImage(),viewHolder.indentGoodsImg);
-            viewHolder.indentName.setText(orderBean.getName());
-            viewHolder.indentGoodsNum.setText(orderBean.getNumber());
-            viewHolder.indentGoodsPrice.setText(orderBean.getGoods_price());
+            OrderMakeSureBean orderBean = orderBeen.get(position);
+            ImageLoader.getInstance().displayImage(new Global().getUrl()+orderBean.getImage(),viewHolder.indentGoodsImg);
+            viewHolder.indentName.setText(orderBean.getCommodityname());
+            viewHolder.indentGoodsNum.setText(orderBean.getCommoditynumber());
+            viewHolder.indentGoodsPrice.setText(orderBean.getCommdityprice());
         }
     }
 

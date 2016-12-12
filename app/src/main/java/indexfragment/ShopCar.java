@@ -2,6 +2,7 @@ package indexfragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.myproject.IndentActivity;
 import com.myproject.R;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -50,6 +52,7 @@ public class ShopCar extends Fragment  {
     private ShopCarAdapter.Callback mCallback;
     private final String LOG_TAG="ShopCar";
     private SharedPreferences sp;
+    private ShopCarData carData;
     private boolean isCheck=true;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +76,6 @@ public class ShopCar extends Fragment  {
                 }
                 checkBox_all.setChecked(b);
             }
-
         };
         /**添加适配器*/
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
@@ -98,24 +100,36 @@ public class ShopCar extends Fragment  {
         });
         //全选组件或者取消全选
         checkBox_all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
-                    mShopCarAdapter.allChecked();
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            if (b){
+                mShopCarAdapter.allChecked();
+                mShopCarAdapter.calculatePrice();
+            }else {
+                if (isCheck){
+                    mShopCarAdapter.allcancel();
                     mShopCarAdapter.calculatePrice();
-                }else {
-                    if (isCheck){
-                        mShopCarAdapter.allcancel();
-                        mShopCarAdapter.calculatePrice();
-                        isCheck=true;
-                    }
-
+                    isCheck=true;
                 }
+
+            }
+        }
+    });
+
+        showDialog();
+
+}
+    //结算选中的商品
+    public void clearingListener(){
+        clearing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mShopCarAdapter.clearingCommodity();
+                Intent intent = new Intent(getActivity(), IndentActivity.class);
+                startActivity(intent);
             }
         });
-        showDialog();
     }
-
     //显示购物车界面编辑对话框
     public void showDialog(){
         shopcar_compile.setOnClickListener(new View.OnClickListener() {
@@ -153,11 +167,12 @@ public class ShopCar extends Fragment  {
                 mShopCarAdapter.removeData();
                 total_sale.setText("0");
                 Gson gson = new Gson();
-                ShopCarData carData = gson.fromJson(result,ShopCarData.class);
+                carData = gson.fromJson(result,ShopCarData.class);
                 mShopCarAdapter.addData(carData.getData());
                 if (mSwipeRefreshLayout.isRefreshing()){
                     mSwipeRefreshLayout.setRefreshing(false);
                 }
+                clearingListener();
             }
 
             @Override

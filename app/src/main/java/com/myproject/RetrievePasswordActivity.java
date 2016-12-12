@@ -80,7 +80,7 @@ public class RetrievePasswordActivity extends AppCompatActivity {
                 String phone1 = mTelephone.getText().toString().trim();
                 String getCode = mVercode.getText().toString().trim();
                 String getUserpassword = mUserpassword.getText().toString().trim();
-                String getRetrieverUserpassword = mRetrieverUserpassword.getText().toString().trim();
+                String getRetrieverUserpassword = mRepeatuserpassword.getText().toString().trim();
                 if (TextUtils.isEmpty(getCode) || TextUtils.isEmpty(getUserpassword) || TextUtils.isEmpty(getRetrieverUserpassword)) {
                     Toast.makeText(RetrievePasswordActivity.this, "请输入验证码或新密码", Toast.LENGTH_SHORT).show();
                 } else {

@@ -50,14 +50,15 @@
             android:layout_marginTop="2dp"
             android:background="#fff">
 
-            <RadioButton
+            <CheckBox
                 android:id="@+id/defaultAddress"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
                 android:background="@drawable/shopcar_select"
-                android:button="@null" />
+                android:button="@null"
+                 />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -93,6 +94,7 @@
                 android:text="编辑"
                 android:textColor="#888888"
                 android:textSize="10sp" />
+
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

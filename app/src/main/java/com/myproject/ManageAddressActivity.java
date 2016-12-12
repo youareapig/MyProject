@@ -54,7 +54,6 @@ public class ManageAddressActivity extends AppCompatActivity implements View.OnC
             case R.id.addsite:
                 Intent intent=new Intent(ManageAddressActivity.this,CompileAddressActivity.class);
                 startActivity(intent);
-                finish();
                 break;
         }
     }

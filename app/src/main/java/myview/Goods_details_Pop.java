@@ -20,10 +20,12 @@ import com.myproject.IndentActivity;
 import com.myproject.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.greenrobot.eventbus.EventBus;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import bean.GoodsDetailsBean;
 import bean.OrderDataBean;
 import init.Init;
 import utils.Global;
@@ -40,15 +42,18 @@ public class Goods_details_Pop extends PopupWindow implements View.OnClickListen
     private String IMG;
     private Global global;
     private Context mContext;
-    public Goods_details_Pop(Activity context) {
+    private DissPupWindw mDismiss;
+    private GoodsDetailsBean.DataBean mDataBean;
+    public Goods_details_Pop(Activity context, DissPupWindw mDismiss, GoodsDetailsBean.DataBean mDataBean) {
         super(context);
         mContext=context;
+        this.mDataBean=mDataBean;
+        this.mDismiss=mDismiss;
         global =new Global();
         IMG= global.getUrl();
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mMenuView = inflater.inflate(R.layout.goods_details_pop, null);
-
         btn_sure = (Button) mMenuView.findViewById(R.id.pop_sure);
         tv_up = (TextView) mMenuView.findViewById(R.id.pop_up);
         tv_down = (TextView) mMenuView.findViewById(R.id.pop_down);
@@ -86,12 +91,10 @@ public class Goods_details_Pop extends PopupWindow implements View.OnClickListen
             }
         });
         //TODO 获取全局变量的图片和价格
-        Init init= (Init) context.getApplication();
-        String popImg=init.getPopImg();
-        String popPrice=init.getPopPrice();
-        Log.i("pop","取出的图片:"+popImg+"取出价格"+popPrice);
-        ImageLoader.getInstance().displayImage(IMG+popImg,pop_img);
-        pop_price.setText(popPrice);
+        if (mDataBean!=null){
+            ImageLoader.getInstance().displayImage(IMG+mDataBean.getThumb(),pop_img);
+            pop_price.setText(mDataBean.getShop_price());
+        }
     }
 
     @Override
@@ -100,10 +103,12 @@ public class Goods_details_Pop extends PopupWindow implements View.OnClickListen
         int num = Integer.parseInt(t_num);
         switch (v.getId()) {
             case R.id.pop_sure:
-                //RequestUtil.reQuestSureOrder(mContext,"4","2,3","1,2");
                 Intent intent=new Intent(v.getContext(),IndentActivity.class);
-                intent.putExtra("goodsnum",t_num);
+                intent.putExtra("goodsnum",num+"");
+                Log.d("num", num + "------------------------------个");
+                EventBus.getDefault().postSticky(mDataBean);
                 v.getContext().startActivity(intent);
+                mDismiss.dismiss();
                 break;
             case R.id.pop_up:
                 ++num;
@@ -121,5 +126,7 @@ public class Goods_details_Pop extends PopupWindow implements View.OnClickListen
 
         }
     }
-
+    public interface DissPupWindw{
+        void dismiss();
+    }
 }

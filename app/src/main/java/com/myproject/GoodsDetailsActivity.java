@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -40,16 +42,24 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
     private ViewPager goods_details_viewpage;
     private ImageView[] goods_details_pager_image, tips;
     private ViewGroup viewGroup;
+    private WebView mWebView;
     private List<GoodsDetailsBean.DataBean.PicBean> list;
     private RelativeLayout goods_details_shopcar;
     private ProgressDialog progressDialog = null;
     private GoodsDetailsBean goodsdetailsbean;
     private Global global;
-    private Init init;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private static final String LOG_TAG="GoodsDetailsActivity";
-
+    private GoodsDetailsBean.DataBean mDataBean;
+    private Goods_details_Pop.DissPupWindw mDisMiss= new Goods_details_Pop.DissPupWindw() {
+        @Override
+        public void dismiss() {
+            if (goodsDetailsPop!=null){
+                goodsDetailsPop.dismiss();
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +68,6 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
         IMG = global.getUrl();
         URL = IMG + "api.php/Goods/goodsDetail";
         AddURL = Global.SHOPCARADDDATA;
-        init = (Init) getApplication();
         initview();
         sharedPreferences = getSharedPreferences("userLogin", MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -70,6 +79,8 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
         userID = sharedPreferences.getString("userID", null);
         Log.i("goods", "用户ID" + userID);
         internet(resultGoodsid);
+        mWebView.loadUrl("https://www.baidu.com/");
+        mWebView.setWebViewClient(new WebViewClient());
     }
 
     public void initview() {
@@ -84,6 +95,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
         goods_details_price = (TextView) findViewById(R.id.goods_details_price);
         goods_details_brank = (TextView) findViewById(R.id.goods_details_brank);
         addshopcar = (TextView) findViewById(R.id.addshopcar);
+        mWebView= (WebView) findViewById(R.id.activity_goods_detail_webview);
         addshopcar.setOnClickListener(this);
     }
 
@@ -93,10 +105,11 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
         switch (v.getId()) {
             case R.id.buy:
                 //实例化SelectPicPopupWindow
-                goodsDetailsPop = new Goods_details_Pop(GoodsDetailsActivity.this);
+                goodsDetailsPop = new Goods_details_Pop(GoodsDetailsActivity.this,mDisMiss,mDataBean);
                 //显示窗口
                 goodsDetailsPop.showAtLocation(GoodsDetailsActivity.this.findViewById(R.id.buy), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
                 goodsDetailsPop.setOutsideTouchable(true);
+
                 break;
             case R.id.goods_details_shopcar:
                 Intent intent = new Intent(GoodsDetailsActivity.this, MainActivity.class);
@@ -158,10 +171,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                 goods_details_introduce.setText(goodsdetailsbean.getData().getGoods_name());
                 goods_details_price.setText(goodsdetailsbean.getData().getShop_price());
                 goods_details_brank.setText(goodsdetailsbean.getData().getBran_name());
-                //TODO 把商品图片和价格设置为全局变量,方便popuwindow获取
-                init.setPopImg(goodsdetailsbean.getData().getThumb());
-                init.setPopPrice(goodsdetailsbean.getData().getShop_price());
-
+                mDataBean=goodsdetailsbean.getData();
                 list = goodsdetailsbean.getData().getPic();
                 //点点图片数组
                 tips = new ImageView[list.size()];
@@ -230,9 +240,9 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
     public void addShopcar() {
         RequestParams params = new RequestParams(AddURL);
         params.addBodyParameter("userid", userID);
-        params.addBodyParameter("goods_id", resultGoodsid);
-        params.addBodyParameter("goods_price", goodsdetailsbean.getData().getShop_price());
-        Log.i("add", "参数" + userID + resultGoodsid + goodsdetailsbean.getData().getShop_price());
+        params.addBodyParameter("goods_id", mDataBean.getGoods_id());
+        params.addBodyParameter("goods_price", mDataBean.getShop_price());
+        Log.i("add", "参数" + userID + mDataBean.getGoods_id() + mDataBean.getShop_price());
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -260,5 +270,6 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
             }
         });
     }
+
 
 }

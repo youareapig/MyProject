@@ -14,10 +14,13 @@ import android.widget.TextView;
 import com.myproject.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Handler;
 
+import bean.OrderMakeSureBean;
 import bean.ShopCarBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -92,6 +95,25 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
             if (isCheck){
                 mCallback.callBackisCheckAll(isCheck);
+            }
+        }
+    }
+    //结算选中的商品
+    public void clearingCommodity(){
+        List<OrderMakeSureBean>  list = new ArrayList<>();
+        if (mShopCarBeans!=null){
+            for (ShopCarBean shopCarBean:mShopCarBeans){
+                if (shopCarBean.ischeck()){
+                    OrderMakeSureBean orderMakeSureBean = new OrderMakeSureBean();
+                    orderMakeSureBean.setCommoditynumber(shopCarBean.getNumber()+"");
+                    orderMakeSureBean.setImage(shopCarBean.getImage());
+                    orderMakeSureBean.setCommodityname(shopCarBean.getName());
+                    orderMakeSureBean.setCommdityprice(mPrice+"");
+                    list.add(orderMakeSureBean);
+                }
+            }
+            if (list!=null){
+                EventBus.getDefault().postSticky(list);
             }
         }
     }

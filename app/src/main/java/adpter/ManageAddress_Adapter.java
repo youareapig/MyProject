@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.myproject.CompileAddressActivity;
+import com.myproject.ManageAddressActivity;
 import com.myproject.ModificationAddressActivity;
 import com.myproject.R;
 
@@ -27,6 +29,7 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.util.HashMap;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 import bean.AddressBean;
@@ -45,6 +48,8 @@ public class ManageAddress_Adapter extends BaseAdapter {
     private SharedPreferences sharedPreferences;
     private Activity context;
     private HashMap<String, Boolean> states = new HashMap<String, Boolean>();
+    private  int index=-1;
+    private boolean isFirst=true;
 
     public ManageAddress_Adapter(Activity context, List<DataBean> list) {
         this.context = context;
@@ -76,8 +81,8 @@ public class ManageAddress_Adapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
+    public View getView(final int position, View convertView, final ViewGroup parent) {
+        final ViewHolder holder ;
         final DataBean dataBean = list.get(position);
         if (convertView == null) {
             holder = new ViewHolder();
@@ -88,8 +93,7 @@ public class ManageAddress_Adapter extends BaseAdapter {
             holder.order_item_pinglun = (TextView) convertView.findViewById(R.id.order_item_pinglun);
             holder.deleteaddress= (TextView) convertView.findViewById(R.id.deleteaddress);
             holder.mRelativeLayout= (RelativeLayout) convertView.findViewById(R.id.manageaddress_item_check);
-            holder.deleteaddress = (TextView) convertView.findViewById(R.id.deleteaddress);
-            holder.defaultAddress = (RadioButton) convertView.findViewById(R.id.defaultAddress);
+            holder.defaultAddress = (CheckBox) convertView.findViewById(R.id.defaultAddress);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -97,7 +101,6 @@ public class ManageAddress_Adapter extends BaseAdapter {
         holder.shrName.setText(dataBean.getShr_name());
         holder.shrTel.setText(dataBean.getShr_phone());
         holder.shrAddress.setText(dataBean.getShr_province() + dataBean.getShr_city() + dataBean.getShr_area() + dataBean.getShr_address());
-
 
         //TODO 设置默认地址
         //当RadioButton被选中时，将其状态记录进States中，并更新其他RadioButton的状态使它们不被选中
@@ -113,10 +116,11 @@ public class ManageAddress_Adapter extends BaseAdapter {
                 }
                 states.put(String.valueOf(position), holder.defaultAddress.isChecked());
                 notifyDataSetChanged();
-                setAddress(setAddressUrl);
+                setAddress(setAddressUrl,position);
             }
 
         });
+
         boolean res = true;
         Log.i("set", "默认选中值" + dataBean.getStatus());
 
@@ -130,9 +134,20 @@ public class ManageAddress_Adapter extends BaseAdapter {
             states.put(String.valueOf(position), true);
 
         }
-        holder.defaultAddress.setChecked(res);
-
-
+        if (!isFirst){
+            holder.defaultAddress.setChecked(res);
+            Log.v("646","--------------->"+"66"+position);
+        }
+        if (isFirst){
+            if (dataBean.getStatus().equals("1")){
+                isFirst=false;
+                holder.defaultAddress.setChecked(true);
+                Log.v("646","--------------->"+"55"+position);
+            }else {
+                holder.defaultAddress.setChecked(false);
+                Log.v("646","--------------->"+"66"+position);
+            }
+        }
         //TODO 删除地址
         holder.order_item_pinglun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,10 +188,9 @@ public class ManageAddress_Adapter extends BaseAdapter {
         private TextView shrName;
         private TextView shrTel;
         private TextView shrAddress;
-        private TextView order_item_pinglun,deleteaddress;
         private RelativeLayout mRelativeLayout;
         private TextView order_item_pinglun, deleteaddress;
-        private RadioButton defaultAddress;
+        private CheckBox defaultAddress;
     }
 
     //TODO 删除收货地址
@@ -278,7 +292,7 @@ public class ManageAddress_Adapter extends BaseAdapter {
     }
 
     //TODO 设置默认地址
-    private void setAddress(String setAddressUrl) {
+    private void setAddress(String setAddressUrl, final int position) {
         RequestParams params = new RequestParams(setAddressUrl);
         params.addBodyParameter("userid", userID);
         params.addBodyParameter("addr_id", addr_id);
@@ -286,6 +300,20 @@ public class ManageAddress_Adapter extends BaseAdapter {
             @Override
             public void onSuccess(String result) {
                 Log.i("delete", "默认地址设置成功: " + result);
+                SharedPreferences sp = context.getSharedPreferences("defaultaddress",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                DataBean dataBean =list.get(position);
+                editor.putString("addr_id",dataBean.getAddr_id());
+                editor.putString("shr_name",dataBean.getShr_name());
+                editor.putString("shr_province",dataBean.getShr_province());
+                editor.putString("shr_city",dataBean.getShr_city());
+                editor.putString("shr_area",dataBean.getShr_area());
+                editor.putString("shr_address",dataBean.getShr_address());
+                editor.putString("shr_phone",dataBean.getShr_phone());
+                editor.putString("zip_code",dataBean.getZip_code());
+                editor.putString("userid",dataBean.getUserid());
+                editor.putString("status",dataBean.getStatus());
+                editor.commit();
             }
 
             @Override
