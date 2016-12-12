@@ -73,7 +73,7 @@ public class ManageAddressActivity extends AppCompatActivity implements View.OnC
                     manageaddress_listview.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                 }else if (addressBean.getCode()==-3000){
-                    Toast.makeText(ManageAddressActivity.this,"获取数据失败",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ManageAddressActivity.this,"亲，你还没有添加收货地址哟！",Toast.LENGTH_SHORT).show();
                 }
             }
 
