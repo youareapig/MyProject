@@ -11,8 +11,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.myproject.GoodsDetailsActivity;
+import com.myproject.IndentActivity;
 import com.myproject.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.utils.L;
@@ -42,11 +44,13 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private RecyclerView mRecyclerView;
     private static final String LOG_TAG="ShopCarAdapter";
     private Callback mCallback;
+    private Context mContext;
     private double mPrice=0;
     private StringBuilder mGoodsID = new StringBuilder();
-    public ShopCarAdapter(RecyclerView mRecyclerView,Callback mCallback) {
+    public ShopCarAdapter(RecyclerView mRecyclerView,Callback mCallback,Context mContext) {
         this.mRecyclerView = mRecyclerView;
         this.mCallback=mCallback;
+        this.mContext=mContext;
     }
 
     @Override
@@ -123,8 +127,12 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     list.add(orderMakeSureBean);
                 }
             }
-            if (list!=null){
+            if (list!=null&&list.size()>=1){
                 EventBus.getDefault().postSticky(list);
+                Intent intent = new Intent(mContext, IndentActivity.class);
+                mContext.startActivity(intent);
+            }else {
+                Toast.makeText(mContext,"你还未选择任何商品",Toast.LENGTH_LONG).show();
             }
         }
     }

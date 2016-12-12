@@ -103,12 +103,15 @@ public class Goods_details_Pop extends PopupWindow implements View.OnClickListen
         int num = Integer.parseInt(t_num);
         switch (v.getId()) {
             case R.id.pop_sure:
-                Intent intent=new Intent(v.getContext(),IndentActivity.class);
-                intent.putExtra("goodsnum",num+"");
-                Log.d("num", num + "------------------------------个");
-                EventBus.getDefault().postSticky(mDataBean);
-                v.getContext().startActivity(intent);
-                mDismiss.dismiss();
+                if (mDataBean!=null){
+                    Intent intent=new Intent(v.getContext(),IndentActivity.class);
+                    intent.putExtra("goodsnum",num+"");
+                    Log.d("num", num + "------------------------------个");
+                    EventBus.getDefault().postSticky(mDataBean);
+                    v.getContext().startActivity(intent);
+                    mDismiss.dismiss();
+                }
+
                 break;
             case R.id.pop_up:
                 ++num;
