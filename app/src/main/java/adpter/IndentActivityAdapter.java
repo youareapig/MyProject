@@ -68,8 +68,6 @@ public class IndentActivityAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         TextView indentName;
         @BindView(R.id.indent_goods_num)
         TextView indentGoodsNum;
-        @BindView(R.id.indent_good_type)
-        TextView indentGoodType;
         @BindView(R.id.indent_goods_price)
         TextView indentGoodsPrice;
 

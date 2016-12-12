@@ -1,5 +1,7 @@
 package bean;
 
+import android.os.Parcelable;
+
 /**
  * Created by Administrator on 2016/12/10.
  */
@@ -8,6 +10,15 @@ public class OrderMakeSureBean {
     private String commodityname;
     private String commoditynumber;
     private String commdityprice;
+    private String commdityId;
+
+    public String getCommdityId() {
+        return commdityId;
+    }
+
+    public void setCommdityId(String commdityId) {
+        this.commdityId = commdityId;
+    }
 
     public String getImage() {
         return image;

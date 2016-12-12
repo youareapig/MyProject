@@ -69,17 +69,17 @@ public class ShopCarBean implements Parcelable{
     }
 
     public int getNumber() {
-        return number;
+        return goods_number;
     }
 
     public void setNumber(int number) {
-        this.number = number;
+        this.goods_number = number;
     }
 
     private String image;
     private String username;
     private boolean ischeck=false;
-    private int number=1;
+    private int goods_number;
 
 
     @Override

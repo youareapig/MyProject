@@ -9,6 +9,9 @@ public class Global {
     public static final String SHOPCARDATA="http://192.168.0.125/ailunphp/trunk/api.php/Cart/carDisplay";
     public static final String SHOPCARDELETEDATA="http://192.168.0.125/ailunphp/trunk/api.php/Cart/carDel";
     public static final String SUREODER="http://192.168.0.125/ailunphp/trunk/api.php/Cart/App_Order";
+    public static final String SHOPCARADDNUMBER="http://192.168.0.125/ailunphp/trunk/api.php/Cart/goods_number_plus";
+    public static final String SHOPCARREDUCENUMBER="http://192.168.0.125/ailunphp/trunk/api.php/Cart/goods_number_reduce";
+    public static final String SHOPCARORDER="http://192.168.0.125/ailunphp/trunk/api.php/Order/order";
     public String getUrl() {
         return url;
     }

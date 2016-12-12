@@ -1,6 +1,7 @@
 package adpter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,10 +12,15 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.myproject.GoodsDetailsActivity;
 import com.myproject.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.utils.L;
 
 import org.greenrobot.eventbus.EventBus;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +31,7 @@ import bean.ShopCarBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import utils.Global;
+import utils.RequestUtil;
 
 /**
  * Created by Administrator on 2016/12/6.
@@ -82,19 +89,22 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void calculatePrice(){
         mPrice=0;
         boolean isCheck=true;
+        boolean isCallBackCheck=true;
         if (mShopCarBeans!=null){
             for (ShopCarBean shopCarBean:mShopCarBeans){
                 if (shopCarBean.ischeck()){
                     mPrice+=(Double.parseDouble(shopCarBean.getGoods_price())*shopCarBean.getNumber());
                 }
                 if (!shopCarBean.ischeck()){
+                    isCallBackCheck=false;
                     isCheck=false;
-                    mCallback.callBackisCheckAll(isCheck);
                 }
                 mCallback.callBackPrice(mPrice);
             }
             if (isCheck){
-                mCallback.callBackisCheckAll(isCheck);
+                mCallback.callBackisCheckAll(isCallBackCheck);
+            }else {
+                mCallback.callBackisCheckAll(isCallBackCheck);
             }
         }
     }
@@ -108,7 +118,8 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     orderMakeSureBean.setCommoditynumber(shopCarBean.getNumber()+"");
                     orderMakeSureBean.setImage(shopCarBean.getImage());
                     orderMakeSureBean.setCommodityname(shopCarBean.getName());
-                    orderMakeSureBean.setCommdityprice(mPrice+"");
+                    orderMakeSureBean.setCommdityprice(shopCarBean.getGoods_price());
+                    orderMakeSureBean.setCommdityId(shopCarBean.getGoods_id());
                     list.add(orderMakeSureBean);
                 }
             }
@@ -137,18 +148,14 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             Log.v(LOG_TAG,"-------------->"+"deleteCommodity"+mShopCarBeans.size());
         }
     }
-    public void addComodity(){
-        if (mShopCarBeans!=null){
 
-        }
-    }
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final CommodityViewHolder viewHolder = (CommodityViewHolder) holder;
         Log.v(LOG_TAG,"----------->"+mShopCarBeans.size());
         Log.v(LOG_TAG,"--------------->"+position);
         if (mShopCarBeans==null||mShopCarBeans.isEmpty())return;
-            ShopCarBean listBean = mShopCarBeans.get(position);
+            final ShopCarBean listBean = mShopCarBeans.get(position);
             mCommodityNumber = mShopCarBeans.get(position).getNumber();
             viewHolder.mShopcarChoose.setOnCheckedChangeListener(null);
             viewHolder.mShopcarNumber.setText(listBean.getNumber()+"");
@@ -156,6 +163,14 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             viewHolder.mShopcarItemName.setText(listBean.getName());
             viewHolder.mShopcarItemSale.setText(listBean.getGoods_price());
             viewHolder.mShopcarChoose.setChecked(listBean.ischeck());
+            viewHolder.mShopcarItemName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), GoodsDetailsActivity.class);
+                    intent.putExtra("goodsID",listBean.getGoods_id());
+                    view.getContext().startActivity(intent);
+                }
+            });
             //页面跳转到详细商品界面
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -192,6 +207,7 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             notifyItemChanged(position);
                         }
                     });
+                    requestNumber(Global.SHOPCARADDNUMBER,mShopCarBeans.get(position).getUserid(),mShopCarBeans.get(position).getGoods_id());
                 }
             });
             viewHolder.mShopcarSubtract.setOnClickListener(new View.OnClickListener() {
@@ -210,6 +226,7 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             notifyItemChanged(position);
                         }
                     });
+                    requestNumber(Global.SHOPCARREDUCENUMBER,mShopCarBeans.get(position).getUserid(),mShopCarBeans.get(position).getGoods_id());
                 }
             });
     }
@@ -222,7 +239,32 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
         return count;
     }
+    public void requestNumber(String url,String userid,String goods_id){
+        RequestParams params = new RequestParams(url);
+        params.addBodyParameter("userid",userid);
+        params.addBodyParameter("goods_id",goods_id);
+        x.http().post(params, new org.xutils.common.Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.v(LOG_TAG,"------------->"+result);
+            }
 
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
     @Override
     public int getItemViewType(int position) {
         return super.getItemViewType(position);

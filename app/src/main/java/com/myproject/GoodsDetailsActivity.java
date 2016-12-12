@@ -33,6 +33,7 @@ import java.util.List;
 import adpter.GoodsDetails_Viewpage_Adapter;
 import bean.GoodsDetailsBean;
 import init.Init;
+import myview.GoodsDetailAdd;
 import myview.Goods_details_Pop;
 import utils.Global;
 
@@ -53,11 +54,20 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
     private SharedPreferences.Editor editor;
     private static final String LOG_TAG="GoodsDetailsActivity";
     private GoodsDetailsBean.DataBean mDataBean;
+    private GoodsDetailAdd mGoodsDetailAdd;
     private Goods_details_Pop.DissPupWindw mDisMiss= new Goods_details_Pop.DissPupWindw() {
         @Override
         public void dismiss() {
             if (goodsDetailsPop!=null){
                 goodsDetailsPop.dismiss();
+            }
+        }
+    };
+    private GoodsDetailAdd.DissPupWindw dissPupWindw = new GoodsDetailAdd.DissPupWindw() {
+        @Override
+        public void dismiss() {
+            if (mGoodsDetailAdd!=null){
+                mGoodsDetailAdd.dismiss();
             }
         }
     };
@@ -68,7 +78,6 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
         global = new Global();
         IMG = global.getUrl();
         URL = IMG + "api.php/Goods/goodsDetail";
-        AddURL = Global.SHOPCARADDDATA;
         initview();
         sharedPreferences = getSharedPreferences("userLogin", MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -123,7 +132,10 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                 String state = sharedPreferences.getString("state", null);
                 try {
                     if (state.equals("1")) {
-                        addShopcar();
+                        mGoodsDetailAdd = new GoodsDetailAdd(GoodsDetailsActivity.this,dissPupWindw,mDataBean,userID);
+                        //显示窗口
+                        mGoodsDetailAdd.showAtLocation(GoodsDetailsActivity.this.findViewById(R.id.addshopcar), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
+                        mGoodsDetailAdd.setOutsideTouchable(true);
                     }
                 } catch (Exception e) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(GoodsDetailsActivity.this);
@@ -239,39 +251,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    public void addShopcar() {
-        RequestParams params = new RequestParams(AddURL);
-        params.addBodyParameter("userid", userID);
-        params.addBodyParameter("goods_id", mDataBean.getGoods_id());
-        params.addBodyParameter("goods_price", mDataBean.getShop_price());
-        Log.i("add", "参数" + userID + mDataBean.getGoods_id() + mDataBean.getShop_price());
-        x.http().post(params, new Callback.CacheCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                Log.i("add", "请求成功：" + result);
-            }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                Log.i("add", "请求错误");
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-
-            @Override
-            public boolean onCache(String result) {
-                return false;
-            }
-        });
-    }
 
 
 }

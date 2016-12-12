@@ -10,10 +10,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +25,12 @@ import java.util.List;
 import adpter.IndentActivityAdapter;
 import bean.DataBean;
 import bean.GoodsDetailsBean;
+import bean.OrderData;
 import bean.OrderMakeSureBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import utils.Format;
+import utils.Global;
 
 
 public class IndentActivity extends AppCompatActivity {
@@ -44,7 +51,14 @@ public class IndentActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private IndentActivityAdapter adapter;
     private String result_goods_num;
+    private String mAddressID;
+    private StringBuilder builder = new StringBuilder();
+    private StringBuilder builder1 = new StringBuilder();
+    private StringBuilder builder2 = new StringBuilder();
+    private StringBuilder builder3 = new StringBuilder();
+    private SharedPreferences sp1;
     private List<OrderMakeSureBean> list = new ArrayList<>();
+    private OrderData mOrderData = new OrderData();
     private static final String LOG_TAG = "IndentActivity";
 
     @Override
@@ -54,6 +68,7 @@ public class IndentActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         adapter = new IndentActivityAdapter();
         buyatonce = (TextView) findViewById(R.id.buyatonce);
+        sp1 = getSharedPreferences("userLogin", MODE_PRIVATE);
         init();
         mRecyclerView = (RecyclerView) findViewById(R.id.activity_indent_recyclerview);
         LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -65,8 +80,7 @@ public class IndentActivity extends AppCompatActivity {
         buyatonce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(IndentActivity.this, PayActivity.class);
-                startActivity(intent1);
+                placeOrder(mOrderData);
             }
         });
         mAddressmanmger.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +103,8 @@ public class IndentActivity extends AppCompatActivity {
                 DataBean dataBean = data.getParcelableExtra("address");
                 mCustomer.setText(dataBean.getShr_name());
                 mTelephone.setText(dataBean.getShr_phone());
+                mAddressID=dataBean.getAddr_id();
+                mOrderData.setAddr(mAddressID);
                 if (dataBean.getShr_province().equals(dataBean.getShr_city())) {
                     mAddress.setText(dataBean.getShr_city() + dataBean.getShr_area() + dataBean.getShr_address() + dataBean.getAddr_id());
                 } else {
@@ -101,6 +117,8 @@ public class IndentActivity extends AppCompatActivity {
     public void init() {
         SharedPreferences sp = getSharedPreferences("defaultaddress", MODE_PRIVATE);
         if (sp != null) {
+            mOrderData.setAddr(sp.getString("addr_id",""));
+            mOrderData.setMessage("");
             mCustomer.setText(sp.getString("shr_name", ""));
             mTelephone.setText(sp.getString("shr_phone", ""));
             if (sp.getString("shr_province", "").equals(sp.getString("shr_city", ""))) {
@@ -120,6 +138,12 @@ public class IndentActivity extends AppCompatActivity {
             orderMakeSureBean.setImage(orderDataBean.getThumb());
             orderMakeSureBean.setCommoditynumber(result_goods_num);
             double price = Double.parseDouble(orderDataBean.getShop_price())*Integer.parseInt(result_goods_num);
+            mOrderData.setGoods_id(orderDataBean.getGoods_id());
+            mOrderData.setGoods_image(orderDataBean.getThumb());
+            mOrderData.setGoods_number(result_goods_num);
+            mOrderData.setGoods_total(price+"");
+            mOrderData.setTotal_price(price+"");
+            mOrderData.setSend_price("0");
             mPrice.setText(price+"");
             mTotalprice.setText(price+"");
             list.add(orderMakeSureBean);
@@ -134,12 +158,35 @@ public class IndentActivity extends AppCompatActivity {
         if (orderMakeSureBeen!=null){
             double price = 0;
             adapter.addData(orderMakeSureBeen);
+            builder.delete(0,builder.length());
+            builder1.delete(0,builder1.length());
+            builder2.delete(0,builder2.length());
+            builder3.delete(0,builder3.length());
             for (OrderMakeSureBean orderMakeSureBean:orderMakeSureBeen){
-
-                price+=Double.parseDouble(orderMakeSureBean.getCommdityprice());
+                double commedityprice=0;
+                price+=(Double.parseDouble(orderMakeSureBean.getCommdityprice())*Integer.parseInt(orderMakeSureBean.getCommoditynumber()));
+                commedityprice=Double.parseDouble(orderMakeSureBean.getCommdityprice())*Integer.parseInt(orderMakeSureBean.getCommoditynumber());
+                builder.append(",");
+                builder.append(orderMakeSureBean.getCommdityId());
+                builder1.append(",");
+                builder1.append(orderMakeSureBean.getCommoditynumber());
+                builder2.append(",");
+                builder2.append(orderMakeSureBean.getImage());
+                builder3.append(",");
+                builder3.append((commedityprice+""));
             }
-            mPrice.setText(price+"");
-            mTotalprice.setText(price+"");
+            builder.delete(0,1);
+            builder1.delete(0,1);
+            builder2.delete(0,1);
+            builder3.delete(0,1);
+            mOrderData.setSend_price("0");
+            mOrderData.setTotal_price(price+"");
+            mOrderData.setGoods_total(builder3.toString());
+            mOrderData.setGoods_number(builder1.toString());
+            mOrderData.setGoods_image(builder2.toString());
+            mOrderData.setGoods_id(builder.toString());
+            mPrice.setText(Format.formatDecimal(price));
+            mTotalprice.setText(Format.formatDecimal(price));
         }
     }
 
@@ -153,5 +200,39 @@ public class IndentActivity extends AppCompatActivity {
         super.onDestroy();
         EventBus.getDefault().removeAllStickyEvents();//移除所有粘性事件
         EventBus.getDefault().unregister(this);//取消注册事件总线
+    }
+    public void placeOrder(OrderData data){
+        RequestParams params = new RequestParams(Global.SHOPCARORDER);
+        params.addBodyParameter("userid",sp1.getString("userID",""));
+        params.addBodyParameter("goods_id",data.getGoods_id());
+        params.addBodyParameter("addr",data.getAddr());
+        params.addBodyParameter("goods_number",data.getGoods_number());
+        params.addBodyParameter("send_price",data.getSend_price());
+        params.addBodyParameter("total_price",data.getTotal_price());
+        params.addBodyParameter("goods_total",data.getGoods_total());
+        params.addBodyParameter("goods_image",data.getGoods_image());
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.v(LOG_TAG,"----------->"+result);
+                Intent intent1 = new Intent(IndentActivity.this, PayActivity.class);
+                startActivity(intent1);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(IndentActivity.this, "创建订单失败,请稍后重试", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 }

@@ -34,6 +34,7 @@ import java.util.List;
 import adpter.ShopCarAdapter;
 import bean.ShopCarBean;
 import bean.ShopCarData;
+import utils.Format;
 import utils.Global;
 import utils.SpaceItemDecoration;
 
@@ -61,7 +62,7 @@ public class ShopCar extends Fragment  {
         mCallback = new ShopCarAdapter.Callback() {
             @Override
             public void callBackPrice(double price) {
-                total_sale.setText(price+"");
+                total_sale.setText(Format.formatDecimal(price));
             }
 
             @Override
@@ -105,11 +106,12 @@ public class ShopCar extends Fragment  {
             if (b){
                 mShopCarAdapter.allChecked();
                 mShopCarAdapter.calculatePrice();
-            }else {
+            }
+            if (!b){
                 if (isCheck){
+                    isCheck=true;
                     mShopCarAdapter.allcancel();
                     mShopCarAdapter.calculatePrice();
-                    isCheck=true;
                 }
 
             }
@@ -165,7 +167,7 @@ public class ShopCar extends Fragment  {
                 Log.v(LOG_TAG,"------------->"+result);
                 //获取到数据之后需要把之前加载的数据删除
                 mShopCarAdapter.removeData();
-                total_sale.setText("0");
+                total_sale.setText("0.00");
                 Gson gson = new Gson();
                 carData = gson.fromJson(result,ShopCarData.class);
                 mShopCarAdapter.addData(carData.getData());
@@ -204,7 +206,7 @@ public class ShopCar extends Fragment  {
             @Override
             public void onSuccess(String result) {
                 mShopCarAdapter.notifyDataSetChanged();
-                total_sale.setText("0");
+                total_sale.setText("0.00");
                 Toast.makeText(getActivity(), "成功删除", Toast.LENGTH_SHORT).show();
                 Log.v(LOG_TAG,"------------>"+result);
             }
