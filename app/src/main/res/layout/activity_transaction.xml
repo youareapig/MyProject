@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.myproject.TransactionActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,342 +13,277 @@
         android:orientation="vertical">
 
 
-    <RelativeLayout
-        android:layout_marginTop="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="#fff">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
-            android:text="订单号:"
-            android:textColor="@color/c_black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/transaction_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="75dp"
-            android:text="9527"
-            android:textColor="@color/c_black"
-            android:textSize="12sp" />
-
-
-
-        <TextView
-            android:id="@+id/order_item_tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="16dp"
-            android:text="完成"
-            android:textColor="@color/c_blue"
-            android:textSize="12sp" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_marginTop="4dp"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="#fff">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="收货人:"
-            android:textColor="@color/c_black"
-            android:textSize="15sp"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="40dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="郑磊"
-            android:textColor="@color/c_black"
-            android:textSize="15sp"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="93dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="15983302246"
-            android:textColor="@color/c_black"
-            android:textSize="15sp"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="150dp"/>
-<ImageView
-    android:layout_width="20dp"
-    android:layout_height="20dp"
-    android:src="@mipmap/adr"
-    android:layout_alignParentBottom="true"
-    android:layout_marginBottom="19dp"
-    android:layout_marginLeft="16dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="收货地址:"
-            android:textSize="12sp"
-            android:textColor="@color/c_black"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="19dp"
-            android:layout_marginLeft="40dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="四川省成都市桐梓林"
-            android:textSize="12sp"
-            android:textColor="@color/c_black"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="19dp"
-            android:layout_marginLeft="95dp"
-            />
-        <ImageView
-            android:layout_width="8dp"
-            android:layout_height="14dp"
-            android:src="@mipmap/go"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="#fff"
-        android:layout_marginTop="8dp">
-        <ImageView
-            android:id="@+id/transaction_img"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@mipmap/shopcar_01"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"/>
-        <TextView
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:text="米其林啊米其林"
-            android:textSize="14sp"
-            android:textColor="@color/c_black"
-            android:layout_alignTop="@+id/transaction_img"
-            android:layout_toRightOf="@+id/transaction_img"
-            android:layout_marginLeft="8dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="数量：×"
-            android:textSize="12sp"
-            android:textColor="#888888"
-            android:layout_alignBottom="@+id/transaction_img"
-            android:layout_toRightOf="@+id/transaction_img"
-            android:layout_marginLeft="8dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1"
-            android:textSize="12sp"
-            android:textColor="#888888"
-            android:layout_alignBottom="@+id/transaction_img"
-            android:layout_toRightOf="@+id/transaction_img"
-            android:layout_marginLeft="52dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="轮胎类型："
-            android:textSize="12sp"
-            android:textColor="#888888"
-            android:layout_alignBottom="@+id/transaction_img"
-            android:layout_toRightOf="@+id/transaction_img"
-            android:layout_marginLeft="68dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="普通胎"
-            android:textSize="12sp"
-            android:textColor="#888888"
-            android:layout_alignBottom="@+id/transaction_img"
-            android:layout_toRightOf="@+id/transaction_img"
-            android:layout_marginLeft="128dp"/>
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="650"
-    android:textColor="#f94426"
-    android:textSize="15sp"
-    android:layout_centerVertical="true"
-    android:layout_alignParentRight="true"
-    android:layout_marginRight="16dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="¥"
-            android:textColor="#f94426"
-            android:textSize="15sp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="46dp"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_marginTop="1dp"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#fff">
-        <TextView
-            android:layout_width="60dp"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:text="追加评论"
-            android:gravity="center"
-            android:textSize="12sp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/hotsearch"/>
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="84dp"
-        android:orientation="vertical"
-        android:layout_marginTop="1dp"
-        android:background="#fff">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="商品总价"
-            android:textSize="12sp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"/>
+            android:layout_marginTop="8dp"
+            android:background="#fff">
 
             <TextView
-                android:id="@+id/transaction_sale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="650"
-                android:textSize="12sp"
                 android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="¥"
-                android:textSize="12sp"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/transaction_sale"
-                android:layout_marginRight="4dp"
-               />
-
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="服务费用"
-                android:textSize="12sp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"/>
-
-            <TextView
-                android:id="@+id/transaction_service"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="12sp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="¥"
-                android:textSize="12sp"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/transaction_service"
-                android:layout_marginRight="4dp"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="运费"
-                android:textSize="12sp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"/>
-
-            <TextView
-                android:id="@+id/transaction_transportation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="12sp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="¥"
-                android:textSize="12sp"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/transaction_transportation"
-                android:layout_marginRight="4dp"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="订单总价"
-                android:textSize="12sp"
+                android:layout_marginLeft="16dp"
+                android:text="订单号:"
                 android:textColor="@color/c_black"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"/>
+                android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/transaction_total"
+                android:id="@+id/transaction_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="12sp"
-                android:textColor="#f94426"
                 android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginLeft="75dp"
+                android:text="9527"
+                android:textColor="@color/c_black"
+                android:textSize="12sp" />
+
+
             <TextView
+                android:id="@+id/order_item_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="¥"
-                android:textSize="12sp"
-                android:textColor="#f94426"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/transaction_total"
-                android:layout_marginRight="4dp"
-                />
+                android:layout_marginRight="16dp"
+                android:text="完成"
+                android:textColor="@color/c_blue"
+                android:textSize="12sp" />
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="4dp"
+            android:background="#fff">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="12dp"
+                android:text="收货人:"
+                android:textColor="@color/c_black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/order_item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="93dp"
+                android:layout_marginTop="12dp"
+                android:text="郑磊"
+                android:textColor="@color/c_black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/order_item_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="12dp"
+                android:text="15983302246"
+                android:textColor="@color/c_black"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="19dp"
+                android:layout_marginLeft="16dp"
+                android:src="@mipmap/adr" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="19dp"
+                android:layout_marginLeft="40dp"
+                android:text="收货地址:"
+                android:textColor="@color/c_black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/order_item_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="19dp"
+                android:layout_marginLeft="95dp"
+                android:text="四川省成都市桐梓林"
+                android:textColor="@color/c_black"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="14dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:src="@mipmap/go" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="8dp"
+            android:background="#fff">
+
+            <ImageView
+                android:id="@+id/transaction_img"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:src="@mipmap/shopcar_01" />
+
+            <TextView
+                android:id="@+id/order_item_goodsimg"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/transaction_img"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/transaction_img"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="米其林啊米其林"
+                android:textColor="@color/c_black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/transaction_img"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/transaction_img"
+                android:text="数量：×"
+                android:textColor="#888888"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/order_item_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/transaction_img"
+                android:layout_marginLeft="52dp"
+                android:layout_toRightOf="@+id/transaction_img"
+                android:text="1"
+                android:textColor="#888888"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/transaction_img"
+                android:layout_marginLeft="68dp"
+                android:layout_toRightOf="@+id/transaction_img"
+                android:text="轮胎类型："
+                android:textColor="#888888"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/transaction_img"
+                android:layout_marginLeft="128dp"
+                android:layout_toRightOf="@+id/transaction_img"
+                android:text="普通胎"
+                android:textColor="#888888"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/order_item_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:text="650"
+                android:textColor="#f94426"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:text="¥"
+                android:layout_toLeftOf="@+id/order_item_price"
+                android:textColor="#f94426"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="1dp"
+            android:background="#fff">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/hotsearch"
+                android:gravity="center"
+                android:text="追加评论"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:background="#fff"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:text="商品总价"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/transaction_sale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:text="650"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="4dp"
+                    android:layout_toLeftOf="@+id/transaction_sale"
+                    android:text="¥"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+
+
+
+
+
+
+
     </LinearLayout>
-    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="#fff">
+
         <TextView
             android:id="@+id/order_item_pinglun"
             android:layout_width="60dp"
@@ -362,6 +298,7 @@
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/order_item_delete"
             android:layout_width="60dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"

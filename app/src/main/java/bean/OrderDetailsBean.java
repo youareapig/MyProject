@@ -1,35 +1,16 @@
 package bean;
 
-import java.util.List;
-
 /**
- * Created by Administrator on 2016/11/10 0010.
+ * Created by Administrator on 2016/12/12 0012.
  */
-public class Order_Bean {
+public class OrderDetailsBean {
 
-    /**
-     * code : 5000
-     * message : 数据查询成功
-     * data : [{"is_pay":"0","addtime":"1431378612","orderlist_id":"12","order_goods_id":"123456789","goods_name":"酷斯特/KUST 雪佛兰科鲁兹 刹车灯 奥烁40灯高亮LED刹车灯灯泡 09-14款老科","goods_count":"50","goods_price":"40.00","server_price":"0.00","goods_total":"2000.00","state":"0","goods_image":"Uploads/Goodspic/2016-11-21//5832c3e0113e7.png"}]
-     */
 
     private int code;
     private String message;
-    /**
-     * is_pay : 0
-     * addtime : 1431378612
-     * orderlist_id : 12
-     * order_goods_id : 123456789
-     * goods_name : 酷斯特/KUST 雪佛兰科鲁兹 刹车灯 奥烁40灯高亮LED刹车灯灯泡 09-14款老科
-     * goods_count : 50
-     * goods_price : 40.00
-     * server_price : 0.00
-     * goods_total : 2000.00
-     * state : 0
-     * goods_image : Uploads/Goodspic/2016-11-21//5832c3e0113e7.png
-     */
 
-    private List<DataBean> data;
+
+    private DataBean data;
 
     public int getCode() {
         return code;
@@ -47,18 +28,21 @@ public class Order_Bean {
         this.message = message;
     }
 
-    public List<DataBean> getData() {
+    public DataBean getData() {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(DataBean data) {
         this.data = data;
     }
 
     public static class DataBean {
         private String is_pay;
-        private String addtime;
-        private String orderlist_id;
+        private String remark;
+        private String consignee;
+        private String tel;
+        private String address;
+        private String goods_id;
         private String order_goods_id;
         private String goods_name;
         private String goods_count;
@@ -76,20 +60,44 @@ public class Order_Bean {
             this.is_pay = is_pay;
         }
 
-        public String getAddtime() {
-            return addtime;
+        public String getRemark() {
+            return remark;
         }
 
-        public void setAddtime(String addtime) {
-            this.addtime = addtime;
+        public void setRemark(String remark) {
+            this.remark = remark;
         }
 
-        public String getOrderlist_id() {
-            return orderlist_id;
+        public String getConsignee() {
+            return consignee;
         }
 
-        public void setOrderlist_id(String orderlist_id) {
-            this.orderlist_id = orderlist_id;
+        public void setConsignee(String consignee) {
+            this.consignee = consignee;
+        }
+
+        public String getTel() {
+            return tel;
+        }
+
+        public void setTel(String tel) {
+            this.tel = tel;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getGoods_id() {
+            return goods_id;
+        }
+
+        public void setGoods_id(String goods_id) {
+            this.goods_id = goods_id;
         }
 
         public String getOrder_goods_id() {
