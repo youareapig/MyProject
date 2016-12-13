@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,14 +50,16 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
     private MainDownTimerView maindown;
     private RelativeLayout indextitle, morenotice;
     private ObservableScrollView scrollView;
-    private ImageView index_icon, index_search;
+    private ImageView index_search;
     private int height;
     private Index_GrideView index_grideView;
     private List<HashMap<String, Object>> list;
     private HashMap<String, Object> hashMap1, hashMap2, hashMap3, hashMap4, hashMap5, hashMap6, hashMap7, hashMap8;
     private TextView index_searchtext;
     private Global global;
-    private String indexNoticeUrl;
+    private String indexNoticeUrl,bannerUrl;
+    private ViewPager index_viewpager;
+    private ViewGroup indexviewGroup;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,11 +70,12 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
         maindown = (MainDownTimerView) view.findViewById(R.id.maindown);
         scrollView = (ObservableScrollView) view.findViewById(R.id.scrollview);
         indextitle = (RelativeLayout) view.findViewById(R.id.indextitle);
-        index_icon = (ImageView) view.findViewById(R.id.index_icon);
         index_grideView = (Index_GrideView) view.findViewById(R.id.index_gridview);
         index_searchtext = (TextView) view.findViewById(R.id.index_searchtext);
         index_search = (ImageView) view.findViewById(R.id.index_search);
         morenotice = (RelativeLayout) view.findViewById(R.id.morenotice);
+        index_viewpager= (ViewPager) view.findViewById(R.id.index_viewpager);
+        indexviewGroup= (ViewGroup) view.findViewById(R.id.indexviewGroup);
         morenotice.setOnClickListener(this);
         index_search.setOnClickListener(this);
         index_searchtext.setOnClickListener(this);
@@ -114,13 +118,13 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
 
         //TODO ScrollView拖动变色
         indextitle.setBackgroundColor(Color.argb(0, 0xfd, 0x91, 0x5b));
-        ViewTreeObserver observer = index_icon.getViewTreeObserver();
+        ViewTreeObserver observer = index_viewpager.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                index_icon.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                height = index_icon.getHeight();
-                index_icon.getWidth();
+                index_viewpager.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                height = index_viewpager.getHeight();
+                index_viewpager.getWidth();
                 scrollView.setScrollViewListener(Store.this);
             }
         });
@@ -208,6 +212,9 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
                 return false;
             }
         });
+    }
+    private void banner(){
+
     }
 
 }

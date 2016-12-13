@@ -31,6 +31,7 @@ public class OrderActivity extends AppCompatActivity {
     private ListView orderListView;
     private TextView order_title;
     private Global global;
+    private OrderList_Adapter adapter;
     private String url, userID, urlHalf;
     private SharedPreferences sharedPreferences;
     private List<Order_Bean.DataBean> list;
@@ -156,7 +157,7 @@ public class OrderActivity extends AppCompatActivity {
         Order_Bean bean = gson.fromJson(result, Order_Bean.class);
         if (bean.getCode() == 5000) {
             list = bean.getData();
-            OrderList_Adapter adapter = new OrderList_Adapter(OrderActivity.this, list);
+            adapter = new OrderList_Adapter(OrderActivity.this, list);
             orderListView.setAdapter(adapter);
             orderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -164,11 +165,20 @@ public class OrderActivity extends AppCompatActivity {
                     Order_Bean.DataBean bean = (Order_Bean.DataBean) parent.getItemAtPosition(position);
                     Intent intent = new Intent(OrderActivity.this, TransactionActivity.class);
                     intent.putExtra("orderlist_id", bean.getOrderlist_id());
-                    startActivity(intent);
+                    startActivityForResult(intent,0);
                 }
             });
         } else if (bean.getCode() == -5000) {
             Toast.makeText(OrderActivity.this, "亲，你还没有下单哦！", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==0&&resultCode==1){
+            getOrder();
+            adapter.notifyDataSetChanged();
         }
     }
 }

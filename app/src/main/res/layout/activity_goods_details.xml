@@ -35,16 +35,16 @@
                 </RelativeLayout>
 
                 <TextView
-                    android:text="商品详情"
                     android:id="@+id/goods_details_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:text="商品详情"
                     android:textColor="#ffff"
                     android:textSize="@dimen/titele" />
             </RelativeLayout>
 
-            <FrameLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="310dp">
 
@@ -53,20 +53,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-                <RelativeLayout
+                <LinearLayout
+                    android:id="@+id/viewGroup"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal" />
 
-                    <LinearLayout
-                        android:id="@+id/viewGroup"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="30dp"
-                        android:gravity="center_horizontal"
-                        android:orientation="horizontal"/>
-                </RelativeLayout>
-            </FrameLayout>
+            </RelativeLayout>
 
 
             <RelativeLayout
@@ -81,9 +77,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="8dp"
-                    android:textColor="@color/c_black"
-                    android:lines="2"
                     android:ellipsize="end"
+                    android:lines="2"
+                    android:textColor="@color/c_black"
                     android:textSize="@dimen/half_title" />
 
                 <TextView
@@ -112,19 +108,19 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_toRightOf="@+id/goods_details_price"
                     android:text="256"
-                    android:layout_marginLeft="20dp"
                     android:textColor="@color/c_black"
                     android:textSize="12sp" />
 
                 <TextView
-                    android:layout_toRightOf="@+id/goods_details_salenum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="8dp"
                     android:layout_marginLeft="2dp"
+                    android:layout_toRightOf="@+id/goods_details_salenum"
                     android:text="人已购"
                     android:textColor="@color/c_black"
                     android:textSize="12sp" />
@@ -311,13 +307,13 @@
             </RelativeLayout>
 
             <!--<ImageView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="3232dp"-->
-                <!--android:scaleType="fitCenter"-->
-                <!--android:src="@mipmap/longimage" />-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="3232dp"-->
+            <!--android:scaleType="fitCenter"-->
+            <!--android:src="@mipmap/longimage" />-->
             <WebView
-                android:layout_width="match_parent"
                 android:id="@+id/activity_goods_detail_webview"
+                android:layout_width="match_parent"
                 android:layout_height="200dp"></WebView>
         </LinearLayout>
     </ScrollView>

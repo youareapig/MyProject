@@ -39,7 +39,8 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".WashActivity" />
         <activity android:name=".GarageActivity" />
-        <activity android:name=".OrderActivity" />
+        <activity android:name=".OrderActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".TransactionActivity" />
         <activity android:name=".ChooseCarTypeActivity" />
         <activity android:name=".ChhoseCarActivity" />

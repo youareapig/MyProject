@@ -39,7 +39,7 @@ import utils.Global;
 
 public class GoodsDetailsActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private TextView buy, goods_details_introduce, goods_details_price, goods_details_brank, addshopcar;
-    private String IMG, resultGoodsid, URL, userID, AddURL;
+    private String IMG, resultGoodsid, URL, userID;
     private Goods_details_Pop goodsDetailsPop;
     private ViewPager goods_details_viewpage;
     private ImageView[] goods_details_pager_image, tips;
@@ -52,13 +52,13 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
     private Global global;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    private static final String LOG_TAG="GoodsDetailsActivity";
+    private static final String LOG_TAG = "GoodsDetailsActivity";
     private GoodsDetailsBean.DataBean mDataBean;
     private GoodsDetailAdd mGoodsDetailAdd;
-    private Goods_details_Pop.DissPupWindw mDisMiss= new Goods_details_Pop.DissPupWindw() {
+    private Goods_details_Pop.DissPupWindw mDisMiss = new Goods_details_Pop.DissPupWindw() {
         @Override
         public void dismiss() {
-            if (goodsDetailsPop!=null){
+            if (goodsDetailsPop != null) {
                 goodsDetailsPop.dismiss();
             }
         }
@@ -66,11 +66,12 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
     private GoodsDetailAdd.DissPupWindw dissPupWindw = new GoodsDetailAdd.DissPupWindw() {
         @Override
         public void dismiss() {
-            if (mGoodsDetailAdd!=null){
+            if (mGoodsDetailAdd != null) {
                 mGoodsDetailAdd.dismiss();
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +106,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
         goods_details_price = (TextView) findViewById(R.id.goods_details_price);
         goods_details_brank = (TextView) findViewById(R.id.goods_details_brank);
         addshopcar = (TextView) findViewById(R.id.addshopcar);
-        mWebView= (WebView) findViewById(R.id.activity_goods_detail_webview);
+        mWebView = (WebView) findViewById(R.id.activity_goods_detail_webview);
         addshopcar.setOnClickListener(this);
     }
 
@@ -115,7 +116,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
         switch (v.getId()) {
             case R.id.buy:
                 //实例化SelectPicPopupWindow
-                goodsDetailsPop = new Goods_details_Pop(GoodsDetailsActivity.this,mDisMiss,mDataBean);
+                goodsDetailsPop = new Goods_details_Pop(GoodsDetailsActivity.this, mDisMiss, mDataBean);
                 //显示窗口
                 goodsDetailsPop.showAtLocation(GoodsDetailsActivity.this.findViewById(R.id.buy), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
                 goodsDetailsPop.setOutsideTouchable(true);
@@ -132,7 +133,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                 String state = sharedPreferences.getString("state", null);
                 try {
                     if (state.equals("1")) {
-                        mGoodsDetailAdd = new GoodsDetailAdd(GoodsDetailsActivity.this,dissPupWindw,mDataBean,userID);
+                        mGoodsDetailAdd = new GoodsDetailAdd(GoodsDetailsActivity.this, dissPupWindw, mDataBean, userID);
                         //显示窗口
                         mGoodsDetailAdd.showAtLocation(GoodsDetailsActivity.this.findViewById(R.id.addshopcar), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
                         mGoodsDetailAdd.setOutsideTouchable(true);
@@ -180,12 +181,12 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 goodsdetailsbean = gson.fromJson(result, GoodsDetailsBean.class);
-                Log.i("tag",result);
-                Log.i("tag","HTML地址："+goodsdetailsbean.getData().getGoods_desc());
+                Log.i("tag", result);
+                Log.i("tag", "HTML地址：" + goodsdetailsbean.getData().getGoods_desc());
                 goods_details_introduce.setText(goodsdetailsbean.getData().getGoods_name());
                 goods_details_price.setText(goodsdetailsbean.getData().getShop_price());
                 goods_details_brank.setText(goodsdetailsbean.getData().getBran_name());
-                mDataBean=goodsdetailsbean.getData();
+                mDataBean = goodsdetailsbean.getData();
                 list = goodsdetailsbean.getData().getPic();
                 //点点图片数组
                 tips = new ImageView[list.size()];
@@ -250,8 +251,6 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
             }
         }
     }
-
-
 
 
 }
