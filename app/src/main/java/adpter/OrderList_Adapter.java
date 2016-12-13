@@ -2,6 +2,8 @@ package adpter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,22 +100,44 @@ public class OrderList_Adapter extends BaseAdapter {
         holder.tv_goodsnumber.setText(bean.getGoods_count());
         holder.tv_goodsprice.setText(bean.getGoods_price());
         holder.tv_totalprice.setText(gPrice);
+        Log.i("tag","订单状态"+orderTag);
         if (orderTag.equals("0")){
             holder.tv_state.setText("未支付");
-        }else {
+        }else if (orderTag.equals("1")){
             if (orderTag1.equals("0")){
                 holder.tv_state.setText("未发货");
             }else if (orderTag1.equals("1")){
                 holder.tv_state.setText("已发货");
             }else if (orderTag1.equals("2")){
                 holder.tv_state.setText("已收货");
+            }else if (orderTag1.equals("3")){
+                holder.tv_state.setText("交易成功");
+            }else if (orderTag1.equals("4")){
+                holder.tv_state.setText("未评论");
+            }else if (orderTag1.equals("5")){
+                holder.tv_state.setText("已评论");
+            }else if (orderTag1.equals("6")){
+                holder.tv_state.setText("交易关闭");
+            }else if (orderTag1.equals("7")){
+                holder.tv_state.setText("已删除");
             }
         }
         holder.order_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            String orderID=bean.getOrderlist_id();
-                deleteOrder(orderID,position);
+            final String orderID=bean.getOrderlist_id();
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("提示");
+                builder.setMessage("确定删除该订单？");
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteOrder(orderID,position);
+                    }
+                });
+                builder.setNegativeButton("取消", null);
+                builder.show();
+
             }
         });
 
@@ -140,6 +164,7 @@ public class OrderList_Adapter extends BaseAdapter {
             return sdf.format(date);
         }
     }
+    //TODO 删除订单
     private void deleteOrder(String orderID, final int position){
         Log.i("tag","删除订单编号："+orderID+delteUrl);
         RequestParams params=new RequestParams(delteUrl);

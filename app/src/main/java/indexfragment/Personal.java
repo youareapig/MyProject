@@ -44,6 +44,7 @@ public class Personal extends Fragment implements View.OnClickListener {
     private String userID,mUrl;
     private CircleImageView personal_head;
     private Global global;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.personal, container, false);
@@ -87,27 +88,32 @@ public class Personal extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.personal_allorder:
                 Intent intent = new Intent(getActivity(), OrderActivity.class);
-                intent.putExtra("title", personal_allorder.getText().toString());
+                editor.putString("title",personal_allorder.getText().toString()).apply();
+                editor.putString("ordertype","all").apply();
                 startActivity(intent);
                 break;
             case R.id.waitpay:
                 Intent intent1 = new Intent(getActivity(), OrderActivity.class);
-                intent1.putExtra("title", "待付款");
+                editor.putString("title","待付款").apply();
+                editor.putString("ordertype","0").apply();
                 startActivity(intent1);
                 break;
             case R.id.waitreceive:
                 Intent intent2 = new Intent(getActivity(), OrderActivity.class);
-                intent2.putExtra("title", "待收货");
+                editor.putString("title","待收货").apply();
+                editor.putString("ordertype","1").apply();
                 startActivity(intent2);
                 break;
             case R.id.waitinstall:
                 Intent intent3 = new Intent(getActivity(), OrderActivity.class);
-                intent3.putExtra("title", "待安装");
+                editor.putString("title","已签收").apply();
+                editor.putString("ordertype","2").apply();
                 startActivity(intent3);
                 break;
             case R.id.waitevaluate:
                 Intent intent4 = new Intent(getActivity(), OrderActivity.class);
-                intent4.putExtra("title", "待评价");
+                editor.putString("title","待评价").apply();
+                editor.putString("ordertype","4").apply();
                 startActivity(intent4);
                 break;
             //TODO 我的车库
