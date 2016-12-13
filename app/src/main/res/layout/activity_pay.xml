@@ -89,6 +89,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:id="@+id/activity_pay_weixin"
         android:layout_marginTop="2dp"
         android:background="#ffffff">
 
@@ -124,6 +125,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:id="@+id/activity_pay_zhifubao"
         android:layout_marginTop="2dp"
         android:background="#ffffff">
 
@@ -159,6 +161,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:id="@+id/activity_pay_yinlian"
         android:layout_marginTop="2dp"
         android:background="#ffffff">
 
