@@ -26,6 +26,8 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.myproject.IndentActivity;
 import com.myproject.R;
+import com.nostra13.universalimageloader.utils.L;
+
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -75,13 +77,16 @@ public class ShopCar extends Fragment  {
                 if (!b){
                     isCheck=false;
                 }
+                if (b){
+                    isCheck=true;
+                }
                 checkBox_all.setChecked(b);
             }
         };
         /**添加适配器*/
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(manager);
-        mShopCarAdapter = new ShopCarAdapter(mRecyclerView,mCallback);
+        mShopCarAdapter = new ShopCarAdapter(mRecyclerView,mCallback,getActivity());
         int spacing = getResources().getDimensionPixelSize(R.dimen.spacing);//为购物车列表没个Item之间加间隔
         mRecyclerView.addItemDecoration(new SpaceItemDecoration(spacing));
         mRecyclerView.setAdapter(mShopCarAdapter);
@@ -108,12 +113,13 @@ public class ShopCar extends Fragment  {
                 mShopCarAdapter.calculatePrice();
             }
             if (!b){
+                Log.v(LOG_TAG,"---------------->ischeck"+isCheck);
                 if (isCheck){
                     isCheck=true;
+                    Log.v(LOG_TAG,"---------------->ischeck"+b);
                     mShopCarAdapter.allcancel();
                     mShopCarAdapter.calculatePrice();
                 }
-
             }
         }
     });
@@ -127,8 +133,7 @@ public class ShopCar extends Fragment  {
             @Override
             public void onClick(View view) {
                 mShopCarAdapter.clearingCommodity();
-                Intent intent = new Intent(getActivity(), IndentActivity.class);
-                startActivity(intent);
+
             }
         });
     }
@@ -174,6 +179,7 @@ public class ShopCar extends Fragment  {
                 if (mSwipeRefreshLayout.isRefreshing()){
                     mSwipeRefreshLayout.setRefreshing(false);
                 }
+                checkBox_all.setChecked(false);
                 clearingListener();
             }
 

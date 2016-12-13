@@ -143,7 +143,7 @@ public class IndentActivity extends AppCompatActivity {
             mOrderData.setGoods_number(result_goods_num);
             mOrderData.setGoods_total(price+"");
             mOrderData.setTotal_price(price+"");
-            mOrderData.setSend_price("0");
+            mOrderData.setSend_price("0.00");
             mPrice.setText(price+"");
             mTotalprice.setText(price+"");
             list.add(orderMakeSureBean);
@@ -206,11 +206,14 @@ public class IndentActivity extends AppCompatActivity {
         params.addBodyParameter("userid",sp1.getString("userID",""));
         params.addBodyParameter("goods_id",data.getGoods_id());
         params.addBodyParameter("addr",data.getAddr());
+        params.addBodyParameter("message","");
         params.addBodyParameter("goods_number",data.getGoods_number());
         params.addBodyParameter("send_price",data.getSend_price());
         params.addBodyParameter("total_price",data.getTotal_price());
         params.addBodyParameter("goods_total",data.getGoods_total());
         params.addBodyParameter("goods_image",data.getGoods_image());
+        Log.v(LOG_TAG,"-------->"+sp1.getString("userID","")+"&"+data.getGoods_id()+"&"+"&"+data.getAddr()+"&"+data.getGoods_number()+"&"
+                +data.getSend_price()+"&"+data.getTotal_price()+"&"+data.getGoods_total()+"&"+data.getGoods_image());
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
