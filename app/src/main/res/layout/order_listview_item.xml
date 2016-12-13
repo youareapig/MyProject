@@ -41,7 +41,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="16dp"
-                android:text="已完成"
                 android:textColor="@color/c_blue"
                 android:textSize="12sp" />
         </RelativeLayout>
@@ -57,8 +56,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
-                android:src="@mipmap/shopcar_01" />
+                android:layout_marginLeft="16dp" />
 
             <TextView
                 android:id="@+id/order_item_name"
@@ -80,7 +78,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="8dp"
-                android:text="650"
                 android:textColor="#f94426"
                 android:textSize="15sp" />
 
@@ -139,7 +136,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="16dp"
-                android:text="650"
                 android:textColor="#f94426"
                 android:textSize="15sp" />
 

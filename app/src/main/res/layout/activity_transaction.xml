@@ -34,7 +34,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="75dp"
-                android:text="9527"
                 android:textColor="@color/c_black"
                 android:textSize="12sp" />
 
@@ -46,7 +45,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="16dp"
-                android:text="完成"
                 android:textColor="@color/c_blue"
                 android:textSize="12sp" />
         </RelativeLayout>
@@ -72,7 +70,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="93dp"
                 android:layout_marginTop="12dp"
-                android:text="郑磊"
                 android:textColor="@color/c_black"
                 android:textSize="15sp" />
 
@@ -82,7 +79,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="150dp"
                 android:layout_marginTop="12dp"
-                android:text="15983302246"
                 android:textColor="@color/c_black"
                 android:textSize="15sp" />
 
@@ -111,7 +107,6 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="19dp"
                 android:layout_marginLeft="95dp"
-                android:text="四川省成都市桐梓林"
                 android:textColor="@color/c_black"
                 android:textSize="12sp" />
 
@@ -136,7 +131,7 @@
                 android:layout_height="60dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
-                android:src="@mipmap/shopcar_01" />
+                 />
 
             <TextView
                 android:id="@+id/order_item_goodsimg"
@@ -147,7 +142,6 @@
                 android:layout_toRightOf="@+id/transaction_img"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="米其林啊米其林"
                 android:textColor="@color/c_black"
                 android:textSize="14sp" />
 
@@ -168,7 +162,6 @@
                 android:layout_alignBottom="@+id/transaction_img"
                 android:layout_marginLeft="52dp"
                 android:layout_toRightOf="@+id/transaction_img"
-                android:text="1"
                 android:textColor="#888888"
                 android:textSize="12sp" />
 
@@ -199,7 +192,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="16dp"
-                android:text="650"
                 android:textColor="#f94426"
                 android:textSize="15sp" />
 
@@ -256,7 +248,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="16dp"
-                    android:text="650"
                     android:textSize="12sp" />
 
                 <TextView

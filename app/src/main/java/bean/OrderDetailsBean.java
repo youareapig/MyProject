@@ -9,7 +9,6 @@ public class OrderDetailsBean {
     private int code;
     private String message;
 
-
     private DataBean data;
 
     public int getCode() {
@@ -42,6 +41,7 @@ public class OrderDetailsBean {
         private String consignee;
         private String tel;
         private String address;
+        private String orderlist_id;
         private String goods_id;
         private String order_goods_id;
         private String goods_name;
@@ -90,6 +90,14 @@ public class OrderDetailsBean {
 
         public void setAddress(String address) {
             this.address = address;
+        }
+
+        public String getOrderlist_id() {
+            return orderlist_id;
+        }
+
+        public void setOrderlist_id(String orderlist_id) {
+            this.orderlist_id = orderlist_id;
         }
 
         public String getGoods_id() {

@@ -208,7 +208,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="8dp"
-                        android:text="待安装"
+                        android:text="已签收"
                         android:textColor="@color/c_black"
                         android:textSize="14sp" />
                 </RelativeLayout>
