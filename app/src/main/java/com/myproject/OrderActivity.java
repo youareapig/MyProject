@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class OrderActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private List<Order_Bean.DataBean> list;
     private ProgressDialog progressDialog = null;
+    private RelativeLayout order_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,13 @@ public class OrderActivity extends AppCompatActivity {
         urlHalf = global.getUrl() + "api.php/Memberorder/orderState";
         orderListView = (ListView) findViewById(R.id.order_listview);
         order_title = (TextView) findViewById(R.id.order_title);
+        order_back= (RelativeLayout) findViewById(R.id.order_back);
+        order_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         //TODO 设置标题
 
         String resultTitle = sharedPreferences.getString("title", null);

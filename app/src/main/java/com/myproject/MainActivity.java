@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView index_name, store_name, shopcar_name, personal_name;
     private int currentIndex = 0;
     private SharedPreferences sharedPreferences;
+    private String state;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,22 +133,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 personal_name.setTextColor(this.getResources().getColor(R.color.c_black));
                 break;
             case R.id.shopcar:
-                currentIndex = 2;
+                state = sharedPreferences.getString("state", null);
+                try {
+                    if (state.equals("1")) {
+                        currentIndex = 2;
+                        showFragment();
+                        index_img.setImageResource(R.mipmap.store_uncheck);
+                        index_name.setTextColor(this.getResources().getColor(R.color.c_black));
+                        store_img.setImageResource(R.mipmap.classify_uncheck);
+                        store_name.setTextColor(this.getResources().getColor(R.color.c_black));
+                        shopcar_img.setImageResource(R.mipmap.shopcar_check);
+                        shopcar_name.setTextColor(this.getResources().getColor(R.color.c_blue));
+                        personal_img.setImageResource(R.mipmap.person_uncheck);
+                        personal_name.setTextColor(this.getResources().getColor(R.color.c_black));
+                    } else if (state.equals("2")) {
+                        hintLogin();
+                    }
+                } catch (Exception e) {
+                    hintLogin();
+                }
 
-                showFragment();
-                index_img.setImageResource(R.mipmap.store_uncheck);
-                index_name.setTextColor(this.getResources().getColor(R.color.c_black));
-                store_img.setImageResource(R.mipmap.classify_uncheck);
-                store_name.setTextColor(this.getResources().getColor(R.color.c_black));
-                shopcar_img.setImageResource(R.mipmap.shopcar_check);
-                shopcar_name.setTextColor(this.getResources().getColor(R.color.c_blue));
-                personal_img.setImageResource(R.mipmap.person_uncheck);
-                personal_name.setTextColor(this.getResources().getColor(R.color.c_black));
+
                 break;
             case R.id.personal:
 
                 //TODO 获取状态，判断是否登录 1为登录
-                String state = sharedPreferences.getString("state", null);
+                state = sharedPreferences.getString("state", null);
                 try {
                     if (state.equals("1")) {
                         currentIndex = 3;
@@ -160,33 +171,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         shopcar_name.setTextColor(this.getResources().getColor(R.color.c_black));
                         personal_img.setImageResource(R.mipmap.person_check);
                         personal_name.setTextColor(this.getResources().getColor(R.color.c_blue));
-                    }else if (state.equals("2")){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                        builder.setTitle("提示");
-                        builder.setMessage("您还未登陆，确认登陆?");
-                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                            }
-                        });
-                        builder.setNegativeButton("取消",null);
-                        builder.show();
+                    } else if (state.equals("2")) {
+                        hintLogin();
                     }
                 } catch (Exception e) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setTitle("提示");
-                    builder.setMessage("您还未登陆，确认登陆?");
-                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-                    builder.setNegativeButton("取消",null);
-                    builder.show();
+                    hintLogin();
 
                 }
                 break;
@@ -235,6 +224,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //把当前显示的fragment记录下来
         fragment = fragmentList.get(currentIndex);
 
+    }
+
+    private void hintLogin() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("提示");
+        builder.setMessage("您还未登陆，确认登陆?");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("取消", null);
+        builder.show();
     }
 
 

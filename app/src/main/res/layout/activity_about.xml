@@ -5,14 +5,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.myproject.AboutActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/car_title">
 
         <RelativeLayout
+            android:id="@+id/about_back"
             android:layout_width="36dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/btn">
 
             <ImageView
                 android:layout_width="12dp"
@@ -29,6 +32,7 @@
             android:textColor="#ffff"
             android:textSize="@dimen/titele" />
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="275dp"
@@ -40,6 +44,7 @@
             android:layout_height="150dp"
             android:src="@mipmap/logo" />
     </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -67,10 +72,11 @@
 
         </RelativeLayout>
     </RelativeLayout>
+
     <RelativeLayout
-        android:layout_marginTop="2dp"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:layout_marginTop="2dp"
         android:background="#ffffff">
 
         <TextView

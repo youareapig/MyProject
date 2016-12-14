@@ -12,7 +12,7 @@
     <application
         android:name="init.Init"
         android:allowBackup="true"
-        android:icon="@mipmap/timo"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -39,8 +39,9 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".WashActivity" />
         <activity android:name=".GarageActivity" />
-        <activity android:name=".OrderActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".OrderActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".TransactionActivity" />
         <activity android:name=".ChooseCarTypeActivity" />
         <activity android:name=".ChhoseCarActivity" />
@@ -58,7 +59,8 @@
             android:name=".ModificationPasswordActivity"
             android:launchMode="singleTask" />
         <activity android:name=".NoticeActivity" />
-        <activity android:name=".NoticeHtmlActivity"></activity>
+        <activity android:name=".NoticeHtmlActivity" />
+        <activity android:name=".SalesActivity"></activity>
     </application>
 
 </manifest>

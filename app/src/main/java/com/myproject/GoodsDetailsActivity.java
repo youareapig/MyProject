@@ -46,7 +46,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
     private ViewGroup viewGroup;
     private WebView mWebView;
     private List<GoodsDetailsBean.DataBean.PicBean> list;
-    private RelativeLayout goods_details_shopcar;
+    private RelativeLayout goods_details_shopcar,goods_details_back;
     private ProgressDialog progressDialog = null;
     private GoodsDetailsBean goodsdetailsbean;
     private Global global;
@@ -105,6 +105,8 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
         goods_details_introduce = (TextView) findViewById(R.id.goods_details_introduce);
         goods_details_price = (TextView) findViewById(R.id.goods_details_price);
         goods_details_brank = (TextView) findViewById(R.id.goods_details_brank);
+        goods_details_back= (RelativeLayout) findViewById(R.id.goods_details_back);
+        goods_details_back.setOnClickListener(this);
         addshopcar = (TextView) findViewById(R.id.addshopcar);
         mWebView = (WebView) findViewById(R.id.activity_goods_detail_webview);
         addshopcar.setOnClickListener(this);
@@ -153,6 +155,9 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                     builder.show();
                 }
 
+                break;
+            case R.id.goods_details_back:
+                finish();
                 break;
         }
     }

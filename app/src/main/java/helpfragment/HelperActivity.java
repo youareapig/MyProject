@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.myproject.R;
@@ -21,6 +22,7 @@ public class HelperActivity extends AppCompatActivity {
     private FragmentManager manager;
     private LinearLayout callphone;
     private TextView phonenumber;
+    private RelativeLayout help_back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +32,7 @@ public class HelperActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         callphone= (LinearLayout) findViewById(R.id.callphone);
         phonenumber= (TextView) findViewById(R.id.phonenumber);
+        help_back= (RelativeLayout) findViewById(R.id.help_back);
         manager = this.getSupportFragmentManager();
         viewPager.setAdapter(new Helper_Adapter(manager));
         viewPager.setCurrentItem(0);
@@ -39,6 +42,12 @@ public class HelperActivity extends AppCompatActivity {
                 Intent intent=new Intent(Intent.ACTION_CALL);
                 intent.setData(Uri.parse("tel:"+phonenumber.getText().toString()));
                 startActivity(intent);
+            }
+        });
+        help_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

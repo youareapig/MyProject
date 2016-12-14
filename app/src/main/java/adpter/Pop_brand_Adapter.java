@@ -29,12 +29,19 @@ public class Pop_brand_Adapter extends BaseAdapter{
     }
     @Override
     public int getCount() {
-        return gList.size();
+        if (gList!=null){
+            return gList.size();
+        }
+        return 0;
     }
 
     @Override
     public Object getItem(int position) {
-        return gList.get(position);
+        if (gList!=null){
+            return gList.get(position);
+        }
+        return null;
+
     }
 
     @Override

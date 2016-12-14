@@ -50,7 +50,7 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
     private String URL, HeadUrl, userID, saveURL;
     private Global global;
     private String headerName;
-    private RelativeLayout informationusername1, userhead1, choosesex1, choose_date1;
+    private RelativeLayout informationusername1, userhead1, choosesex1, choose_date1,information_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +82,8 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
         save.setOnClickListener(this);
         date.setOnClickListener(this);
         userhead = (CircleImageView) findViewById(R.id.userhead);
+        information_back= (RelativeLayout) findViewById(R.id.information_back);
+        information_back.setOnClickListener(this);
         visitInformation();
 
     }
@@ -157,6 +159,9 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
                         })
                         .setNegativeButton("取消", null).show();
 
+                break;
+            case R.id.information_back:
+                finish();
                 break;
         }
     }

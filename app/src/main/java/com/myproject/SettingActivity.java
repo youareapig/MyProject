@@ -24,10 +24,9 @@ import utils.DataCleanManager;
 
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
-    private RelativeLayout setting_address, clearcache, setting_personal,modification_pwd;
+    private RelativeLayout setting_address, clearcache, setting_personal,modification_pwd,setting_back;
     private TextView cache;
     private DataCleanManager cleanManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +39,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         setting_personal = (RelativeLayout) findViewById(R.id.setting_personal);
         cache = (TextView) findViewById(R.id.cache);
         modification_pwd= (RelativeLayout) findViewById(R.id.modification_pwd);
+        setting_back= (RelativeLayout) findViewById(R.id.setting_back);
+        setting_back.setOnClickListener(this);
         modification_pwd.setOnClickListener(this);
         clearcache.setOnClickListener(this);
         setting_personal.setOnClickListener(this);
@@ -82,6 +83,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.modification_pwd:
                 Intent intent2=new Intent(SettingActivity.this,ModificationPasswordActivity.class);
                 startActivity(intent2);
+                break;
+            case R.id.setting_back:
+                finish();
                 break;
         }
     }

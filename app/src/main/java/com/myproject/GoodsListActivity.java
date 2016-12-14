@@ -35,17 +35,17 @@ import bean.GoodsList_Bean;
 import utils.Global;
 
 public class GoodsListActivity extends AppCompatActivity implements OnClickListener {
-    private RelativeLayout goodslist_brand, goods_sale, goods_details_back,serach;
+    private RelativeLayout goodslist_brand, goods_sale, goods_details_back, serach;
     private PopupWindow popupWindow;
     private ListView goodslist_listview;
     private List<GoodsList_Bean.DataBean> list;
     private List<GoodsList_Bean.BrandBean> brandList;
-    private TextView goods_sales,synthesize,goods_pinpai;
+    private TextView goods_sales, synthesize, goods_pinpai;
     private GoodsList_ListView_Adapter goodsListListViewAdapter;
     private boolean bool = false;
     private GridView pop_grid_brand;
-    private  String URL;
-    private String resultGoodsID,resultSearch;
+    private String URL;
+    private String resultGoodsID, resultSearch;
     private GoodsList_Bean goodsListBean;
     private EditText edit_search;
     private ProgressDialog progressDialog = null;
@@ -55,22 +55,22 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_list);
-        Global global =new Global();
-        URL= global.getUrl()+"api.php/Goods/goodsLst";
+        Global global = new Global();
+        URL = global.getUrl() + "api.php/Goods/goodsLst";
         Intent intent = getIntent();
         //TODO 分类界面传过来的商品ID
         resultGoodsID = intent.getStringExtra("goodsID");
         //TODO 首页搜索传过来的搜索内容
-        resultSearch=intent.getStringExtra("seach");
+        resultSearch = intent.getStringExtra("seach");
 
         goodslist_brand = (RelativeLayout) findViewById(R.id.goodslist_brand);
         goodslist_listview = (ListView) findViewById(R.id.goodslist_listview);
         goods_sale = (RelativeLayout) findViewById(R.id.goods_sale_v);
         goods_sales = (TextView) findViewById(R.id.goods_sales);
-        synthesize= (TextView) findViewById(R.id.synthesize);
-        serach= (RelativeLayout) findViewById(R.id.serach);
-        edit_search= (EditText) findViewById(R.id.edit_search);
-        goods_pinpai= (TextView) findViewById(R.id.goods_pinpai);
+        synthesize = (TextView) findViewById(R.id.synthesize);
+        serach = (RelativeLayout) findViewById(R.id.serach);
+        edit_search = (EditText) findViewById(R.id.edit_search);
+        goods_pinpai = (TextView) findViewById(R.id.goods_pinpai);
         goods_details_back = (RelativeLayout) findViewById(R.id.goods_details_back);
         goods_details_back.setOnClickListener(this);
         goodslist_brand.setOnClickListener(this);
@@ -78,10 +78,10 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         goods_sales.setOnClickListener(this);
         synthesize.setOnClickListener(this);
         serach.setOnClickListener(this);
-        if (resultSearch!=null){
+        if (resultSearch != null) {
             internetSearch(resultSearch);
             edit_search.setText(resultSearch);
-        }else {
+        } else {
             internet(resultGoodsID);
         }
 
@@ -89,8 +89,8 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(GoodsListActivity.this, GoodsDetailsActivity.class);
-                GoodsList_Bean.DataBean dataBean= (GoodsList_Bean.DataBean) parent.getItemAtPosition(position);
-                intent.putExtra("goodsID",dataBean.getGoods_id());
+                GoodsList_Bean.DataBean dataBean = (GoodsList_Bean.DataBean) parent.getItemAtPosition(position);
+                intent.putExtra("goodsID", dataBean.getGoods_id());
                 startActivity(intent);
             }
         });
@@ -101,18 +101,23 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
      * 价格从小到大
      */
     public void up() {
-        Collections.sort(list, new Comparator<GoodsList_Bean.DataBean>() {
+        try {
+            Collections.sort(list, new Comparator<GoodsList_Bean.DataBean>() {
 
 
-            @Override
-            public int compare(GoodsList_Bean.DataBean o1, GoodsList_Bean.DataBean o2) {
-                Log.d("sale","商品价格："+o1.getShop_price()+"         "+o2.getShop_price());
-                double sale3 = Double.parseDouble(o1.getShop_price());
-                double sale4 = Double.parseDouble(o2.getShop_price());
-                Log.d("sale","获取商品价格："+sale3+"         "+sale4);
-                return (int) (sale4 - sale3);
-            }
-        });
+                @Override
+                public int compare(GoodsList_Bean.DataBean o1, GoodsList_Bean.DataBean o2) {
+                    Log.d("sale", "商品价格：" + o1.getShop_price() + "         " + o2.getShop_price());
+                    double sale3 = Double.parseDouble(o1.getShop_price());
+                    double sale4 = Double.parseDouble(o2.getShop_price());
+                    Log.d("sale", "获取商品价格：" + sale3 + "         " + sale4);
+                    return (int) (sale4 - sale3);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(GoodsListActivity.this, "该分类没有商品,期待后期上架", Toast.LENGTH_SHORT).show();
+        }
 
 
     }
@@ -121,16 +126,20 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
      * 价格从大到小
      */
     public void down() {
+        try {
+            Collections.sort(list, new Comparator<GoodsList_Bean.DataBean>() {
 
-        Collections.sort(list, new Comparator<GoodsList_Bean.DataBean>() {
-
-            @Override
-            public int compare(GoodsList_Bean.DataBean o1, GoodsList_Bean.DataBean o2) {
-                double sale1 = Double.parseDouble(o1.getShop_price().trim());
-                double sale2=Double.parseDouble(o2.getShop_price().trim());
-                return (int) (sale1 - sale2);
-            }
-        });
+                @Override
+                public int compare(GoodsList_Bean.DataBean o1, GoodsList_Bean.DataBean o2) {
+                    double sale1 = Double.parseDouble(o1.getShop_price().trim());
+                    double sale2 = Double.parseDouble(o2.getShop_price().trim());
+                    return (int) (sale1 - sale2);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(GoodsListActivity.this, "该分类没有商品,期待后期上架", Toast.LENGTH_SHORT).show();
+        }
 
 
     }
@@ -169,8 +178,12 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
                     bool = false;
                     Log.d("tag", "false");
                 }
+                try {
+                    goodsListListViewAdapter.notifyDataSetChanged();
+                } catch (Exception e) {
+                    Toast.makeText(GoodsListActivity.this, "该分类没有商品,期待后期上架", Toast.LENGTH_SHORT).show();
+                }
 
-                goodsListListViewAdapter.notifyDataSetChanged();
                 break;
 //            case R.id.goods_sales:
 //
@@ -183,15 +196,15 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
             //TODO 综合显示该分类下所有的商品
             case R.id.synthesize:
                 internet(resultGoodsID);
-                goodsListListViewAdapter.notifyDataSetChanged();
+                //goodsListListViewAdapter.notifyDataSetChanged();
                 break;
             //TODO 搜索
             case R.id.serach:
-                String stringSearch=edit_search.getText().toString().trim();
-                if (TextUtils.isEmpty(stringSearch)){
-                    Toast.makeText(GoodsListActivity.this,"请输入关键字",Toast.LENGTH_SHORT).show();
+                String stringSearch = edit_search.getText().toString().trim();
+                if (TextUtils.isEmpty(stringSearch)) {
+                    Toast.makeText(GoodsListActivity.this, "请输入关键字", Toast.LENGTH_SHORT).show();
                     return;
-                }else {
+                } else {
                     internetSearch(stringSearch);
                 }
                 break;
@@ -219,12 +232,13 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         pop_grid_brand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                GoodsList_Bean.BrandBean brandBean= (GoodsList_Bean.BrandBean) parent.getItemAtPosition(position);
-                Log.d("id","品牌ID："+brandBean.getBrand_id()+"品牌名称:"+brandBean.getBrand_name());
+                GoodsList_Bean.BrandBean brandBean = (GoodsList_Bean.BrandBean) parent.getItemAtPosition(position);
+                Log.d("id", "品牌ID：" + brandBean.getBrand_id() + "品牌名称:" + brandBean.getBrand_name());
                 internetBrand(brandBean.getBrand_id());
             }
         });
     }
+
     //TODO 商品列表数据请求
     public void internet(String carID) {
         progressDialog = ProgressDialog.show(GoodsListActivity.this, "请稍后", "玩命加载中....", true);
@@ -233,6 +247,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                Log.e("tag", "分类" + result);
                 cache(result);
 
             }
@@ -265,23 +280,25 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         Gson gson = new Gson();
         goodsListBean = gson.fromJson(result, GoodsList_Bean.class);
         list = goodsListBean.getData();
-        Log.d("test","接受数据:"+result);
+        Log.d("test", "接受数据:" + result);
         goodsListListViewAdapter = new GoodsList_ListView_Adapter(GoodsListActivity.this, list);
         goodslist_listview.setAdapter(goodsListListViewAdapter);
         Log.d("test", "商品介绍:" + list.get(0).getGoods_name());
-        brandList=goodsListBean.getBrand();
+        brandList = goodsListBean.getBrand();
 
     }
-    public void internetBrand(String brandID){
-        RequestParams params=new RequestParams(URL);
-        params.addBodyParameter("brand_id",brandID);
+
+    public void internetBrand(String brandID) {
+        RequestParams params = new RequestParams(URL);
+        params.addBodyParameter("brand_id", brandID);
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                Log.e("tag", "品牌" + result);
                 //TODO 通过品牌适配数据
-                Gson gson=new Gson();
-                GoodsList_Bean goodsListBean=gson.fromJson(result,GoodsList_Bean.class);
-                list=goodsListBean.getData();
+                Gson gson = new Gson();
+                goodsListBean = gson.fromJson(result, GoodsList_Bean.class);
+                list = goodsListBean.getData();
                 goodsListListViewAdapter = new GoodsList_ListView_Adapter(GoodsListActivity.this, list);
                 goodslist_listview.setAdapter(goodsListListViewAdapter);
                 goodsListListViewAdapter.notifyDataSetChanged();
@@ -308,27 +325,30 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
             }
         });
     }
-    public void internetSearch(String word){
+
+    public void internetSearch(String word) {
         progressDialog = ProgressDialog.show(GoodsListActivity.this, "请稍后", "玩命加载中....", true);
-        RequestParams params=new RequestParams(URL);
-        params.addBodyParameter("keword",word);
+        RequestParams params = new RequestParams(URL);
+        params.addBodyParameter("keword", word);
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Gson gson=new Gson();
-                GoodsList_Bean goodsListbean=gson.fromJson(result,GoodsList_Bean.class);
-                list=goodsListbean.getData();
-
-                Log.d("aa","查找结果："+goodsListbean.getCode());
+                Log.e("tag", "搜索" + result);
+                Gson gson = new Gson();
+                goodsListBean = gson.fromJson(result, GoodsList_Bean.class);
+                list = goodsListBean.getData();
                 goodsListListViewAdapter = new GoodsList_ListView_Adapter(GoodsListActivity.this, list);
                 goodslist_listview.setAdapter(goodsListListViewAdapter);
+                // brandList=goodsListBean.getBrand();
                 goodsListListViewAdapter.notifyDataSetChanged();
+
+
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                list.removeAll(list);
-                goodsListListViewAdapter.notifyDataSetChanged();
+//                list.removeAll(list);
+//                goodsListListViewAdapter.notifyDataSetChanged();
                 Toast.makeText(GoodsListActivity.this, "没有找到符合要求的商品，请重新输入！", Toast.LENGTH_SHORT).show();
             }
 
@@ -339,7 +359,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
 
             @Override
             public void onFinished() {
-            progressDialog.cancel();
+                progressDialog.cancel();
             }
 
             @Override

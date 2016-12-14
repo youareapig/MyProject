@@ -103,7 +103,7 @@ public class OrderList_Adapter extends BaseAdapter {
         Log.i("tag","订单状态"+orderTag);
         if (orderTag.equals("0")){
             holder.tv_state.setText("未支付");
-        }else if (orderTag.equals("1")){
+        }else {
             if (orderTag1.equals("0")){
                 holder.tv_state.setText("未发货");
             }else if (orderTag1.equals("1")){

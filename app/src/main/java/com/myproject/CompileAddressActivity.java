@@ -25,7 +25,7 @@ import utils.ClassPathResource;
 import utils.Global;
 
 public class CompileAddressActivity extends AppCompatActivity implements View.OnClickListener {
-    private RelativeLayout choosecity;
+    private RelativeLayout choosecity,compileaddress_back;
     private TextView city, save_address;
     private SharedPreferences sharedPreferences;
     private EditText receive_name, receive_tel, receive_address, receive_postcode;
@@ -52,7 +52,8 @@ public class CompileAddressActivity extends AppCompatActivity implements View.On
         receive_tel = (EditText) findViewById(R.id.shr_tel);
         receive_address = (EditText) findViewById(R.id.shr_address);
         receive_postcode = (EditText) findViewById(R.id.shr_postcode);
-
+        compileaddress_back= (RelativeLayout) findViewById(R.id.compileaddress_back);
+        compileaddress_back.setOnClickListener(this);
 
 
 
@@ -111,6 +112,9 @@ public class CompileAddressActivity extends AppCompatActivity implements View.On
 
                 }
 
+                break;
+            case R.id.compileaddress_back:
+                finish();
                 break;
         }
     }

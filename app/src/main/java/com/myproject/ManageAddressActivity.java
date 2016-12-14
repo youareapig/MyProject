@@ -25,7 +25,7 @@ import bean.DataBean;
 import utils.Global;
 
 public class ManageAddressActivity extends AppCompatActivity implements View.OnClickListener{
-    private RelativeLayout addsite;
+    private RelativeLayout addsite,manageaddress_back;
     private SharedPreferences sharedPreferences;
     private String userID;
     private Global global;
@@ -44,6 +44,8 @@ public class ManageAddressActivity extends AppCompatActivity implements View.OnC
         AddressUrl=global.getUrl()+"api.php/Member/memberLstaddress";
         addsite= (RelativeLayout) findViewById(R.id.addsite);
         addsite.setOnClickListener(this);
+        manageaddress_back= (RelativeLayout) findViewById(R.id.manageaddress_back);
+        manageaddress_back.setOnClickListener(this);
         manageaddress_listview= (ListView) findViewById(R.id.manageaddress_listview);
         getAddress();
     }
@@ -54,6 +56,9 @@ public class ManageAddressActivity extends AppCompatActivity implements View.OnC
             case R.id.addsite:
                 Intent intent=new Intent(ManageAddressActivity.this,CompileAddressActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.compileaddress_back:
+                finish();
                 break;
         }
     }
