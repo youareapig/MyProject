@@ -15,6 +15,8 @@ import android.widget.Toast;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -218,8 +220,16 @@ public class IndentActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String result) {
                 Log.v(LOG_TAG,"----------->"+result);
-                Intent intent1 = new Intent(IndentActivity.this, PayActivity.class);
-                startActivity(intent1);
+                try {
+                    JSONObject object = new JSONObject(result);
+                    JSONObject jo = object.getJSONObject("data");
+                    String result1 = jo.getString("total_price");
+                    Intent intent1 = new Intent(IndentActivity.this, PayActivity.class);
+                    intent1.putExtra("total_price",result1);
+                    startActivity(intent1);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

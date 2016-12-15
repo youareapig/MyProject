@@ -69,7 +69,10 @@ public class ShopCar extends Fragment  {
 
             @Override
             public void callBackGoodsID(StringBuilder goodsID) {
-                reQuestDeleteShopCar(goodsID);
+                    if (goodsID.substring(0,1).equals(",")){
+                        goodsID.delete(0,1);
+                        showDialog(goodsID);
+                    }
             }
 
             @Override
@@ -123,8 +126,12 @@ public class ShopCar extends Fragment  {
             }
         }
     });
-
-        showDialog();
+    shopcar_compile.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            mShopCarAdapter.deleteCommodity();
+        }
+    });
 
 }
     //结算选中的商品
@@ -138,11 +145,9 @@ public class ShopCar extends Fragment  {
         });
     }
     //显示购物车界面编辑对话框
-    public void showDialog(){
-        shopcar_compile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+    public void showDialog(final StringBuilder builder1){
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("确认删除");
                 builder.setMessage("是否删除选中的商品？");
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -154,13 +159,12 @@ public class ShopCar extends Fragment  {
                 builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        mShopCarAdapter.deleteCommodity();
+                        reQuestDeleteShopCar(builder1);
                         dialogInterface.dismiss();
                     }
                 });
                 builder.create().show();
-            }
-        });
+
     }
     public void requestShopCarData(){
         RequestParams params = new RequestParams(Global.SHOPCARDATA);

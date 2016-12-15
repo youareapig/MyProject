@@ -148,12 +148,14 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     mGoodsID.append(shopCarBean.getGoods_id());
                 }
             }
-            mGoodsID.delete(0,1);
-            mCallback.callBackGoodsID(mGoodsID);
-            for (int i=0;i<list.size();i++){
-                mShopCarBeans.remove(list.get(i));
+            if(list!=null&&list.size()>=1){
+                mCallback.callBackGoodsID(mGoodsID);
+                for (int i=0;i<list.size();i++){
+                    mShopCarBeans.remove(list.get(i));
+                }
+            }else {
+                Toast.makeText(mContext,"你还未选择任何商品",Toast.LENGTH_LONG).show();
             }
-            Log.v(LOG_TAG,"-------------->"+"deleteCommodity"+mShopCarBeans.size());
         }
     }
 

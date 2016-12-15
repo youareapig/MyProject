@@ -16,6 +16,7 @@ public class Global {
         return url;
     }
     public static final String SHOPCARADDDATA="http://192.168.0.125/ailunphp/trunk/api.php/Cart/carAdd";
+    public static final String APP_ID = "wx426b3015555a46be";
     public void setUrl(String url) {
         this.url = url;
     }
