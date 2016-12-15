@@ -176,8 +176,7 @@ public class TransactionActivity extends AppCompatActivity {
                     JSONObject mJson = new JSONObject(result);
                     String mCode = mJson.getString("code");
                     if (mCode.equals("5000")) {
-                        Intent intent = new Intent(TransactionActivity.this, OrderActivity.class);
-                        startActivity(intent);
+                        setResult(1);
                         finish();
                     } else if (mCode.equals("-5000")) {
                         Toast.makeText(TransactionActivity.this, "订单删除失败", Toast.LENGTH_SHORT).show();

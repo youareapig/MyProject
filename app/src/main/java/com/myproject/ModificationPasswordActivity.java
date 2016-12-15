@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import org.xutils.x;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import utils.Global;
 
@@ -29,6 +31,8 @@ public class ModificationPasswordActivity extends AppCompatActivity {
     EditText newpassword;
     @BindView(R.id.save_password)
     TextView savePassword;
+    @BindView(R.id.formerpwd_back)
+    RelativeLayout formerpwdBack;
     private Unbinder unbinder;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -119,4 +123,8 @@ public class ModificationPasswordActivity extends AppCompatActivity {
     }
 
 
+    @OnClick(R.id.formerpwd_back)
+    public void onClick() {
+        finish();
+    }
 }

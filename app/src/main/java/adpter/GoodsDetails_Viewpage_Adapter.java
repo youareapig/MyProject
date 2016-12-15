@@ -20,10 +20,12 @@ public class GoodsDetails_Viewpage_Adapter extends PagerAdapter {
     private ImageView[] imageViews;
     public GoodsDetails_Viewpage_Adapter(ImageView[] imageViews) {
         this.imageViews=imageViews;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
+        //从第一张开始
         if (imageViews.length==1){
             return imageViews.length;
         }else {

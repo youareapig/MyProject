@@ -7,11 +7,7 @@ import java.util.List;
  */
 public class IndexBean {
 
-    /**
-     * code : 4000
-     * message : 获取信息成功
-     * data : {"newsInfo":[{"title":"西门庆大官人"}]}
-     */
+
 
     private int code;
     private String message;
@@ -42,11 +38,11 @@ public class IndexBean {
     }
 
     public static class DataBean {
-        /**
-         * title : 西门庆大官人
-         */
 
         private List<NewsInfoBean> newsInfo;
+
+
+        private List<AdBean> Ad;
 
         public List<NewsInfoBean> getNewsInfo() {
             return newsInfo;
@@ -54,6 +50,14 @@ public class IndexBean {
 
         public void setNewsInfo(List<NewsInfoBean> newsInfo) {
             this.newsInfo = newsInfo;
+        }
+
+        public List<AdBean> getAd() {
+            return Ad;
+        }
+
+        public void setAd(List<AdBean> Ad) {
+            this.Ad = Ad;
         }
 
         public static class NewsInfoBean {
@@ -65,6 +69,18 @@ public class IndexBean {
 
             public void setTitle(String title) {
                 this.title = title;
+            }
+        }
+
+        public static class AdBean {
+            private String image_src;
+
+            public String getImage_src() {
+                return image_src;
+            }
+
+            public void setImage_src(String image_src) {
+                this.image_src = image_src;
             }
         }
     }

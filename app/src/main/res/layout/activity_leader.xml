@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.myproject.LeaderActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/leadviewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RadioGroup
+        android:id="@+id/lead_radiogroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="45dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbt1"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:background="@drawable/lead_dot"
+            android:button="@null"
+            android:checked="true"
+            android:enabled="false" />
+
+        <RadioButton
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:background="@drawable/lead_dot"
+            android:button="@null" />
+
+        <RadioButton
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:background="@drawable/lead_dot"
+            android:button="@null" />
+
+        <RadioButton
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:background="@drawable/lead_dot"
+            android:button="@null" />
+    </RadioGroup>
+</RelativeLayout>
