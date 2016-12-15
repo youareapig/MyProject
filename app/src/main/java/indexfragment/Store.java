@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -126,7 +127,33 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
         list.add(hashMap7);
         list.add(hashMap8);
         index_grideView.setAdapter(new Index_GridView_Adpter(getActivity(), list));
-
+        index_grideView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        Intent intent =new Intent(getActivity(),GoodsListActivity.class);
+                        intent.putExtra("seach", "机油");
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        Intent intent1 =new Intent(getActivity(),GoodsListActivity.class);
+                        intent1.putExtra("seach", "轮胎");
+                        startActivity(intent1);
+                        break;
+                    case 2:
+                        Intent intent2 =new Intent(getActivity(),GoodsListActivity.class);
+                        intent2.putExtra("seach", "电瓶");
+                        startActivity(intent2);
+                        break;
+                    case 3:
+                        Intent intent3 =new Intent(getActivity(),GoodsListActivity.class);
+                        intent3.putExtra("seach", "1");
+                        startActivity(intent3);
+                        break;
+                }
+            }
+        });
         //TODO ScrollView拖动变色
         indextitle.setBackgroundColor(Color.argb(0, 0xfd, 0x91, 0x5b));
         ViewTreeObserver observer = index_viewpager.getViewTreeObserver();

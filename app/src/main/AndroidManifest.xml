@@ -18,13 +18,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="stateHidden|stateUnchanged">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="stateHidden|stateUnchanged"></activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegistActivity" />
         <activity android:name=".Regist_UserTypeActivity" />
@@ -60,7 +54,17 @@
             android:launchMode="singleTask" />
         <activity android:name=".NoticeActivity" />
         <activity android:name=".NoticeHtmlActivity" />
-        <activity android:name=".SalesActivity"></activity>
+        <activity android:name=".SalesActivity" />
+        <activity android:name=".SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".LeaderActivity">
+
+        </activity>
     </application>
 
 </manifest>

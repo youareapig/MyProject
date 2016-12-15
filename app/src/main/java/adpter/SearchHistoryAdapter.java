@@ -3,6 +3,7 @@ package adpter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +15,15 @@ import com.myproject.R;
 
 import java.util.List;
 
-import bean.HotWordsBean;
-
 /**
  * Created by Administrator on 2016/12/13 0013.
  */
-public class SearchHotAdapter extends BaseAdapter {
+public class SearchHistoryAdapter extends BaseAdapter {
 
-    private List<HotWordsBean.DataBean> list;
+    private List<String> list;
     private LayoutInflater layoutInflater;
 
-    public SearchHotAdapter(Context context, List<HotWordsBean.DataBean> list) {
+    public SearchHistoryAdapter(Context context, List<String> list) {
         this.list = list;
         this.layoutInflater = ((Activity) context).getLayoutInflater();
     }
@@ -53,7 +52,6 @@ public class SearchHotAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder holder ;
-        HotWordsBean.DataBean bean=list.get(position);
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = layoutInflater.inflate(R.layout.hotserach_item, null);
@@ -62,7 +60,7 @@ public class SearchHotAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.textView.setText(bean.getKe_name());
+        holder.textView.setText(list.get(position));
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

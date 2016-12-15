@@ -80,7 +80,13 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         serach.setOnClickListener(this);
         if (resultSearch != null) {
             internetSearch(resultSearch);
-            edit_search.setText(resultSearch);
+            if (resultSearch.equals("1")){
+                edit_search.setText("");
+            }else {
+                edit_search.setText(resultSearch);
+            }
+
+
         } else {
             internet(resultGoodsID);
         }

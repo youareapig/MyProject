@@ -24,8 +24,8 @@ import bean.AddressBean;
 import bean.DataBean;
 import utils.Global;
 
-public class ManageAddressActivity extends AppCompatActivity implements View.OnClickListener{
-    private RelativeLayout addsite,manageaddress_back;
+public class ManageAddressActivity extends AppCompatActivity implements View.OnClickListener {
+    private RelativeLayout addsite, manageaddress_back;
     private SharedPreferences sharedPreferences;
     private String userID;
     private Global global;
@@ -33,6 +33,7 @@ public class ManageAddressActivity extends AppCompatActivity implements View.OnC
     private List<DataBean> mlist;
     private ListView manageaddress_listview;
     private ProgressDialog progressDialog = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,21 +41,21 @@ public class ManageAddressActivity extends AppCompatActivity implements View.OnC
         //TODO 获取用户ID
         sharedPreferences = getSharedPreferences("userLogin", MODE_PRIVATE);
         userID = sharedPreferences.getString("userID", null);
-        global=new Global();
-        AddressUrl=global.getUrl()+"api.php/Member/memberLstaddress";
-        addsite= (RelativeLayout) findViewById(R.id.addsite);
+        global = new Global();
+        AddressUrl = global.getUrl() + "api.php/Member/memberLstaddress";
+        addsite = (RelativeLayout) findViewById(R.id.addsite);
         addsite.setOnClickListener(this);
-        manageaddress_back= (RelativeLayout) findViewById(R.id.manageaddress_back);
+        manageaddress_back = (RelativeLayout) findViewById(R.id.manageaddress_back);
         manageaddress_back.setOnClickListener(this);
-        manageaddress_listview= (ListView) findViewById(R.id.manageaddress_listview);
+        manageaddress_listview = (ListView) findViewById(R.id.manageaddress_listview);
         getAddress();
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.addsite:
-                Intent intent=new Intent(ManageAddressActivity.this,CompileAddressActivity.class);
+                Intent intent = new Intent(ManageAddressActivity.this, CompileAddressActivity.class);
                 startActivity(intent);
                 break;
             case R.id.compileaddress_back:
@@ -62,29 +63,30 @@ public class ManageAddressActivity extends AppCompatActivity implements View.OnC
                 break;
         }
     }
-    private void getAddress(){
+
+    private void getAddress() {
         progressDialog = ProgressDialog.show(this, "请稍后", "获取数据中...", true);
-        RequestParams params=new RequestParams(AddressUrl);
-        params.addBodyParameter("userid",userID);
+        RequestParams params = new RequestParams(AddressUrl);
+        params.addBodyParameter("userid", userID);
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.i("abc","请求成功"+result);
-                Gson gson=new Gson();
-                AddressBean addressBean=gson.fromJson(result,AddressBean.class);
-                mlist=addressBean.getData();
-                ManageAddress_Adapter adapter=new ManageAddress_Adapter(ManageAddressActivity.this,mlist);
-                if (addressBean.getCode()==3000){
+                Log.i("abc", "请求成功" + result);
+                Gson gson = new Gson();
+                AddressBean addressBean = gson.fromJson(result, AddressBean.class);
+                mlist = addressBean.getData();
+                ManageAddress_Adapter adapter = new ManageAddress_Adapter(ManageAddressActivity.this, mlist);
+                if (addressBean.getCode() == 3000) {
                     manageaddress_listview.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
-                }else if (addressBean.getCode()==-3000){
-                    Toast.makeText(ManageAddressActivity.this,"亲，你还没有添加收货地址哟！",Toast.LENGTH_SHORT).show();
+                } else if (addressBean.getCode() == -3000) {
+                    Toast.makeText(ManageAddressActivity.this, "亲，你还没有添加收货地址哟！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Log.i("abc","请求失败");
+                Log.i("abc", "请求失败");
             }
 
             @Override
@@ -94,7 +96,7 @@ public class ManageAddressActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onFinished() {
-            progressDialog.cancel();
+                progressDialog.cancel();
             }
 
             @Override
