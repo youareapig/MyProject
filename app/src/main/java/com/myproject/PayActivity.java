@@ -161,7 +161,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     }
     public void RequestWXpay(){
         RequestParams params = new RequestParams("http://192.168.0.125/ailunphp/trunk/api.php/Pay/pay");
-        params.addBodyParameter("osn","201612131130578578094412");
+        params.addBodyParameter("osn","201612131130578578094222");
         params.addBodyParameter("total_fee","0.01");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
