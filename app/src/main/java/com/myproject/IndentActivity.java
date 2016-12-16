@@ -128,6 +128,7 @@ public class IndentActivity extends AppCompatActivity {
             }
         }
         if (requestCode==1&&resultCode==1){
+
             Log.v(LOG_TAG, "------------------>" + "is return data");
             buyatonce.setEnabled(false);
             buyatonce.setBackgroundColor(Color.GRAY);
