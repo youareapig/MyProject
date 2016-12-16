@@ -64,6 +64,12 @@ public class ManageAddressActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        getAddress();
+    }
+
     private void getAddress() {
         progressDialog = ProgressDialog.show(this, "请稍后", "获取数据中...", true);
         RequestParams params = new RequestParams(AddressUrl);

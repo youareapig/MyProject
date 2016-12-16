@@ -50,7 +50,8 @@
         <activity android:name=".AboutActivity" />
         <activity android:name=".PersonalInformationActivity" />
         <activity android:name=".CompileAddressActivity" />
-        <activity android:name=".ManageAddressActivity" />
+        <activity android:name=".ManageAddressActivity"
+            android:launchMode="singleTop"/>
         <activity android:name=".RetrievePasswordActivity" />
         <activity android:name=".ModificationAddressActivity" />
         <activity android:name=".SalesActivity"/>

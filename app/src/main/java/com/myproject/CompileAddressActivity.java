@@ -137,8 +137,6 @@ public class CompileAddressActivity extends AppCompatActivity implements View.On
                     String rCode = mJson.getString("code");
                     Log.i("city", rCode);
                     if (rCode.equals("3000")) {
-                        Intent intent = new Intent(CompileAddressActivity.this, ManageAddressActivity.class);
-                        startActivity(intent);
                         finish();
                     } else if (rCode.equals("-3000")) {
                         Toast.makeText(CompileAddressActivity.this, "添加地址失败", Toast.LENGTH_SHORT).show();

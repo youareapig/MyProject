@@ -21,6 +21,8 @@ import com.myproject.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -134,7 +136,17 @@ public class GoodsDetailAdd extends PopupWindow implements View.OnClickListener 
             @Override
             public void onSuccess(String result) {
                 Log.i("add", "请求成功：" + result);
-                Toast.makeText(mContext,"已添加到购物车",Toast.LENGTH_LONG).show();
+                try {
+                    JSONObject object = new JSONObject(result);
+                    String rs = object.getString("code");
+                    if (rs.equals("1000")){
+                        Toast.makeText(mContext,"已添加到购物车",Toast.LENGTH_SHORT).show();
+                    }else if (rs.equals("-1000")){
+                        Toast.makeText(mContext,"该商品已存在购物车",Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
