@@ -39,7 +39,7 @@ import utils.Global;
 
 public class GoodsDetailsActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private TextView buy, goods_details_introduce, goods_details_price, goods_details_brank, addshopcar;
-    private String IMG, resultGoodsid, URL, userID;
+    private String IMG, resultGoodsid, URL, userID,state;
     private Goods_details_Pop goodsDetailsPop;
     private ViewPager goods_details_viewpage;
     private ImageView[] goods_details_pager_image, tips;
