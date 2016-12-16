@@ -37,11 +37,11 @@ import utils.Global;
  * Created by Administrator on 2016/10/19 0019.
  */
 public class Personal extends Fragment implements View.OnClickListener {
-    private TextView personal_allorder,sign_out;
+    private TextView personal_allorder, sign_out;
     private RelativeLayout wait_pay, wait_receive, wait_install, wait_anzhuang, order_cargarage, order_maintain, help, about, setting;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    private String userID,mUrl;
+    private String userID, mUrl;
     private CircleImageView personal_head;
     private Global global;
 
@@ -52,18 +52,18 @@ public class Personal extends Fragment implements View.OnClickListener {
         sharedPreferences = getActivity().getSharedPreferences("userLogin", getActivity().MODE_PRIVATE);
         editor = sharedPreferences.edit();
         userID = sharedPreferences.getString("userID", null);
-        global=new Global();
-        mUrl=global.getUrl()+"api.php/Member/person";
+        global = new Global();
+        mUrl = global.getUrl() + "api.php/Member/person";
 
         personal_allorder = (TextView) view.findViewById(R.id.personal_allorder);
-        sign_out= (TextView) view.findViewById(R.id.sign_out);
+        sign_out = (TextView) view.findViewById(R.id.sign_out);
         wait_pay = (RelativeLayout) view.findViewById(R.id.waitpay);
         wait_receive = (RelativeLayout) view.findViewById(R.id.waitreceive);
         wait_install = (RelativeLayout) view.findViewById(R.id.waitinstall);
         wait_anzhuang = (RelativeLayout) view.findViewById(R.id.waitevaluate);
         order_cargarage = (RelativeLayout) view.findViewById(R.id.order_cargarage);
         order_maintain = (RelativeLayout) view.findViewById(R.id.order_maintain);
-        personal_head= (CircleImageView) view.findViewById(R.id.personal_head);
+        personal_head = (CircleImageView) view.findViewById(R.id.personal_head);
         help = (RelativeLayout) view.findViewById(R.id.help);
         about = (RelativeLayout) view.findViewById(R.id.about);
         setting = (RelativeLayout) view.findViewById(R.id.setting);
@@ -88,32 +88,32 @@ public class Personal extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.personal_allorder:
                 Intent intent = new Intent(getActivity(), OrderActivity.class);
-                editor.putString("title",personal_allorder.getText().toString()).apply();
-                editor.putString("ordertype","all").apply();
+                editor.putString("title", personal_allorder.getText().toString()).apply();
+                editor.putString("ordertype", "all").apply();
                 startActivity(intent);
                 break;
             case R.id.waitpay:
                 Intent intent1 = new Intent(getActivity(), OrderActivity.class);
-                editor.putString("title","待付款").apply();
-                editor.putString("ordertype","0").apply();
+                editor.putString("title", "待付款").apply();
+                editor.putString("ordertype", "0").apply();
                 startActivity(intent1);
                 break;
             case R.id.waitreceive:
                 Intent intent2 = new Intent(getActivity(), OrderActivity.class);
-                editor.putString("title","待收货").apply();
-                editor.putString("ordertype","1").apply();
+                editor.putString("title", "待收货").apply();
+                editor.putString("ordertype", "1").apply();
                 startActivity(intent2);
                 break;
             case R.id.waitinstall:
                 Intent intent3 = new Intent(getActivity(), OrderActivity.class);
-                editor.putString("title","已签收").apply();
-                editor.putString("ordertype","2").apply();
+                editor.putString("title", "已签收").apply();
+                editor.putString("ordertype", "2").apply();
                 startActivity(intent3);
                 break;
             case R.id.waitevaluate:
                 Intent intent4 = new Intent(getActivity(), OrderActivity.class);
-                editor.putString("title","待评价").apply();
-                editor.putString("ordertype","4").apply();
+                editor.putString("title", "待评价").apply();
+                editor.putString("ordertype", "4").apply();
                 startActivity(intent4);
                 break;
             //TODO 我的车库
@@ -139,26 +139,30 @@ public class Personal extends Fragment implements View.OnClickListener {
                 startActivity(intent9);
                 break;
             case R.id.sign_out:
+                /**
+                 * 登录存入状态值1，注销存入2
+                 * */
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("提示");
                 builder.setMessage("确定退出登录吗？");
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        editor.putString("state","2").apply();
-                        Intent mIntent=new Intent(getActivity(), MainActivity.class);
+                        editor.putString("state", "2").apply();
+                        Intent mIntent = new Intent(getActivity(), MainActivity.class);
                         startActivity(mIntent);
                         getActivity().finish();
                     }
                 });
-                builder.setNegativeButton("取消",null);
+                builder.setNegativeButton("取消", null);
                 builder.show();
                 break;
 
         }
     }
+
     //TODO 获取用户头像
-    private void getHeader(){
+    private void getHeader() {
         RequestParams params = new RequestParams(mUrl);
         params.addBodyParameter("userid", userID);
         x.http().post(params, new Callback.CacheCallback<String>() {
@@ -167,7 +171,7 @@ public class Personal extends Fragment implements View.OnClickListener {
                 Gson gson = new Gson();
                 UserInformationBean information = gson.fromJson(result, UserInformationBean.class);
                 if (information.getCode() == 3000) {
-                    ImageLoader.getInstance().displayImage(global.getUrl()+information.getData().getHeader(), personal_head);
+                    ImageLoader.getInstance().displayImage(global.getUrl() + information.getData().getHeader(), personal_head);
 
                 } else if (information.getCode() == -3000) {
                     Toast.makeText(getActivity(), information.getMessage(), Toast.LENGTH_SHORT).show();

@@ -182,8 +182,8 @@
         android:background="#ffffff">
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
             android:src="@mipmap/unionpay"
@@ -193,9 +193,17 @@
             android:layout_height="wrap_content"
             android:text="银联支付"
             android:textColor="@color/c_black"
-            android:textSize="@dimen/half_title"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="49dp"/>
+            android:textSize="10sp"
+            android:layout_marginLeft="49dp"
+            android:layout_marginTop="6dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="适合网银用户"
+            android:textColor="#a3a3a3"
+            android:textSize="10sp"
+            android:layout_marginLeft="49dp"
+            android:layout_marginTop="22dp"/>
 
         <RelativeLayout
             android:layout_width="25dp"

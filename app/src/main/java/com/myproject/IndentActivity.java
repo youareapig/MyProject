@@ -32,6 +32,7 @@ import bean.OrderData;
 import bean.OrderMakeSureBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import utils.Format;
 import utils.Global;
 
@@ -51,6 +52,16 @@ public class IndentActivity extends AppCompatActivity {
     TextView mPrice;
     @BindView(R.id.activity_indent_totalprice)
     TextView mTotalprice;
+    @BindView(R.id.indent_back)
+    RelativeLayout indentBack;
+    @BindView(R.id.indent_go3)
+    RelativeLayout indentGo3;
+    @BindView(R.id.activity_indent_recyclerview)
+    RecyclerView activityIndentRecyclerview;
+    @BindView(R.id.indent_go1)
+    RelativeLayout indentGo1;
+    @BindView(R.id.indent_go2)
+    RelativeLayout indentGo2;
     private RecyclerView mRecyclerView;
     private IndentActivityAdapter adapter;
     private String result_goods_num;
@@ -100,14 +111,14 @@ public class IndentActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.v(LOG_TAG, "------------------>result" + resultCode);
+        Log.v(LOG_TAG, "------------------>" + resultCode);
         if (requestCode == 0 && resultCode == 0) {
-            Log.v(LOG_TAG, "------------------>" + "is return data"+data);
+            Log.v(LOG_TAG, "------------------>" + "is return data");
             if (data != null) {
                 DataBean dataBean = data.getParcelableExtra("address");
                 mCustomer.setText(dataBean.getShr_name());
                 mTelephone.setText(dataBean.getShr_phone());
-                mAddressID=dataBean.getAddr_id();
+                mAddressID = dataBean.getAddr_id();
                 mOrderData.setAddr(mAddressID);
                 if (dataBean.getShr_province().equals(dataBean.getShr_city())) {
                     mAddress.setText(dataBean.getShr_city() + dataBean.getShr_area() + dataBean.getShr_address() + dataBean.getAddr_id());
@@ -137,6 +148,7 @@ public class IndentActivity extends AppCompatActivity {
             }
         }
     }
+
     //EventBus订阅者，接收商品详情传递过来的对象
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onGetOrderData(GoodsDetailsBean.DataBean orderDataBean) {
@@ -165,7 +177,6 @@ public class IndentActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
     public void onGetShopCar(List<OrderMakeSureBean> orderMakeSureBeen){
         if (orderMakeSureBeen!=null){
-
             adapter.addData(orderMakeSureBeen);
             builder.delete(0,builder.length());
             builder1.delete(0,builder1.length());
@@ -226,18 +237,21 @@ public class IndentActivity extends AppCompatActivity {
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.v(LOG_TAG,"----------->99"+result);
-
+                Log.v(LOG_TAG,"----------->"+result);
+                try {
+                    JSONObject object = new JSONObject(result);
+                    JSONObject jo = object.getJSONObject("data");
+                    String result1 = jo.getString("total_price");
                     Intent intent1 = new Intent(IndentActivity.this, PayActivity.class);
-                    intent1.putExtra("total_price",Format.formatDecimal(price));
-                    intent1.putExtra("order_number",result);
-                    startActivityForResult(intent1,1);
-
+                    intent1.putExtra("total_price",result1);
+                    startActivity(intent1);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-
                 Toast.makeText(IndentActivity.this, "创建订单失败,请稍后重试", Toast.LENGTH_SHORT).show();
             }
 
@@ -251,5 +265,10 @@ public class IndentActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @OnClick(R.id.indent_back)
+    public void onClick() {
+        finish();
     }
 }

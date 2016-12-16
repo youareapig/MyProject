@@ -237,10 +237,10 @@ public class Regist_StoreActivity extends AppCompatActivity implements View.OnCl
                     JSONObject  jsonObject = new JSONObject(result);
                     String mCode=jsonObject.getString("code");
                     if (mCode.equals("3000")){
-                        Intent intent=new Intent(Regist_StoreActivity.this,LoginActivity.class);
+                        Intent intent=new Intent(Regist_StoreActivity.this,LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra("tel",phone);
                         startActivity(intent);
-                        finish();
+
                     }else if (mCode.equals("-3003")){
                         Toast.makeText(Regist_StoreActivity.this,"该手机号已经被注册",Toast.LENGTH_SHORT).show();
                     }
