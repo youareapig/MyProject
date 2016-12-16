@@ -92,7 +92,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     editor.putString("state","1").apply();
                     //TODO 保存用户ID
                     editor.putString("userID",userBean.getData().getUserid()).apply();
-                    finish();
+                    Intent intent=new Intent(LoginActivity.this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 } else if (userBean.getCode() == -3000) {
                     Toast.makeText(LoginActivity.this, "用户名或者密码错误", Toast.LENGTH_SHORT).show();
                 }

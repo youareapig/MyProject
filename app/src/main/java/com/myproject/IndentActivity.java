@@ -31,6 +31,7 @@ import bean.OrderData;
 import bean.OrderMakeSureBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import utils.Format;
 import utils.Global;
 
@@ -50,6 +51,10 @@ public class IndentActivity extends AppCompatActivity {
     TextView mPrice;
     @BindView(R.id.activity_indent_totalprice)
     TextView mTotalprice;
+    @BindView(R.id.indent_back)
+    RelativeLayout indentBack;
+    @BindView(R.id.indent_go3)
+    RelativeLayout indentGo3;
     private RecyclerView mRecyclerView;
     private IndentActivityAdapter adapter;
     private String result_goods_num;
@@ -105,7 +110,7 @@ public class IndentActivity extends AppCompatActivity {
                 DataBean dataBean = data.getParcelableExtra("address");
                 mCustomer.setText(dataBean.getShr_name());
                 mTelephone.setText(dataBean.getShr_phone());
-                mAddressID=dataBean.getAddr_id();
+                mAddressID = dataBean.getAddr_id();
                 mOrderData.setAddr(mAddressID);
                 if (dataBean.getShr_province().equals(dataBean.getShr_city())) {
                     mAddress.setText(dataBean.getShr_city() + dataBean.getShr_area() + dataBean.getShr_address() + dataBean.getAddr_id());
@@ -119,7 +124,7 @@ public class IndentActivity extends AppCompatActivity {
     public void init() {
         SharedPreferences sp = getSharedPreferences("defaultaddress", MODE_PRIVATE);
         if (sp != null) {
-            mOrderData.setAddr(sp.getString("addr_id",""));
+            mOrderData.setAddr(sp.getString("addr_id", ""));
             mOrderData.setMessage("");
             mCustomer.setText(sp.getString("shr_name", ""));
             mTelephone.setText(sp.getString("shr_phone", ""));
@@ -130,6 +135,7 @@ public class IndentActivity extends AppCompatActivity {
             }
         }
     }
+
     //EventBus订阅者，接收商品详情传递过来的对象
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onGetOrderData(GoodsDetailsBean.DataBean orderDataBean) {
@@ -139,35 +145,36 @@ public class IndentActivity extends AppCompatActivity {
             orderMakeSureBean.setCommodityname(orderDataBean.getGoods_name());
             orderMakeSureBean.setImage(orderDataBean.getThumb());
             orderMakeSureBean.setCommoditynumber(result_goods_num);
-            double price = Double.parseDouble(orderDataBean.getShop_price())*Integer.parseInt(result_goods_num);
+            double price = Double.parseDouble(orderDataBean.getShop_price()) * Integer.parseInt(result_goods_num);
             mOrderData.setGoods_id(orderDataBean.getGoods_id());
             mOrderData.setGoods_image(orderDataBean.getThumb());
             mOrderData.setGoods_number(result_goods_num);
-            mOrderData.setGoods_total(price+"");
-            mOrderData.setTotal_price(price+"");
+            mOrderData.setGoods_total(price + "");
+            mOrderData.setTotal_price(price + "");
             mOrderData.setSend_price("0.00");
-            mPrice.setText(price+"");
-            mTotalprice.setText(price+"");
+            mPrice.setText(price + "");
+            mTotalprice.setText(price + "");
             list.add(orderMakeSureBean);
         }
         if (list != null) {
             adapter.addData(list);
         }
     }
+
     //接收购物车传递过来的对象
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    public void onGetShopCar(List<OrderMakeSureBean> orderMakeSureBeen){
-        if (orderMakeSureBeen!=null){
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onGetShopCar(List<OrderMakeSureBean> orderMakeSureBeen) {
+        if (orderMakeSureBeen != null) {
             double price = 0;
             adapter.addData(orderMakeSureBeen);
-            builder.delete(0,builder.length());
-            builder1.delete(0,builder1.length());
-            builder2.delete(0,builder2.length());
-            builder3.delete(0,builder3.length());
-            for (OrderMakeSureBean orderMakeSureBean:orderMakeSureBeen){
-                double commedityprice=0;
-                price+=(Double.parseDouble(orderMakeSureBean.getCommdityprice())*Integer.parseInt(orderMakeSureBean.getCommoditynumber()));
-                commedityprice=Double.parseDouble(orderMakeSureBean.getCommdityprice())*Integer.parseInt(orderMakeSureBean.getCommoditynumber());
+            builder.delete(0, builder.length());
+            builder1.delete(0, builder1.length());
+            builder2.delete(0, builder2.length());
+            builder3.delete(0, builder3.length());
+            for (OrderMakeSureBean orderMakeSureBean : orderMakeSureBeen) {
+                double commedityprice = 0;
+                price += (Double.parseDouble(orderMakeSureBean.getCommdityprice()) * Integer.parseInt(orderMakeSureBean.getCommoditynumber()));
+                commedityprice = Double.parseDouble(orderMakeSureBean.getCommdityprice()) * Integer.parseInt(orderMakeSureBean.getCommoditynumber());
                 builder.append(",");
                 builder.append(orderMakeSureBean.getCommdityId());
                 builder1.append(",");
@@ -175,14 +182,14 @@ public class IndentActivity extends AppCompatActivity {
                 builder2.append(",");
                 builder2.append(orderMakeSureBean.getImage());
                 builder3.append(",");
-                builder3.append((commedityprice+""));
+                builder3.append((commedityprice + ""));
             }
-            builder.delete(0,1);
-            builder1.delete(0,1);
-            builder2.delete(0,1);
-            builder3.delete(0,1);
+            builder.delete(0, 1);
+            builder1.delete(0, 1);
+            builder2.delete(0, 1);
+            builder3.delete(0, 1);
             mOrderData.setSend_price("0");
-            mOrderData.setTotal_price(price+"");
+            mOrderData.setTotal_price(price + "");
             mOrderData.setGoods_total(builder3.toString());
             mOrderData.setGoods_number(builder1.toString());
             mOrderData.setGoods_image(builder2.toString());
@@ -203,29 +210,30 @@ public class IndentActivity extends AppCompatActivity {
         EventBus.getDefault().removeAllStickyEvents();//移除所有粘性事件
         EventBus.getDefault().unregister(this);//取消注册事件总线
     }
-    public void placeOrder(OrderData data){
+
+    public void placeOrder(OrderData data) {
         RequestParams params = new RequestParams(Global.SHOPCARORDER);
-        params.addBodyParameter("userid",sp1.getString("userID",""));
-        params.addBodyParameter("goods_id",data.getGoods_id());
-        params.addBodyParameter("addr",data.getAddr());
-        params.addBodyParameter("message","");
-        params.addBodyParameter("goods_number",data.getGoods_number());
-        params.addBodyParameter("send_price",data.getSend_price());
-        params.addBodyParameter("total_price",data.getTotal_price());
-        params.addBodyParameter("goods_total",data.getGoods_total());
-        params.addBodyParameter("goods_image",data.getGoods_image());
-        Log.v(LOG_TAG,"-------->"+sp1.getString("userID","")+"&"+data.getGoods_id()+"&"+"&"+data.getAddr()+"&"+data.getGoods_number()+"&"
-                +data.getSend_price()+"&"+data.getTotal_price()+"&"+data.getGoods_total()+"&"+data.getGoods_image());
+        params.addBodyParameter("userid", sp1.getString("userID", ""));
+        params.addBodyParameter("goods_id", data.getGoods_id());
+        params.addBodyParameter("addr", data.getAddr());
+        params.addBodyParameter("message", "");
+        params.addBodyParameter("goods_number", data.getGoods_number());
+        params.addBodyParameter("send_price", data.getSend_price());
+        params.addBodyParameter("total_price", data.getTotal_price());
+        params.addBodyParameter("goods_total", data.getGoods_total());
+        params.addBodyParameter("goods_image", data.getGoods_image());
+        Log.v(LOG_TAG, "-------->" + sp1.getString("userID", "") + "&" + data.getGoods_id() + "&" + "&" + data.getAddr() + "&" + data.getGoods_number() + "&"
+                + data.getSend_price() + "&" + data.getTotal_price() + "&" + data.getGoods_total() + "&" + data.getGoods_image());
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.v(LOG_TAG,"----------->"+result);
+                Log.v(LOG_TAG, "----------->" + result);
                 try {
                     JSONObject object = new JSONObject(result);
                     JSONObject jo = object.getJSONObject("data");
                     String result1 = jo.getString("total_price");
                     Intent intent1 = new Intent(IndentActivity.this, PayActivity.class);
-                    intent1.putExtra("total_price",result1);
+                    intent1.putExtra("total_price", result1);
                     startActivity(intent1);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -247,5 +255,10 @@ public class IndentActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @OnClick(R.id.indent_back)
+    public void onClick() {
+        finish();
     }
 }

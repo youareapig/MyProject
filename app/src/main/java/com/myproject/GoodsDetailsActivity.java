@@ -39,7 +39,7 @@ import utils.Global;
 
 public class GoodsDetailsActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private TextView buy, goods_details_introduce, goods_details_price, goods_details_brank, addshopcar;
-    private String IMG, resultGoodsid, URL, userID;
+    private String IMG, resultGoodsid, URL, userID,state;
     private Goods_details_Pop goodsDetailsPop;
     private ViewPager goods_details_viewpage;
     private ImageView[] goods_details_pager_image, tips;
@@ -115,44 +115,55 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
+        //TODO 获取状态，判断是否登录 1为登录
+        state = sharedPreferences.getString("state", null);
         switch (v.getId()) {
             case R.id.buy:
-                //实例化SelectPicPopupWindow
-                goodsDetailsPop = new Goods_details_Pop(GoodsDetailsActivity.this, mDisMiss, mDataBean);
-                //显示窗口
-                goodsDetailsPop.showAtLocation(GoodsDetailsActivity.this.findViewById(R.id.buy), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
-                goodsDetailsPop.setOutsideTouchable(true);
+                try {
+                    if (state.equals("1")){
+                        //实例化SelectPicPopupWindow
+                        goodsDetailsPop = new Goods_details_Pop(GoodsDetailsActivity.this, mDisMiss, mDataBean);
+                        //显示窗口
+                        goodsDetailsPop.showAtLocation(GoodsDetailsActivity.this.findViewById(R.id.buy), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
+                        goodsDetailsPop.setOutsideTouchable(true);
+                    }else if (state.equals("2")){
+                        hintLogin();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                    hintLogin();
+                }
+
 
                 break;
             case R.id.goods_details_shopcar:
-                Intent intent = new Intent(GoodsDetailsActivity.this, MainActivity.class);
-                intent.putExtra("fragment_tag", 2);
-                startActivity(intent);
-                finish();
+                try {
+                    if (state.equals("1")){
+                        Intent intent = new Intent(GoodsDetailsActivity.this, MainActivity.class);
+                        intent.putExtra("fragment_tag", 2);
+                        startActivity(intent);
+                        finish();
+                    }else if (state.equals("2")){
+                        hintLogin();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                    hintLogin();
+                }
+
                 break;
             case R.id.addshopcar:
-                //TODO 获取状态，判断是否登录 1为登录
-                String state = sharedPreferences.getString("state", null);
                 try {
                     if (state.equals("1")) {
                         mGoodsDetailAdd = new GoodsDetailAdd(GoodsDetailsActivity.this, dissPupWindw, mDataBean, userID);
                         //显示窗口
                         mGoodsDetailAdd.showAtLocation(GoodsDetailsActivity.this.findViewById(R.id.addshopcar), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
                         mGoodsDetailAdd.setOutsideTouchable(true);
+                    }else if (state.equals("2")){
+                        hintLogin();
                     }
                 } catch (Exception e) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(GoodsDetailsActivity.this);
-                    builder.setTitle("提示");
-                    builder.setMessage("您还未登陆，确认登陆?");
-                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(GoodsDetailsActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-                    builder.setNegativeButton("取消", null);
-                    builder.show();
+                   hintLogin();
                 }
 
                 break;
@@ -255,6 +266,20 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                 tips[i].setBackgroundResource(R.drawable.viewpage_goods);
             }
         }
+    }
+    private void hintLogin() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(GoodsDetailsActivity.this);
+        builder.setTitle("提示");
+        builder.setMessage("您还未登陆，确认登陆?");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(GoodsDetailsActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("取消", null);
+        builder.show();
     }
 
 

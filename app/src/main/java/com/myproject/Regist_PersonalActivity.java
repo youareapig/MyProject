@@ -101,10 +101,9 @@ public class Regist_PersonalActivity extends AppCompatActivity {
                     String mCode=jsonObject.getString("code");
                     Log.i("tag",jsonObject.getString("message"));
                     if (mCode.equals("3000")){
-                        Intent intent=new Intent(Regist_PersonalActivity.this,LoginActivity.class);
+                        Intent intent=new Intent(Regist_PersonalActivity.this,LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra("tel",mobile);
                         startActivity(intent);
-                        finish();
                     }else if (mCode.equals("-3003")){
                         Toast.makeText(Regist_PersonalActivity.this,"该手机号已经被注册",Toast.LENGTH_SHORT).show();
                     }

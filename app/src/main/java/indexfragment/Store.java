@@ -243,6 +243,7 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
                 indexBannerImage = new ImageView[indexBannerList.size()];
                 for (int i = 0; i < indexBannerImage.length; i++) {
                     ImageView imageView = new ImageView(getActivity());
+                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                     indexBannerImage[i] = imageView;
                     ImageLoader.getInstance().displayImage(global.getUrl() + indexBannerList.get(i).getImage_src(), imageView);
 
@@ -271,6 +272,7 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
                         String b = indexBean.getData().getNewsInfo().get(i).getTitle();
                         notice_list.add(b);
                     }
+
                     notice.setTipList(notice_list);
                     maindown.setDownTime(10000);
 
