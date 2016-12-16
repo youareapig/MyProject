@@ -55,6 +55,12 @@ public class IndentActivity extends AppCompatActivity {
     RelativeLayout indentBack;
     @BindView(R.id.indent_go3)
     RelativeLayout indentGo3;
+    @BindView(R.id.activity_indent_recyclerview)
+    RecyclerView activityIndentRecyclerview;
+    @BindView(R.id.indent_go1)
+    RelativeLayout indentGo1;
+    @BindView(R.id.indent_go2)
+    RelativeLayout indentGo2;
     private RecyclerView mRecyclerView;
     private IndentActivityAdapter adapter;
     private String result_goods_num;

@@ -93,6 +93,7 @@ public class ManageAddress_Adapter extends BaseAdapter {
             holder.order_item_pinglun = (TextView) convertView.findViewById(R.id.order_item_pinglun);
             holder.deleteaddress= (TextView) convertView.findViewById(R.id.deleteaddress);
             holder.mRelativeLayout= (RelativeLayout) convertView.findViewById(R.id.manageaddress_item_check);
+
             holder.defaultAddress = (CheckBox) convertView.findViewById(R.id.defaultAddress);
             convertView.setTag(holder);
         } else {

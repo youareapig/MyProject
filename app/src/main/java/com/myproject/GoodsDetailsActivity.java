@@ -39,7 +39,7 @@ import utils.Global;
 
 public class GoodsDetailsActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private TextView buy, goods_details_introduce, goods_details_price, goods_details_brank, addshopcar;
-    private String IMG, resultGoodsid, URL, userID,state;
+    private String IMG, resultGoodsid, URL, userID;
     private Goods_details_Pop goodsDetailsPop;
     private ViewPager goods_details_viewpage;
     private ImageView[] goods_details_pager_image, tips;
@@ -153,6 +153,8 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
 
                 break;
             case R.id.addshopcar:
+                //TODO 获取状态，判断是否登录 1为登录
+                String state = sharedPreferences.getString("state", null);
                 try {
                     if (state.equals("1")) {
                         mGoodsDetailAdd = new GoodsDetailAdd(GoodsDetailsActivity.this, dissPupWindw, mDataBean, userID);
