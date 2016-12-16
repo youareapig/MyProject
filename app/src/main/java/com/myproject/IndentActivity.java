@@ -221,6 +221,7 @@ public class IndentActivity extends AppCompatActivity {
         params.addBodyParameter("total_price",data.getTotal_price());
         params.addBodyParameter("goods_total",data.getGoods_total());
         params.addBodyParameter("goods_image",data.getGoods_image());
+        params.addBodyParameter("token","");
         Log.v(LOG_TAG,"-------->"+sp1.getString("userID","")+"&"+data.getGoods_id()+"&"+"&"+data.getAddr()+"&"+data.getGoods_number()+"&"
                 +data.getSend_price()+"&"+data.getTotal_price()+"&"+data.getGoods_total()+"&"+data.getGoods_image());
         x.http().post(params, new Callback.CommonCallback<String>() {

@@ -212,7 +212,7 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
 
     private void indexNotice() {
         progressDialog = ProgressDialog.show(getActivity(), "请稍后", "玩命加载中...", true);
-        RequestParams params = new RequestParams(indexNoticeUrl);
+        final RequestParams params = new RequestParams(indexNoticeUrl);
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -225,7 +225,10 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
                 //TODO 圆点导航数组
                 for (int i = 0; i < indexTips.length; i++) {
                     ImageView imageView = new ImageView(getActivity());
-                    imageView.setLayoutParams(new ViewGroup.LayoutParams(15, 15));
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(15,15);
+                    layoutParams.leftMargin = 10;
+                    layoutParams.rightMargin = 10;
+                    imageView.setLayoutParams(layoutParams);
                     indexTips[i] = imageView;
                     if (i == 0) {
                         indexTips[i].setBackgroundResource(R.drawable.viewpage_check);
@@ -233,10 +236,7 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
                         indexTips[i].setBackgroundResource(R.drawable.viewpage_goods);
 
                     }
-                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(ViewPager.LayoutParams.WRAP_CONTENT,
-                            ViewPager.LayoutParams.WRAP_CONTENT));
-                    layoutParams.leftMargin = 10;
-                    layoutParams.rightMargin = 10;
+
                     indexviewGroup.addView(imageView);
                 }
                 //TODO 图片数组
