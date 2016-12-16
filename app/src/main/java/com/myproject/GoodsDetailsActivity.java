@@ -115,24 +115,39 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
+        String state = sharedPreferences.getString("state", null);
         switch (v.getId()) {
             case R.id.buy:
-                //实例化SelectPicPopupWindow
-                goodsDetailsPop = new Goods_details_Pop(GoodsDetailsActivity.this, mDisMiss, mDataBean);
-                //显示窗口
-                goodsDetailsPop.showAtLocation(GoodsDetailsActivity.this.findViewById(R.id.buy), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
-                goodsDetailsPop.setOutsideTouchable(true);
+                try {
+                    if (state.equals("1")) {
+                        //实例化SelectPicPopupWindow
+                        goodsDetailsPop = new Goods_details_Pop(GoodsDetailsActivity.this, mDisMiss, mDataBean);
+                        //显示窗口
+                        goodsDetailsPop.showAtLocation(GoodsDetailsActivity.this.findViewById(R.id.buy), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
+                        goodsDetailsPop.setOutsideTouchable(true);
+                    }
+                } catch (Exception e) {
+                    showDialog();
+                }
+
 
                 break;
             case R.id.goods_details_shopcar:
-                Intent intent = new Intent(GoodsDetailsActivity.this, MainActivity.class);
-                intent.putExtra("fragment_tag", 2);
-                startActivity(intent);
-                finish();
+                try {
+                    if (state.equals("1")) {
+                        Intent intent = new Intent(GoodsDetailsActivity.this, MainActivity.class);
+                        intent.putExtra("fragment_tag", 2);
+                        startActivity(intent);
+                        finish();
+                    }
+                } catch (Exception e) {
+                    showDialog();
+                }
+
                 break;
             case R.id.addshopcar:
                 //TODO 获取状态，判断是否登录 1为登录
-                String state = sharedPreferences.getString("state", null);
+
                 try {
                     if (state.equals("1")) {
                         mGoodsDetailAdd = new GoodsDetailAdd(GoodsDetailsActivity.this, dissPupWindw, mDataBean, userID);
@@ -141,18 +156,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                         mGoodsDetailAdd.setOutsideTouchable(true);
                     }
                 } catch (Exception e) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(GoodsDetailsActivity.this);
-                    builder.setTitle("提示");
-                    builder.setMessage("您还未登陆，确认登陆?");
-                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(GoodsDetailsActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-                    builder.setNegativeButton("取消", null);
-                    builder.show();
+                    showDialog();
                 }
 
                 break;
@@ -161,7 +165,20 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                 break;
         }
     }
-
+    public void showDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(GoodsDetailsActivity.this);
+        builder.setTitle("提示");
+        builder.setMessage("您还未登陆，确认登陆?");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(GoodsDetailsActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("取消", null);
+        builder.show();
+    }
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 

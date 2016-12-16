@@ -75,78 +75,7 @@
                 android:textColor="@color/c_black"
                 android:textSize="15sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="75dp"
-                android:layout_toRightOf="@+id/pop_img"
-                android:text="请选择颜色分类"
-                android:textColor="@color/c_black"
-                android:textSize="15sp" />
         </RelativeLayout>
-<LinearLayout
-    android:background="#fff"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="30dp"
-        android:text="颜色分类"
-        android:textColor="@color/c_black"
-        android:textSize="15sp" />
-
-    <ScrollView
-        android:layout_width="235dp"
-        android:layout_height="120dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="12dp" >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <TextView
-                android:background="@drawable/goodstype"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="表板蜡+G-436+出风口刷+边角"
-                android:textColor="@color/c_black"
-                android:gravity="center"/>
-            <TextView
-                android:layout_marginTop="8dp"
-                android:background="@drawable/goodstype"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="表板蜡+G-436+出风口刷+边角"
-                android:textColor="@color/c_black"
-                android:gravity="center"/>
-            <TextView
-                android:layout_marginTop="8dp"
-                android:background="@drawable/goodstype"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="表板蜡+G-436+出风口刷+边角"
-                android:textColor="@color/c_black"
-                android:gravity="center"/>
-
-        </LinearLayout>
-    </ScrollView>
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="15dp"
-        android:background="@color/c_gray" />
-
-</LinearLayout>
-
 
         <RelativeLayout
             android:background="#fff"

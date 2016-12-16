@@ -61,6 +61,7 @@
                     android:layout_marginLeft="100dp"
                     android:layout_marginTop="8dp"
                     android:text="砹轮"
+                    android:maxLength="5"
                     android:id="@+id/activity_indent_customer"
                     android:textColor="@color/c_black"
                     android:textSize="@dimen/half_title" />
@@ -68,9 +69,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="180dp"
+                    android:layout_marginLeft="200dp"
                     android:layout_marginTop="8dp"
-                    android:text="12345678900"
                     android:id="@+id/activity_indent_telephone"
                     android:textColor="@color/c_black"
                     android:textSize="@dimen/half_title" />
@@ -100,7 +100,6 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginLeft="100dp"
                     android:id="@+id/activity_indent_address"
-                    android:text="四川成都中和大道2段2号1002"
                     android:textColor="@color/c_black" />
 
                 <RelativeLayout

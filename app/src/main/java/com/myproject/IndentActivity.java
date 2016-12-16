@@ -2,6 +2,7 @@ package com.myproject;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -59,6 +60,7 @@ public class IndentActivity extends AppCompatActivity {
     private StringBuilder builder2 = new StringBuilder();
     private StringBuilder builder3 = new StringBuilder();
     private SharedPreferences sp1;
+    public double price=0;
     private List<OrderMakeSureBean> list = new ArrayList<>();
     private OrderData mOrderData = new OrderData();
     private static final String LOG_TAG = "IndentActivity";
@@ -98,9 +100,9 @@ public class IndentActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.v(LOG_TAG, "------------------>" + resultCode);
+        Log.v(LOG_TAG, "------------------>result" + resultCode);
         if (requestCode == 0 && resultCode == 0) {
-            Log.v(LOG_TAG, "------------------>" + "is return data");
+            Log.v(LOG_TAG, "------------------>" + "is return data"+data);
             if (data != null) {
                 DataBean dataBean = data.getParcelableExtra("address");
                 mCustomer.setText(dataBean.getShr_name());
@@ -113,6 +115,11 @@ public class IndentActivity extends AppCompatActivity {
                     mAddress.setText(dataBean.getShr_province() + dataBean.getShr_city() + dataBean.getShr_area() + dataBean.getShr_address() + dataBean.getAddr_id());
                 }
             }
+        }
+        if (requestCode==1&&resultCode==1){
+            Log.v(LOG_TAG, "------------------>" + "is return data");
+            buyatonce.setEnabled(false);
+            buyatonce.setBackgroundColor(Color.GRAY);
         }
     }
 
@@ -139,7 +146,7 @@ public class IndentActivity extends AppCompatActivity {
             orderMakeSureBean.setCommodityname(orderDataBean.getGoods_name());
             orderMakeSureBean.setImage(orderDataBean.getThumb());
             orderMakeSureBean.setCommoditynumber(result_goods_num);
-            double price = Double.parseDouble(orderDataBean.getShop_price())*Integer.parseInt(result_goods_num);
+            price = Double.parseDouble(orderDataBean.getShop_price())*Integer.parseInt(result_goods_num);
             mOrderData.setGoods_id(orderDataBean.getGoods_id());
             mOrderData.setGoods_image(orderDataBean.getThumb());
             mOrderData.setGoods_number(result_goods_num);
@@ -158,7 +165,7 @@ public class IndentActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
     public void onGetShopCar(List<OrderMakeSureBean> orderMakeSureBeen){
         if (orderMakeSureBeen!=null){
-            double price = 0;
+
             adapter.addData(orderMakeSureBeen);
             builder.delete(0,builder.length());
             builder1.delete(0,builder1.length());
@@ -219,21 +226,18 @@ public class IndentActivity extends AppCompatActivity {
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.v(LOG_TAG,"----------->"+result);
-                try {
-                    JSONObject object = new JSONObject(result);
-                    JSONObject jo = object.getJSONObject("data");
-                    String result1 = jo.getString("total_price");
+                Log.v(LOG_TAG,"----------->99"+result);
+
                     Intent intent1 = new Intent(IndentActivity.this, PayActivity.class);
-                    intent1.putExtra("total_price",result1);
-                    startActivity(intent1);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                    intent1.putExtra("total_price",Format.formatDecimal(price));
+                    intent1.putExtra("order_number",result);
+                    startActivityForResult(intent1,1);
+
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
+
                 Toast.makeText(IndentActivity.this, "创建订单失败,请稍后重试", Toast.LENGTH_SHORT).show();
             }
 

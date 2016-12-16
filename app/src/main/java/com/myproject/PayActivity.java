@@ -43,7 +43,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     RelativeLayout mPayYinlian;
     private TextView pay_sale;
     private RelativeLayout pay_back;
-
+    private String OrderNumber;
     private static final int SDK_PAY_FLAG = 1;
 
     @Override
@@ -52,8 +52,10 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_pay);
         ButterKnife.bind(this);
         pay_sale = (TextView) findViewById(R.id.pay_sale);
-        Intent intent = this.getIntent();
-        String getSale = intent.getStringExtra("total_sale");
+        Intent intent = getIntent();
+        setResult(1);
+        String getSale = intent.getStringExtra("total_price");
+        OrderNumber=intent.getStringExtra("order_number");
         Log.d("tag", "价格" + getSale);
         pay_sale.setText(getSale);
         pay_back = (RelativeLayout) findViewById(R.id.pay_back);
@@ -161,7 +163,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     }
     public void RequestWXpay(){
         RequestParams params = new RequestParams("http://192.168.0.125/ailunphp/trunk/api.php/Pay/pay");
-        params.addBodyParameter("osn","201612131130578578094222");
+        params.addBodyParameter("osn",OrderNumber);
         params.addBodyParameter("total_fee","0.01");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
