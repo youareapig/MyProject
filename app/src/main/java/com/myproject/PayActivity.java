@@ -137,8 +137,9 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         };
     };
     public void RequestZFBKey(){
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("userid","");
+        RequestParams params = new RequestParams("http://192.168.0.105/trunk/api.php/AliPay/pay");
+        params.addBodyParameter("osn","201612161123068299318931");
+        params.addBodyParameter("total_fee","0.01");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -162,13 +163,13 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         });
     }
     public void RequestWXpay(){
-        RequestParams params = new RequestParams(Global.URL+"/ailunphp/trunk/api.php/Pay/pay");
-        params.addBodyParameter("osn","201612161123098299316426");
+        RequestParams params = new RequestParams("https://www.ailunwang.cn/api.php/Pay/pay");
+        params.addBodyParameter("osn","201612161123068299311359");
         params.addBodyParameter("total_fee","0.01");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.e("PAYACTIVITY","---------------->"+result);
+                Log.v("PAYACTIVITY","---------------->"+result);
                 Gson gson = new Gson();
                 WXpayBean bean = gson.fromJson(result,WXpayBean.class);
                 WeChatPay(bean);
@@ -176,7 +177,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Log.e("PAYACTIVITY","---------------->"+"错误");
+                Log.v("PAYACTIVITY","---------------->"+"错误");
             }
 
             @Override
@@ -194,7 +195,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         IWXAPI api = WXAPIFactory.createWXAPI(PayActivity.this, Global.APP_ID);
         api.registerApp(Global.APP_ID);
         PayReq req = new PayReq();
-        req.appId			= Global.APP_ID;
+        req.appId			= data.getAppid();
         req.partnerId		= data.getPartnerid();
         req.prepayId		= data.getPrepayid();
         req.nonceStr		= data.getNoncestr();
