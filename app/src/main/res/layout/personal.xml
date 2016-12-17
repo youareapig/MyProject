@@ -369,10 +369,8 @@
                 android:id="@+id/sign_out"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/btn_login_up"
+                android:background="#fff"
                 android:text="退出登录" />
         </LinearLayout>
     </ScrollView>
