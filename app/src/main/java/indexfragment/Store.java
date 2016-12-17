@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 import com.myproject.GoodsListActivity;
 import com.myproject.NoticeActivity;
 import com.myproject.R;
+import com.myproject.SalesActivity;
 import com.myproject.SearchActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -38,11 +39,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import adpter.GoodsDetails_Viewpage_Adapter;
+import adpter.IndexActivityAdapter;
 import adpter.IndexBannerAdapter;
 import adpter.Index_GridView_Adpter;
 import bean.GoodsList_Bean;
 import bean.IndexBean;
 import myview.Index_GrideView;
+import myview.Index_ListView;
 import myview.LooperTextView;
 import myview.ObservableScrollView;
 import utils.Global;
@@ -72,7 +75,7 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
     private ImageView[] indexTips, indexBannerImage;
     private Handler handler;
     private ProgressDialog progressDialog=null;
-
+    private Index_ListView indexactivitylist;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.index, container, false);
@@ -88,6 +91,7 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
         morenotice = (RelativeLayout) view.findViewById(R.id.morenotice);
         index_viewpager = (ViewPager) view.findViewById(R.id.index_viewpager);
         indexviewGroup = (ViewGroup) view.findViewById(R.id.indexviewGroup);
+        indexactivitylist= (Index_ListView) view.findViewById(R.id.indexactivitylist);
         morenotice.setOnClickListener(this);
         index_search.setOnClickListener(this);
         index_searchtext.setOnClickListener(this);
@@ -168,7 +172,7 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
         });
 
         //TODO 请求网络接口
-        indexNotice();
+        indexInternet();
 
 
         //TODO 倒计时抢购
@@ -210,13 +214,13 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
         }
     }
 
-    private void indexNotice() {
+    private void indexInternet() {
         progressDialog = ProgressDialog.show(getActivity(), "请稍后", "玩命加载中...", true);
         final RequestParams params = new RequestParams(indexNoticeUrl);
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.e("tag", result);
+                Log.e("tag", "-------------->"+result);
                 Gson gson = new Gson();
                 IndexBean indexBean = gson.fromJson(result, IndexBean.class);
                 indexBannerList = indexBean.getData().getAd();
@@ -277,11 +281,23 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
                     maindown.setDownTime(10000);
 
                 }
+                //TODO 活动列表
+                List<IndexBean.DataBean.ActiveInfoBean> activityList=indexBean.getData().getActiveInfo();
+                indexactivitylist.setAdapter(new IndexActivityAdapter(getActivity(),activityList));
+                indexactivitylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        IndexBean.DataBean.ActiveInfoBean bean= (IndexBean.DataBean.ActiveInfoBean) parent.getItemAtPosition(position);
+                        Intent intent=new Intent(getActivity(), SalesActivity.class);
+                        intent.putExtra("activeid",bean.getActive_id());
+                        getActivity().startActivity(intent);
+                    }
+                });
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-
+                Log.e("tag", "-------------->请求错误");
             }
 
             @Override

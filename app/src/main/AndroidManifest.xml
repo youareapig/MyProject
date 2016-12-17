@@ -29,9 +29,12 @@
         <activity android:name=".RegistActivity" />
         <activity android:name=".Regist_UserTypeActivity" />
         <activity android:name=".Regist_StoreActivity" />
-        <activity android:name=".Regist_PersonalActivity" />
+        <activity android:name=".Regist_PersonalActivity" >
+
+        </activity>
         <activity android:name=".IndentActivity" />
-        <activity android:name=".PayActivity" />
+        <activity android:name=".PayActivity" >
+        </activity>
         <activity
             android:name=".GoodsListActivity"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />

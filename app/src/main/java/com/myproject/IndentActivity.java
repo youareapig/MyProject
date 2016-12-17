@@ -120,6 +120,7 @@ public class IndentActivity extends AppCompatActivity {
                 mTelephone.setText(dataBean.getShr_phone());
                 mAddressID = dataBean.getAddr_id();
                 mOrderData.setAddr(mAddressID);
+                Log.e("test","地址id："+mAddressID);
                 if (dataBean.getShr_province().equals(dataBean.getShr_city())) {
                     mAddress.setText(dataBean.getShr_city() + dataBean.getShr_area() + dataBean.getShr_address() + dataBean.getAddr_id());
                 } else {

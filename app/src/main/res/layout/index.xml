@@ -148,32 +148,12 @@
                     android:textSize="14sp" />
             </RelativeLayout>
 
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="4dp"
-                android:src="@mipmap/huodong"
-                app:riv_corner_radius="15dp" />
 
-            <com.makeramen.roundedimageview.RoundedImageView
+            <myview.Index_ListView
+                android:id="@+id/indexactivitylist"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="4dp"
-                android:src="@mipmap/huodong"
-                app:riv_corner_radius="15dp" />
+                android:layout_height="match_parent" />
 
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="4dp"
-                android:src="@mipmap/huodong"
-                app:riv_corner_radius="15dp" />
         </LinearLayout>
     </myview.ObservableScrollView>
 

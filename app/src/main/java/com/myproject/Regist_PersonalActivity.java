@@ -12,6 +12,10 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.github.yoojia.keyboard.OnKeyActionListener;
+import com.github.yoojia.keyboard.VehiclePlateKeyboard;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
@@ -22,13 +26,12 @@ import utils.ChooseDate;
 import utils.Global;
 
 public class Regist_PersonalActivity extends AppCompatActivity {
-    private TextView personal_finish;
+    private TextView personal_finish,carid;
     private ImageView personal_back;
     private TextView editText_date;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private RadioButton bt_boy,bt_girl;
-    private EditText carid;
     private String mUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,25 @@ public class Regist_PersonalActivity extends AppCompatActivity {
         editText_date= (TextView) findViewById(R.id.regist_date);
         bt_boy= (RadioButton) findViewById(R.id.rdbt_boy);
         bt_girl= (RadioButton) findViewById(R.id.rdbt_girl);
-        carid= (EditText) findViewById(R.id.carid);
+        carid= (TextView) findViewById(R.id.carid);
+        //TODO 选择车牌号
+        carid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VehiclePlateKeyboard keyboard=new VehiclePlateKeyboard(Regist_PersonalActivity.this, new OnKeyActionListener() {
+                    @Override
+                    public void onFinish(String input) {
+                        carid.setText(input);
+                    }
+
+                    @Override
+                    public void onProcess(String input) {
+
+                    }
+                });
+                keyboard.show(Regist_PersonalActivity.this.getWindow().getDecorView().getRootView());
+            }
+        });
         personal_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
