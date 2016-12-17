@@ -159,6 +159,7 @@ public class ShopCar extends Fragment  {
                 builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        mShopCarAdapter.makeSureDelete();
                         reQuestDeleteShopCar(builder1);
                         dialogInterface.dismiss();
                     }

@@ -46,6 +46,7 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private Callback mCallback;
     private Context mContext;
     private double mPrice=0;
+    private List<ShopCarBean> list;
     private StringBuilder mGoodsID = new StringBuilder();
     public ShopCarAdapter(RecyclerView mRecyclerView,Callback mCallback,Context mContext) {
         this.mRecyclerView = mRecyclerView;
@@ -140,7 +141,7 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void deleteCommodity(){
         if (mShopCarBeans!=null){
             mGoodsID.delete(0,mGoodsID.length());
-            List<ShopCarBean> list = new ArrayList<>();
+            list = new ArrayList<>();
             for (ShopCarBean shopCarBean:mShopCarBeans){
                 if (shopCarBean.ischeck()){
                     list.add(shopCarBean);
@@ -150,15 +151,16 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
             if(list!=null&&list.size()>=1){
                 mCallback.callBackGoodsID(mGoodsID);
-                for (int i=0;i<list.size();i++){
-                    mShopCarBeans.remove(list.get(i));
-                }
             }else {
                 Toast.makeText(mContext,"你还未选择任何商品",Toast.LENGTH_LONG).show();
             }
         }
     }
-
+    public void makeSureDelete(){
+        for (int i=0;i<list.size();i++){
+            mShopCarBeans.remove(list.get(i));
+        }
+    }
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final CommodityViewHolder viewHolder = (CommodityViewHolder) holder;
@@ -173,6 +175,7 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             viewHolder.mShopcarItemName.setText(listBean.getName());
             viewHolder.mShopcarItemSale.setText(listBean.getGoods_price());
             viewHolder.mShopcarChoose.setChecked(listBean.ischeck());
+            //页面跳转到详细商品界面
             viewHolder.mShopcarItemName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -181,13 +184,7 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     view.getContext().startActivity(intent);
                 }
             });
-            //页面跳转到详细商品界面
-            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
 
-                }
-            });
             viewHolder.mShopcarChoose.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {

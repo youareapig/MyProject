@@ -52,16 +52,6 @@ public class IndentActivity extends AppCompatActivity {
     TextView mPrice;
     @BindView(R.id.activity_indent_totalprice)
     TextView mTotalprice;
-    @BindView(R.id.indent_back)
-    RelativeLayout indentBack;
-    @BindView(R.id.indent_go3)
-    RelativeLayout indentGo3;
-    @BindView(R.id.activity_indent_recyclerview)
-    RecyclerView activityIndentRecyclerview;
-    @BindView(R.id.indent_go1)
-    RelativeLayout indentGo1;
-    @BindView(R.id.indent_go2)
-    RelativeLayout indentGo2;
     private RecyclerView mRecyclerView;
     private IndentActivityAdapter adapter;
     private String result_goods_num;
@@ -95,7 +85,12 @@ public class IndentActivity extends AppCompatActivity {
         buyatonce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                placeOrder(mOrderData);
+                if (mOrderData!=null&&mOrderData.getAddr()!=null){
+                    placeOrder(mOrderData);
+                }else {
+                    Toast.makeText(IndentActivity.this,"请选择收货地址",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         mAddressmanmger.setOnClickListener(new View.OnClickListener() {
