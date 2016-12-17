@@ -149,9 +149,8 @@ public class Personal extends Fragment implements View.OnClickListener {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         editor.putString("state", "2").apply();
-                        Intent mIntent = new Intent(getActivity(), MainActivity.class);
+                        Intent mIntent = new Intent(getActivity(), MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(mIntent);
-                        getActivity().finish();
                     }
                 });
                 builder.setNegativeButton("取消", null);

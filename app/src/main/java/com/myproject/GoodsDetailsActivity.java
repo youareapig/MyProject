@@ -210,17 +210,17 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                 tips = new ImageView[list.size()];
                 for (int i = 0; i < tips.length; i++) {
                     ImageView imageView = new ImageView(GoodsDetailsActivity.this);
-                    imageView.setLayoutParams(new ViewGroup.LayoutParams(15, 15));
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(15,15);
+                    layoutParams.leftMargin = 10;
+                    layoutParams.rightMargin = 10;
+                    imageView.setLayoutParams(layoutParams);
                     tips[i] = imageView;
                     if (i == 0) {
                         tips[i].setBackgroundResource(R.drawable.viewpage_check);
                     } else {
                         tips[i].setBackgroundResource(R.drawable.viewpage_goods);
                     }
-                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(ViewPager.LayoutParams.WRAP_CONTENT,
-                            ViewPager.LayoutParams.WRAP_CONTENT));
-                    layoutParams.leftMargin = 10;
-                    layoutParams.rightMargin = 10;
+
                     viewGroup.addView(imageView);
                 }
                 //图片数组

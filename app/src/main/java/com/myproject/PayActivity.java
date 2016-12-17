@@ -163,8 +163,8 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         });
     }
     public void RequestWXpay(){
-        RequestParams params = new RequestParams("https://www.ailunwang.cn/api.php/Order/order");
-        params.addBodyParameter("osn","201612161123068299317894");
+        RequestParams params = new RequestParams("http://192.168.0.125/ailunphp/trunk/api.php/Pay/pay");
+        params.addBodyParameter("osn",OrderNumber);
         params.addBodyParameter("total_fee","0.01");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
@@ -192,7 +192,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         });
     }
     private void WeChatPay(WXpayBean data){
-        IWXAPI api = WXAPIFactory.createWXAPI(PayActivity.this,Global.APP_ID);
+        IWXAPI api = WXAPIFactory.createWXAPI(PayActivity.this, Global.APP_ID);
         api.registerApp(Global.APP_ID);
         PayReq req = new PayReq();
         req.appId			= data.getAppid();
@@ -203,6 +203,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         req.packageValue	= "Sign=WXPay";
         req.sign			= data.getSign();
         //req.extData			= "app data"; // optional
+        Log.e("tag","参数说明------->"+req.appId+"  "+req.partnerId+"  "+req.prepayId+"   "+req.nonceStr+"  "+req.timeStamp+"  "+req.sign);
         api.sendReq(req);
     }
 }

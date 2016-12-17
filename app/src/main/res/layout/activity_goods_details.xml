@@ -7,6 +7,34 @@
     android:orientation="vertical"
     tools:context="com.myproject.GoodsDetailsActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/car_title">
+
+        <RelativeLayout
+            android:id="@+id/goods_details_back"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn">
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/back" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/goods_details_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="商品详情"
+            android:textColor="#ffff"
+            android:textSize="@dimen/titele" />
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,33 +46,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@color/car_title">
-
-                <RelativeLayout
-                    android:id="@+id/goods_details_back"
-                    android:layout_width="36dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/btn">
-
-                    <ImageView
-                        android:layout_width="12dp"
-                        android:layout_height="20dp"
-                        android:layout_centerInParent="true"
-                        android:src="@mipmap/back" />
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/goods_details_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="商品详情"
-                    android:textColor="#ffff"
-                    android:textSize="@dimen/titele" />
-            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -112,7 +113,6 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginLeft="20dp"
                     android:layout_toRightOf="@+id/goods_details_price"
-                    android:text="256"
                     android:textColor="@color/c_black"
                     android:textSize="12sp" />
 

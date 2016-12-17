@@ -33,6 +33,9 @@ dependencies {
     compile 'com.makeramen:roundedimageview:2.2.1'
     compile 'com.gjiazhe:wavesidebar:1.0.2'
     compile 'org.xutils:xutils:3.3.36'
+    compile 'cn.qqtheme.framework:WheelPicker:1.2.4'
+    compile 'cn.qqtheme.framework:FilePicker:1.2.4'
+    compile 'cn.qqtheme.framework:ColorPicker:1.2.4'
     compile 'com.alibaba:fastjson:1.1.54.android'
     compile 'com.github.florent37:viewanimator:1.0.3'
     compile 'com.android.support:recyclerview-v7:24.2.1'
@@ -41,8 +44,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'cn.qqtheme.framework:WheelPicker:1.2.4'
-    compile 'cn.qqtheme.framework:FilePicker:1.2.4'
-    compile 'cn.qqtheme.framework:ColorPicker:1.2.4'
-
+    compile 'com.github.yoojia:keyboard:1.6@aar'
 }
