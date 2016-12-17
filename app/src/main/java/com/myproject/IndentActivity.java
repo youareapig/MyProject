@@ -243,7 +243,7 @@ public class IndentActivity extends AppCompatActivity {
                     String result1 = jo.getString("total_price");
                     Intent intent1 = new Intent(IndentActivity.this, PayActivity.class);
                     intent1.putExtra("total_price",result1);
-                    startActivity(intent1);
+                    startActivityForResult(intent1,1);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
