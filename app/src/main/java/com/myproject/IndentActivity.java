@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.utils.L;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -85,12 +87,12 @@ public class IndentActivity extends AppCompatActivity {
         buyatonce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mOrderData!=null&&mOrderData.getAddr()!=null){
+                if (mOrderData!=null&&!mOrderData.getAddr().isEmpty()){
+                    Log.v(LOG_TAG,"-------------->"+mOrderData.getAddr());
                     placeOrder(mOrderData);
                 }else {
                     Toast.makeText(IndentActivity.this,"请选择收货地址",Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
         mAddressmanmger.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +126,7 @@ public class IndentActivity extends AppCompatActivity {
         }
         if (requestCode==1&&resultCode==1){
 
-            Log.v(LOG_TAG, "------------------>" + "is return data");
+            Log.v(LOG_TAG, "------------------>" + "is return data become gray");
             buyatonce.setEnabled(false);
             buyatonce.setBackgroundColor(Color.GRAY);
         }

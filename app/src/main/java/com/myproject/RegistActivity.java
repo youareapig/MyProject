@@ -123,6 +123,7 @@ public class RegistActivity extends AppCompatActivity {
                     editor.putString("password",r_getPassword).apply();
                     Intent intent=new Intent(RegistActivity.this,Regist_UserTypeActivity.class);
                     startActivity(intent);
+                    finish();
                 } else if (userBean.getCode() == -3000) {
                     Toast.makeText(RegistActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
                 } else if (userBean.getCode() == -3001) {

@@ -43,7 +43,6 @@ public class Regist_UserTypeActivity extends AppCompatActivity {
         type_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 finish();
             }
         });
