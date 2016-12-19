@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.myproject.GoodsDetailsActivity;
 import com.myproject.GoodsListActivity;
 import com.myproject.NoticeActivity;
 import com.myproject.R;
@@ -41,6 +42,7 @@ import java.util.List;
 import adpter.GoodsDetails_Viewpage_Adapter;
 import adpter.IndexActivityAdapter;
 import adpter.IndexBannerAdapter;
+import adpter.IndexSeckillAdapter;
 import adpter.Index_GridView_Adpter;
 import bean.GoodsList_Bean;
 import bean.IndexBean;
@@ -64,7 +66,7 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
     private ObservableScrollView scrollView;
     private ImageView index_search;
     private int height;
-    private Index_GrideView index_grideView;
+    private Index_GrideView index_grideView,seckill_gridview;
     private List<HashMap<String, Object>> list;
     private HashMap<String, Object> hashMap1, hashMap2, hashMap3, hashMap4, hashMap5, hashMap6, hashMap7, hashMap8;
     private TextView index_searchtext;
@@ -92,6 +94,7 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
         index_viewpager = (ViewPager) view.findViewById(R.id.index_viewpager);
         indexviewGroup = (ViewGroup) view.findViewById(R.id.indexviewGroup);
         indexactivitylist= (Index_ListView) view.findViewById(R.id.indexactivitylist);
+        seckill_gridview= (Index_GrideView) view.findViewById(R.id.seckill_gridview);
         morenotice.setOnClickListener(this);
         index_search.setOnClickListener(this);
         index_searchtext.setOnClickListener(this);
@@ -175,15 +178,6 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
         indexInternet();
 
 
-        //TODO 倒计时抢购
-        maindown.setDownTimerListener(new OnCountDownTimerListener() {
-            @Override
-            public void onFinish() {
-                //结束时回调函数
-            }
-        });
-        //TODO 开始计时
-        //maindown.startDownTimer();
         return view;
     }
 
@@ -293,6 +287,28 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
                         getActivity().startActivity(intent);
                     }
                 });
+                List<IndexBean.DataBean.SecondGoodsBean> seckillList=indexBean.getData().getSecond_goods();
+                seckill_gridview.setAdapter(new IndexSeckillAdapter(getActivity(),seckillList));
+                seckill_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        IndexBean.DataBean.SecondGoodsBean bean= (IndexBean.DataBean.SecondGoodsBean) parent.getItemAtPosition(position);
+                        Intent intent=new Intent(getActivity(), GoodsDetailsActivity.class);
+                        intent.putExtra("goodsID",bean.getGoods_id());
+                        getActivity().startActivity(intent);
+                    }
+                });
+                //TODO 倒计时抢购
+                maindown.setDownTime(indexBean.getData().getDif_time()*1000);
+                Log.e("tag","------------>倒计时"+indexBean.getData().getDif_time());
+                maindown.setDownTimerListener(new OnCountDownTimerListener() {
+                    @Override
+                    public void onFinish() {
+                        //结束时回调函数
+                    }
+                });
+                //TODO 开始计时
+                maindown.startDownTimer();
             }
 
             @Override

@@ -239,7 +239,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 GoodsList_Bean.BrandBean brandBean = (GoodsList_Bean.BrandBean) parent.getItemAtPosition(position);
-                Log.d("id", "品牌ID：" + brandBean.getBrand_id() + "品牌名称:" + brandBean.getBrand_name());
+                Log.e("id", "品牌ID：" + brandBean.getBrand_id() + "品牌名称:" + brandBean.getBrand_name());
                 internetBrand(brandBean.getBrand_id());
             }
         });
@@ -312,7 +312,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(GoodsListActivity.this, "该品牌已售罄", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GoodsListActivity.this, "该品牌已售罄(服务器故障)", Toast.LENGTH_SHORT).show();
             }
 
             @Override

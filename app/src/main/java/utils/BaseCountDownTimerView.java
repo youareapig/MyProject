@@ -169,9 +169,6 @@ public abstract class BaseCountDownTimerView extends LinearLayout {
 		String minute = (int) (totalMinutes % 60) + "";// 分
 		long totalHours = totalMinutes / 60;
 		String hour = (int) (totalHours % 24) + "";// 时
-		Log.i("TAG", "hour:" + hour);
-		Log.i("TAG", "minute:" + minute);
-		Log.i("TAG", "second:" + second);
 		if (hour.length() == 1) {
 			hour = "0" + hour;
 		}

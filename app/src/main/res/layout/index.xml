@@ -79,6 +79,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/seckill_title"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
                 android:layout_marginTop="4dp"
@@ -111,10 +112,19 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/seckill_content"
                 android:layout_width="match_parent"
                 android:layout_height="125dp"
                 android:layout_marginTop="2dp"
+                android:orientation="horizontal"
                 android:background="#fff">
+               <myview.Index_GrideView
+                   android:id="@+id/seckill_gridview"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:numColumns="3"
+                   android:horizontalSpacing="4dp"
+                   android:background="#fff"/>
 
             </LinearLayout>
 
