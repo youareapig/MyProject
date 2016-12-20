@@ -316,7 +316,7 @@
             <WebView
                 android:id="@+id/activity_goods_detail_webview"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"></WebView>
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </ScrollView>
 

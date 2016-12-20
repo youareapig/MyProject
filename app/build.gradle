@@ -45,4 +45,5 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.github.yoojia:keyboard:1.6@aar'
+    compile 'com.github.iwgang:countdownview:2.1.2'
 }

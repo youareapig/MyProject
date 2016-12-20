@@ -102,39 +102,66 @@
                     android:textColor="#f94426"
                     android:textSize="15sp" />
 
-                <utils.MainDownTimerView
-                    android:id="@+id/maindown"
+                <cn.iwgang.countdownview.CountdownView
+                    android:id="@+id/cv_countdownViewTest211"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="16dp" />
+                    android:layout_marginRight="16dp"
+                    app:isHideTimeBackground="false"
+                    app:isShowDay="true"
+                    app:isShowHour="true"
+                    app:isShowMillisecond="false"
+                    app:isShowMinute="true"
+                    app:isShowSecond="true"
+                    app:isShowTimeBgBorder="true"
+                    app:suffixGravity="center"
+                    app:suffixLRMargin="5dp"
+                    app:suffixTextColor="#FC903E"
+                    app:suffixTextSize="17sp"
+                    app:timeBgBorderColor="#E8E8E8"
+                    app:timeBgBorderRadius="3dp"
+                    app:timeBgBorderSize="1dp"
+                    app:timeBgColor="#FFFFFF"
+                    app:timeBgDivisionLineSize="1dp"
+                    app:timeBgRadius="3dp"
+                    app:timeBgSize="3dp"
+                    app:timeTextColor="#121212"
+                    app:timeTextSize="15sp" />
             </RelativeLayout>
 
-            <LinearLayout
+            <FrameLayout
+                android:background="#fff"
                 android:id="@+id/seckill_content"
                 android:layout_width="match_parent"
                 android:layout_height="125dp"
-                android:layout_marginTop="2dp"
-                android:orientation="horizontal"
-                android:background="#fff">
-               <myview.Index_GrideView
-                   android:id="@+id/seckill_gridview"
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:numColumns="3"
-                   android:horizontalSpacing="4dp"
-                   android:background="#fff"/>
+                android:layout_marginTop="2dp">
 
-            </LinearLayout>
+                <myview.Index_GrideView
+                    android:id="@+id/seckill_gridview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#fff"
+                    android:horizontalSpacing="4dp"
+                    android:numColumns="3" />
+                <ImageView
+                    android:id="@+id/next_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/ic_launcher"/>
+
+            </FrameLayout>
 
             <ImageView
+                android:background="#fff"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:src="@mipmap/banner_14" />
+                android:src="@mipmap/banner_14"
+                android:scaleType="fitXY"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"

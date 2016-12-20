@@ -8,19 +8,16 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.myproject.GoodsDetailsActivity;
@@ -39,20 +36,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import adpter.GoodsDetails_Viewpage_Adapter;
 import adpter.IndexActivityAdapter;
 import adpter.IndexBannerAdapter;
 import adpter.IndexSeckillAdapter;
 import adpter.Index_GridView_Adpter;
-import bean.GoodsList_Bean;
 import bean.IndexBean;
+import cn.iwgang.countdownview.CountdownView;
 import myview.Index_GrideView;
 import myview.Index_ListView;
 import myview.LooperTextView;
 import myview.ObservableScrollView;
 import utils.Global;
-import utils.MainDownTimerView;
-import utils.OnCountDownTimerListener;
 
 /**
  * Created by Administrator on 2016/10/19 0019.
@@ -61,10 +55,9 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
     private LooperTextView notice;
     private List<String> notice_list;
     private List<IndexBean.DataBean.AdBean> indexBannerList;
-    private MainDownTimerView maindown;
     private RelativeLayout indextitle, morenotice;
     private ObservableScrollView scrollView;
-    private ImageView index_search;
+    private ImageView index_search,next_img;
     private int height;
     private Index_GrideView index_grideView,seckill_gridview;
     private List<HashMap<String, Object>> list;
@@ -78,13 +71,13 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
     private Handler handler;
     private ProgressDialog progressDialog=null;
     private Index_ListView indexactivitylist;
+    private CountdownView countdownView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.index, container, false);
         global = new Global();
         indexNoticeUrl = global.getUrl() + "api.php/Index/index";
         notice = (LooperTextView) view.findViewById(R.id.index_notice);
-        maindown = (MainDownTimerView) view.findViewById(R.id.maindown);
         scrollView = (ObservableScrollView) view.findViewById(R.id.scrollview);
         indextitle = (RelativeLayout) view.findViewById(R.id.indextitle);
         index_grideView = (Index_GrideView) view.findViewById(R.id.index_gridview);
@@ -95,6 +88,8 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
         indexviewGroup = (ViewGroup) view.findViewById(R.id.indexviewGroup);
         indexactivitylist= (Index_ListView) view.findViewById(R.id.indexactivitylist);
         seckill_gridview= (Index_GrideView) view.findViewById(R.id.seckill_gridview);
+        countdownView= (CountdownView) view.findViewById(R.id.cv_countdownViewTest211);
+        next_img= (ImageView) view.findViewById(R.id.next_img);
         morenotice.setOnClickListener(this);
         index_search.setOnClickListener(this);
         index_searchtext.setOnClickListener(this);
@@ -272,7 +267,6 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
                     }
 
                     notice.setTipList(notice_list);
-                    maindown.setDownTime(10000);
 
                 }
                 //TODO 活动列表
@@ -287,28 +281,36 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
                         getActivity().startActivity(intent);
                     }
                 });
+                //TODO 秒杀
                 List<IndexBean.DataBean.SecondGoodsBean> seckillList=indexBean.getData().getSecond_goods();
-                seckill_gridview.setAdapter(new IndexSeckillAdapter(getActivity(),seckillList));
-                seckill_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        IndexBean.DataBean.SecondGoodsBean bean= (IndexBean.DataBean.SecondGoodsBean) parent.getItemAtPosition(position);
-                        Intent intent=new Intent(getActivity(), GoodsDetailsActivity.class);
-                        intent.putExtra("goodsID",bean.getGoods_id());
-                        getActivity().startActivity(intent);
-                    }
-                });
+                if (seckillList!=null){
+                    next_img.setVisibility(View.GONE);
+                    seckill_gridview.setVisibility(View.VISIBLE);
+                    seckill_gridview.setAdapter(new IndexSeckillAdapter(getActivity(),seckillList));
+                    seckill_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            IndexBean.DataBean.SecondGoodsBean bean= (IndexBean.DataBean.SecondGoodsBean) parent.getItemAtPosition(position);
+                            Intent intent=new Intent(getActivity(), GoodsDetailsActivity.class);
+                            intent.putExtra("goodsID",bean.getGoods_id());
+                            getActivity().startActivity(intent);
+                        }
+                    });
+                }else {
+                    seckill_gridview.setVisibility(View.GONE);
+                    next_img.setVisibility(View.VISIBLE);
+                }
+
                 //TODO 倒计时抢购
-                maindown.setDownTime(indexBean.getData().getDif_time()*1000);
-                Log.e("tag","------------>倒计时"+indexBean.getData().getDif_time());
-                maindown.setDownTimerListener(new OnCountDownTimerListener() {
+                countdownView.start(indexBean.getData().getDif_time()*1000);
+                countdownView.setOnCountdownEndListener(new CountdownView.OnCountdownEndListener() {
                     @Override
-                    public void onFinish() {
-                        //结束时回调函数
+                    public void onEnd(CountdownView cv) {
+                        //倒计时结束回调函数
+                        seckill_gridview.setVisibility(View.GONE);
+                        next_img.setVisibility(View.VISIBLE);
                     }
                 });
-                //TODO 开始计时
-                maindown.startDownTimer();
             }
 
             @Override

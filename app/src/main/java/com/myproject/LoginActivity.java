@@ -90,8 +90,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (userBean.getCode() == 3000) {
                     //TODO 是否登录状态
                     editor.putString("state","1").apply();
-                    //TODO 保存用户ID
+                    //TODO 保存用户ID和用户类型groupID
                     editor.putString("userID",userBean.getData().getUserid()).apply();
+                    editor.putString("groupID",userBean.getData().getGroupid()).apply();
                     Intent intent=new Intent(LoginActivity.this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else if (userBean.getCode() == -3000) {
