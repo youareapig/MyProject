@@ -2,8 +2,6 @@ package myview;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,11 +14,9 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.myproject.IndentActivity;
 import com.myproject.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
@@ -135,14 +131,16 @@ public class GoodsDetailAdd extends PopupWindow implements View.OnClickListener 
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.i("add", "请求成功：" + result);
+                Log.i("add", "----------------请求成功：" + result);
                 try {
                     JSONObject object = new JSONObject(result);
-                    String rs = object.getString("code");
-                    if (rs.equals("1000")){
-                        Toast.makeText(mContext,"已添加到购物车",Toast.LENGTH_SHORT).show();
-                    }else if (rs.equals("-1000")){
+                    int rs = object.getInt("code");
+                    if (rs==-1000){
+                        //ToastUtil.showToast(mContext,"该商品已存在购物车");
                         Toast.makeText(mContext,"该商品已存在购物车",Toast.LENGTH_SHORT).show();
+                    }else{
+                        //ToastUtil.showToast(mContext,"已添加到购物车");
+                        Toast.makeText(mContext,"已添加到购物车",Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -151,8 +149,10 @@ public class GoodsDetailAdd extends PopupWindow implements View.OnClickListener 
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Log.i("add", "请求错误");
-                Toast.makeText(mContext,"添加失败！",Toast.LENGTH_LONG).show();
+                Log.i("add", "---------请求错误");
+                //ToastUtil.showToast(mContext,"添加失败");
+                //Toast.makeText(mContext,"添加失败",Toast.LENGTH_SHORT).show();
+
             }
 
             @Override

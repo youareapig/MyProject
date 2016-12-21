@@ -9,13 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.makeramen.roundedimageview.RoundedImageView;
 import com.myproject.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
-import bean.IndexBean;
 import bean.SalesBean;
 import utils.Global;
 

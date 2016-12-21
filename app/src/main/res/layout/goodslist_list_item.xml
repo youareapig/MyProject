@@ -54,7 +54,7 @@
         android:id="@+id/goodslist_listview_item_person"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="256"
+        android:text=""
         android:textSize="@dimen/half_title"
         android:textColor="#888888"
         android:layout_alignParentBottom="true"

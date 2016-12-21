@@ -86,8 +86,8 @@
         android:text="下一步"
         android:textColor="#ffff"
         android:layout_marginTop="12dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:background="@drawable/btn_login_dot"
         android:gravity="center"/>
 </LinearLayout>

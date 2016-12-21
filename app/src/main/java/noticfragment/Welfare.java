@@ -22,8 +22,6 @@ import org.xutils.x;
 import java.util.List;
 
 import adpter.NoticeHalfList_Adapter;
-import adpter.NoticeList_Adapter;
-import bean.NoticeBean;
 import bean.NoticeHalfBean;
 import utils.Global;
 

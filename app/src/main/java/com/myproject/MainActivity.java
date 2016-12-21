@@ -15,16 +15,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.ClassifyBean;
 import indexfragment.Store;
 import indexfragment.Personal;
 import indexfragment.ShopCar;
@@ -147,10 +140,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         personal_img.setImageResource(R.mipmap.person_uncheck);
                         personal_name.setTextColor(this.getResources().getColor(R.color.c_black));
                     } else if (state.equals("2")) {
-                        hintLogin();
+                        hintLogin(2);
                     }
                 } catch (Exception e) {
-                    hintLogin();
+                    e.printStackTrace();
                 }
 
 
@@ -172,10 +165,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         personal_img.setImageResource(R.mipmap.person_check);
                         personal_name.setTextColor(this.getResources().getColor(R.color.c_blue));
                     } else if (state.equals("2")) {
-                        hintLogin();
+                        hintLogin(3);
                     }
                 } catch (Exception e) {
-                    hintLogin();
+                    e.printStackTrace();
 
                 }
                 break;
@@ -226,7 +219,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void hintLogin() {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK){
+            switch (requestCode){
+                case 2:
+                    currentIndex = 2;
+                    showFragment();
+                    break;
+                case 3:
+                    currentIndex = 3;
+                    showFragment();
+                    break;
+            }
+        }
+    }
+
+    private void hintLogin(final int flag) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("提示");
         builder.setMessage("您还未登陆，确认登陆?");
@@ -234,7 +244,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
+                intent.putExtra("login",true);
+                startActivityForResult(intent,flag);
             }
         });
         builder.setNegativeButton("取消", null);

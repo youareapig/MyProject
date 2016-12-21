@@ -11,9 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.nostra13.universalimageloader.utils.L;
+import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -28,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adpter.IndentActivityAdapter;
+import bean.AddressBean;
 import bean.DataBean;
 import bean.GoodsDetailsBean;
 import bean.OrderData;
@@ -37,6 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import utils.Format;
 import utils.Global;
+import utils.ToastUtil;
 
 
 public class IndentActivity extends AppCompatActivity {
@@ -64,6 +65,7 @@ public class IndentActivity extends AppCompatActivity {
     private StringBuilder builder3 = new StringBuilder();
     private SharedPreferences sp1;
     public double price=0;
+    private List<DataBean> mList;
     private List<OrderMakeSureBean> list = new ArrayList<>();
     private OrderData mOrderData = new OrderData();
     private static final String LOG_TAG = "IndentActivity";
@@ -76,11 +78,11 @@ public class IndentActivity extends AppCompatActivity {
         adapter = new IndentActivityAdapter();
         buyatonce = (TextView) findViewById(R.id.buyatonce);
         sp1 = getSharedPreferences("userLogin", MODE_PRIVATE);
-        init();
         mRecyclerView = (RecyclerView) findViewById(R.id.activity_indent_recyclerview);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(adapter);
+        RequestDefaultAddress();
         Intent intent = this.getIntent();
         result_goods_num = intent.getStringExtra("goodsnum");
         EventBus.getDefault().register(this);//注册事件总线
@@ -91,7 +93,7 @@ public class IndentActivity extends AppCompatActivity {
                     Log.v(LOG_TAG,"-------------->"+mOrderData.getAddr());
                     placeOrder(mOrderData);
                 }else {
-                    Toast.makeText(IndentActivity.this,"请选择收货地址",Toast.LENGTH_SHORT).show();
+                    ToastUtil.showToast(IndentActivity.this,"请选择收货地址");
                 }
             }
         });
@@ -119,9 +121,9 @@ public class IndentActivity extends AppCompatActivity {
                 mOrderData.setAddr(mAddressID);
                 Log.e("test","地址id："+mAddressID);
                 if (dataBean.getShr_province().equals(dataBean.getShr_city())) {
-                    mAddress.setText(dataBean.getShr_city() + dataBean.getShr_area() + dataBean.getShr_address() + dataBean.getAddr_id());
+                    mAddress.setText(dataBean.getShr_city() + dataBean.getShr_area() + dataBean.getShr_address() );
                 } else {
-                    mAddress.setText(dataBean.getShr_province() + dataBean.getShr_city() + dataBean.getShr_area() + dataBean.getShr_address() + dataBean.getAddr_id());
+                    mAddress.setText(dataBean.getShr_province() + dataBean.getShr_city() + dataBean.getShr_area() + dataBean.getShr_address());
                 }
             }
         }
@@ -133,17 +135,16 @@ public class IndentActivity extends AppCompatActivity {
         }
     }
 
-    public void init() {
-        SharedPreferences sp = getSharedPreferences("defaultaddress", MODE_PRIVATE);
-        if (sp != null) {
-            mOrderData.setAddr(sp.getString("addr_id",""));
+    public void init(DataBean databean) {
+        if (databean != null) {
+            mOrderData.setAddr(databean.getAddr_id());
             mOrderData.setMessage("");
-            mCustomer.setText(sp.getString("shr_name", ""));
-            mTelephone.setText(sp.getString("shr_phone", ""));
-            if (sp.getString("shr_province", "").equals(sp.getString("shr_city", ""))) {
-                mAddress.setText(sp.getString("shr_city", "") + sp.getString("shr_area", "") + sp.getString("shr_address", "") + sp.getString("addr_id", ""));
+            mCustomer.setText(databean.getShr_name());
+            mTelephone.setText(databean.getShr_phone());
+            if (databean.getShr_province().equals(databean.getShr_city())) {
+                mAddress.setText(databean.getShr_city() + databean.getShr_area() + databean.getShr_address());
             } else {
-                mAddress.setText(sp.getString("shr_province", "") + sp.getString("shr_city", "") + sp.getString("shr_area", "") + sp.getString("shr_address", "") + sp.getString("addr_id", ""));
+                mAddress.setText(databean.getShr_province() + databean.getShr_city() + databean.getShr_area() + databean.getShr_address());
             }
         }
     }
@@ -241,8 +242,10 @@ public class IndentActivity extends AppCompatActivity {
                     JSONObject object = new JSONObject(result);
                     JSONObject jo = object.getJSONObject("data");
                     String result1 = jo.getString("total_price");
+                    String order_number = jo.getString("order_id");
                     Intent intent1 = new Intent(IndentActivity.this, PayActivity.class);
                     intent1.putExtra("total_price",result1);
+                    intent1.putExtra("order_id",order_number);
                     startActivityForResult(intent1,1);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -251,7 +254,7 @@ public class IndentActivity extends AppCompatActivity {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(IndentActivity.this, "创建订单失败,请稍后重试", Toast.LENGTH_SHORT).show();
+                ToastUtil.showToast(IndentActivity.this,"创建订单失败,请稍后重试");
             }
 
             @Override
@@ -265,7 +268,38 @@ public class IndentActivity extends AppCompatActivity {
             }
         });
     }
+    public void RequestDefaultAddress(){
+        RequestParams params = new RequestParams(Global.GETADDRESS);
+        params.addBodyParameter("userid",sp1.getString("userID",""));
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                AddressBean add = gson.fromJson(result,AddressBean.class);
+                mList=add.getData();
+                for (DataBean databean:mList){
+                    if (databean.getStatus().equals("1")){
+                        init(databean);
+                    }
+                }
+            }
 
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
     @OnClick(R.id.indent_back)
     public void onClick() {
         finish();

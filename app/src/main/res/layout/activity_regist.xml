@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +8,7 @@
     tools:context="com.myproject.LoginActivity">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="275dp"
+        android:layout_height="240dp"
         android:gravity="center"
         android:background="#e7ebef">
         <ImageView
@@ -123,8 +124,8 @@
             android:text="下一步"
             android:textColor="#ffff"
             android:layout_marginTop="50dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/btn_login_down"
             android:gravity="center"/>
     </RelativeLayout>

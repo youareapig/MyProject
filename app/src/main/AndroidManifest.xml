@@ -21,53 +21,53 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.myproject.MainActivity"
             android:windowSoftInputMode="stateHidden|stateUnchanged">
-
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegistActivity" />
-        <activity android:name=".Regist_UserTypeActivity" />
-        <activity android:name=".Regist_StoreActivity" />
-        <activity android:name=".Regist_PersonalActivity" />
-        <activity android:name=".IndentActivity" />
-        <activity android:name=".PayActivity" />
+        <activity android:name="com.myproject.LoginActivity" />
+        <activity android:name="com.myproject.RegistActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.myproject.Regist_UserTypeActivity" />
+        <activity android:name="com.myproject.Regist_StoreActivity" />
+        <activity android:name="com.myproject.Regist_PersonalActivity" />
+        <activity android:name="com.myproject.IndentActivity" />
+        <activity android:name="com.myproject.PayActivity" />
         <activity
-            android:name=".GoodsListActivity"
+            android:name="com.myproject.GoodsListActivity"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
-        <activity android:name=".GoodsDetailsActivity" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".WashActivity" />
-        <activity android:name=".GarageActivity" />
-        <activity android:name=".OrderActivity" />
-        <activity android:name=".TransactionActivity" />
-        <activity android:name=".ChooseCarTypeActivity" />
-        <activity android:name=".ChhoseCarActivity" />
-        <activity android:name=".WaitEvaluateActivity" />
-        <activity android:name=".MaintainRecordActivity" />
+        <activity android:name="com.myproject.GoodsDetailsActivity" />
+        <activity android:name="com.myproject.SearchActivity" />
+        <activity android:name="com.myproject.WashActivity" />
+        <activity android:name="com.myproject.GarageActivity" />
+        <activity android:name="com.myproject.OrderActivity" />
+        <activity android:name="com.myproject.TransactionActivity" />
+        <activity android:name="com.myproject.ChooseCarTypeActivity" />
+        <activity android:name="com.myproject.ChhoseCarActivity" />
+        <activity android:name="com.myproject.WaitEvaluateActivity" />
+        <activity android:name="com.myproject.MaintainRecordActivity" />
         <activity android:name="helpfragment.HelperActivity" />
-        <activity android:name=".SettingActivity" />
-        <activity android:name=".AboutActivity" />
-        <activity android:name=".PersonalInformationActivity" />
-        <activity android:name=".CompileAddressActivity" />
-        <activity android:name=".ManageAddressActivity"
+        <activity android:name="com.myproject.SettingActivity" />
+        <activity android:name="com.myproject.AboutActivity" />
+        <activity android:name="com.myproject.PersonalInformationActivity" />
+        <activity android:name="com.myproject.CompileAddressActivity" />
+        <activity android:name="com.myproject.ManageAddressActivity"
             android:launchMode="singleTop"/>
-        <activity android:name=".RetrievePasswordActivity" />
-        <activity android:name=".ModificationAddressActivity" />
-        <activity android:name=".SalesActivity"/>
+        <activity android:name="com.myproject.RetrievePasswordActivity" />
+        <activity android:name="com.myproject.ModificationAddressActivity" />
+        <activity android:name="com.myproject.SalesActivity"/>
         <activity
-            android:name=".ModificationPasswordActivity"
+            android:name="com.myproject.ModificationPasswordActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".NoticeActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name="com.myproject.NoticeActivity" />
+        <activity android:name="com.myproject.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LeaderActivity"/>
-        <activity android:name=".NoticeHtmlActivity"></activity>
+        <activity android:name="com.myproject.LeaderActivity"/>
+        <activity android:name="com.myproject.NoticeHtmlActivity"></activity>
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"

@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -19,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -32,7 +30,6 @@ import java.util.List;
 
 import adpter.GoodsDetails_Viewpage_Adapter;
 import bean.GoodsDetailsBean;
-import init.Init;
 import myview.GoodsDetailAdd;
 import myview.Goods_details_Pop;
 import utils.Global;
@@ -131,7 +128,6 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                     }
                 }catch (Exception e){
                     e.printStackTrace();
-                    hintLogin();
                 }
 
 
@@ -148,13 +144,11 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                     }
                 }catch (Exception e){
                     e.printStackTrace();
-                    hintLogin();
                 }
 
                 break;
             case R.id.addshopcar:
-                //TODO 获取状态，判断是否登录 1为登录
-                String state = sharedPreferences.getString("state", null);
+
                 try {
                     if (state.equals("1")) {
                         mGoodsDetailAdd = new GoodsDetailAdd(GoodsDetailsActivity.this, dissPupWindw, mDataBean, userID);
@@ -165,7 +159,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                         hintLogin();
                     }
                 } catch (Exception e) {
-                   hintLogin();
+                   e.printStackTrace();
                 }
 
                 break;
@@ -277,7 +271,8 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(GoodsDetailsActivity.this, LoginActivity.class);
-                startActivity(intent);
+                intent.putExtra("login",true);
+                startActivityForResult(intent,4);
             }
         });
         builder.setNegativeButton("取消", null);

@@ -1,7 +1,6 @@
 package adpter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -26,7 +25,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import bean.GoodsList_Bean;
 import bean.Order_Bean;
 import utils.Global;
 

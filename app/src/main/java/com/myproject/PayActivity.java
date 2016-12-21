@@ -5,15 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Settings;
-import android.provider.SyncStateContract;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.alipay.sdk.pay.PayResult;
@@ -22,6 +19,8 @@ import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -33,6 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import utils.Global;
+import utils.ToastUtil;
 
 public class PayActivity extends AppCompatActivity implements View.OnClickListener {
     @BindView(R.id.activity_pay_weixin)
@@ -44,6 +44,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     private TextView pay_sale;
     private RelativeLayout pay_back;
     private String OrderNumber;
+    private String mOrder_id;
     private static final int SDK_PAY_FLAG = 1;
 
     @Override
@@ -56,6 +57,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         setResult(1);
         String getSale = intent.getStringExtra("total_price");
         OrderNumber=intent.getStringExtra("order_number");
+        mOrder_id=intent.getStringExtra("order_id");
         Log.d("tag", "价格" + getSale);
         pay_sale.setText(getSale);
         pay_back = (RelativeLayout) findViewById(R.id.pay_back);
@@ -70,10 +72,10 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 RequestWXpay();
                 break;
             case R.id.activity_pay_zhifubao:
-
+                RequestZFBKey();
                 break;
             case R.id.activity_pay_yinlian:
-                Toast.makeText(PayActivity.this,"暂未开通",Toast.LENGTH_LONG).show();
+                ToastUtil.showToast(PayActivity.this,"暂未开通");
                 break;
             case R.id.pay_back:
                 finish();
@@ -97,7 +99,6 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 PayTask alipay = new PayTask(PayActivity.this);
                 Map<String, String> result = alipay.payV2(orderInfo, true);
                 Log.i("msp", result.toString());
-
                 Message msg = new Message();
                 msg.what = SDK_PAY_FLAG;
                 msg.obj = result;
@@ -124,10 +125,10 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-                        Toast.makeText(PayActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                        ToastUtil.showToast(PayActivity.this,"支付成功");
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-                        Toast.makeText(PayActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
+                        ToastUtil.showToast(PayActivity.this,"支付失败");
                     }
                     break;
                 }
@@ -137,18 +138,27 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         };
     };
     public void RequestZFBKey(){
-        RequestParams params = new RequestParams("http://192.168.0.105/trunk/api.php/AliPay/pay");
-        params.addBodyParameter("osn","201612161123068299318931");
+        RequestParams params = new RequestParams("http://192.168.0.125/trunk/api.php/AliPay/pay");
         params.addBodyParameter("total_fee","0.01");
+        params.addBodyParameter("partner","2088102168962939");
+        params.addBodyParameter("out_trade_no",mOrder_id);
+        params.addBodyParameter("service","mobile.securitypay.pay");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                payV2(result);
+                Log.v("PayActivity","----------->"+result);
+                try {
+                    JSONObject object = new JSONObject(result);
+                    String orderinfo= object.getString("data");
+                    payV2(orderinfo);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-
+                Log.v("PayActivity","---------------->"+"错误了");
             }
 
             @Override
@@ -163,8 +173,8 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         });
     }
     public void RequestWXpay(){
-        RequestParams params = new RequestParams("https://www.ailunwang.cn/api.php/Pay/pay");
-        params.addBodyParameter("osn","201612161123068299311359");
+        RequestParams params = new RequestParams(Global.WXPAYURL);
+        params.addBodyParameter("osn",mOrder_id);
         params.addBodyParameter("total_fee","0.01");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,7 +7,6 @@
     android:background="#e7ebef"
     android:orientation="vertical"
     tools:context="com.myproject.Regist_StoreActivity">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -28,134 +28,145 @@
             android:textColor="#ffffff"
             android:textSize="@dimen/titele" />
     </RelativeLayout>
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="141dp">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:src="@mipmap/ic_launcher" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="亲爱的用户您好！"
-            android:textSize="@dimen/titele"
-            android:textColor="@color/c_blue"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="80dp"
-            /><TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="请完善您的信息!"
-            android:textSize="@dimen/half_title"
-            android:textColor="@color/c_black"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="110dp"
-            />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="#ffffff">
-
-        <EditText
-            android:id="@+id/company"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:background="@null"
-            android:hint="店铺名称"
-            android:singleLine="true"
-            android:textColorHint="#919191" />
-    </RelativeLayout>
+            android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        android:background="#ffffff">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="141dp">
 
-        <EditText
-            android:id="@+id/company_addr"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:background="@null"
-            android:hint="店铺地址"
-            android:singleLine="true"
-            android:textColorHint="#919191" />
-    </RelativeLayout>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="亲爱的用户您好！"
+                    android:textSize="@dimen/titele"
+                    android:textColor="@color/c_blue"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="80dp"
+                    /><TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请完善您的信息!"
+                android:textSize="@dimen/half_title"
+                android:textColor="@color/c_black"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="110dp"
+                />
+            </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        android:background="#ffffff">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#ffffff">
 
-        <EditText
-            android:id="@+id/company_number"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:background="@null"
-            android:hint="营业执照编号"
-            android:singleLine="true"
-            android:textColorHint="#919191" />
-    </RelativeLayout>
+                <EditText
+                    android:id="@+id/company"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:background="@null"
+                    android:hint="店铺名称"
+                    android:singleLine="true"
+                    android:textColorHint="#919191" />
+            </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:background="#ffffff">
 
-        <TextView
-            android:id="@+id/upload"
-            android:layout_marginTop="10dp"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/uploading"
-            android:gravity="center"
-            android:text="上传执照" />
-        <ImageView
-            android:id="@+id/permit"
-            android:layout_width="180dp"
-            android:layout_height="80dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:scaleType="fitCenter"/>
+                <EditText
+                    android:id="@+id/company_addr"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:background="@null"
+                    android:hint="店铺地址"
+                    android:singleLine="true"
+                    android:textColorHint="#919191" />
+            </RelativeLayout>
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:background="#ffffff">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="#ffffff">
+                <EditText
+                    android:id="@+id/company_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:background="@null"
+                    android:hint="营业执照编号"
+                    android:singleLine="true"
+                    android:textColorHint="#919191" />
+            </RelativeLayout>
 
-        <EditText
-            android:id="@+id/company_scope"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:background="@null"
-            android:hint="经营范围"
-            android:singleLine="true"
-            android:textColorHint="#919191" />
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
 
-    <TextView
-        android:id="@+id/store_finish"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/btn_login_dot"
-        android:gravity="center"
-        android:text="完成"
-        android:textColor="#ffff" />
+                <TextView
+                    android:id="@+id/upload"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/uploading"
+                    android:gravity="center"
+                    android:text="上传执照" />
+                <ImageView
+                    android:id="@+id/permit"
+                    android:layout_width="180dp"
+                    android:layout_height="80dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:scaleType="fitCenter"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#ffffff">
+
+                <EditText
+                    android:id="@+id/company_scope"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:background="@null"
+                    android:hint="经营范围"
+                    android:singleLine="true"
+                    android:textColorHint="#919191" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/store_finish"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/btn_login_dot"
+                android:gravity="center"
+                android:text="完成"
+                android:textColor="#ffff" />
+        </LinearLayout>
+    </ScrollView>
+
+
 </LinearLayout>

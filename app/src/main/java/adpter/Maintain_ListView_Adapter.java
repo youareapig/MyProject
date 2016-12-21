@@ -13,7 +13,6 @@ import com.myproject.R;
 
 import java.util.List;
 
-import bean.GoodsList_Bean;
 import bean.MaintainBean;
 
 /**

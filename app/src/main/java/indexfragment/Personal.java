@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.myproject.AboutActivity;
 import com.myproject.GarageActivity;
-import com.myproject.LoginActivity;
 import com.myproject.MainActivity;
 import com.myproject.MaintainRecordActivity;
 import com.myproject.OrderActivity;

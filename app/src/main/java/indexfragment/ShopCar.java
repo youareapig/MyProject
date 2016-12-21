@@ -2,10 +2,8 @@ package indexfragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,14 +17,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.myproject.IndentActivity;
+
 import com.myproject.R;
-import com.nostra13.universalimageloader.utils.L;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -39,6 +38,7 @@ import bean.ShopCarData;
 import utils.Format;
 import utils.Global;
 import utils.SpaceItemDecoration;
+import utils.ToastUtil;
 
 /**
  * Created by Administrator on 2016/10/19 0019.
@@ -49,12 +49,14 @@ public class ShopCar extends Fragment  {
     private ShopCarBean bean1, bean2, bean3, bean4;
     private CheckBox checkBox_all;
     private ShopCarAdapter mShopCarAdapter;
-    private TextView total_sale,clearing;
+    private TextView total_sale,clearing,noCommedity;
     private LinearLayout shopcar_compile;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RelativeLayout mRelativeLayout;
     private ShopCarAdapter.Callback mCallback;
     private final String LOG_TAG="ShopCar";
     private SharedPreferences sp;
+    private ImageView noImage;
     private ShopCarData carData;
     private boolean isCheck=true;
     @Override
@@ -84,6 +86,13 @@ public class ShopCar extends Fragment  {
                     isCheck=true;
                 }
                 checkBox_all.setChecked(b);
+            }
+
+            @Override
+            public void callBackVisibility() {
+                noCommedity.setVisibility(View.VISIBLE);
+                noImage.setVisibility(View.VISIBLE);
+                mRelativeLayout.setVisibility(View.INVISIBLE);
             }
         };
         /**添加适配器*/
@@ -167,6 +176,7 @@ public class ShopCar extends Fragment  {
                 builder.create().show();
 
     }
+
     public void requestShopCarData(){
         RequestParams params = new RequestParams(Global.SHOPCARDATA);
         params.addBodyParameter("userid",sp.getString("userID",""));
@@ -180,17 +190,25 @@ public class ShopCar extends Fragment  {
                 total_sale.setText("0.00");
                 Gson gson = new Gson();
                 carData = gson.fromJson(result,ShopCarData.class);
-                mShopCarAdapter.addData(carData.getData());
-                if (mSwipeRefreshLayout.isRefreshing()){
-                    mSwipeRefreshLayout.setRefreshing(false);
+                if (carData.getCode()==-1000){
+                    noCommedity.setVisibility(View.VISIBLE);
+                    noImage.setVisibility(View.VISIBLE);
+                    mRelativeLayout.setVisibility(View.INVISIBLE);
+                }else {
+                    mShopCarAdapter.addData(carData.getData());
+                    mRelativeLayout.setVisibility(View.VISIBLE);
+                    if (mSwipeRefreshLayout.isRefreshing()){
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                    checkBox_all.setChecked(false);
+                    clearingListener();
                 }
-                checkBox_all.setChecked(false);
-                clearingListener();
+
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(getActivity(), "服务器故障,请稍后重试", Toast.LENGTH_SHORT).show();
+                ToastUtil.showToast(getActivity(),"网络故障，请稍后重试");
             }
 
             @Override
@@ -247,6 +265,9 @@ public class ShopCar extends Fragment  {
         clearing= (TextView) view.findViewById(R.id.clearing);
         mSwipeRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.shopcar_swiperefreshlayout);
         mSwipeRefreshLayout.setColorSchemeColors(Color.RED);
+        mRelativeLayout = (RelativeLayout) view.findViewById(R.id.shopcar_rl);
+        noImage = (ImageView) view.findViewById(R.id.shopcar_iv_none);
+        noCommedity = (TextView) view.findViewById(R.id.shopcar_tv_none);
         sp=getActivity().getSharedPreferences("userLogin",Context.MODE_PRIVATE);
     }
 }

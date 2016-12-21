@@ -1,7 +1,6 @@
 package adpter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -11,14 +10,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.myproject.CompileAddressActivity;
-import com.myproject.ManageAddressActivity;
+
 import com.myproject.ModificationAddressActivity;
 import com.myproject.R;
 
@@ -29,13 +25,12 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.util.HashMap;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
-import bean.AddressBean;
 import bean.DataBean;
 import bean.UpdateAddressBean;
 import utils.Global;
+import utils.ToastUtil;
 
 /**
  * Created by Administrator on 2016/12/7 0007.
@@ -101,52 +96,51 @@ public class ManageAddress_Adapter extends BaseAdapter {
         }
         holder.shrName.setText(dataBean.getShr_name());
         holder.shrTel.setText(dataBean.getShr_phone());
-        holder.shrAddress.setText(dataBean.getShr_province() + dataBean.getShr_city() + dataBean.getShr_area() + dataBean.getShr_address());
-
+        if (dataBean.getShr_province().equals(dataBean.getShr_city())) {
+            holder.shrAddress.setText(dataBean.getShr_city() + dataBean.getShr_area() + dataBean.getShr_address() );
+        } else {
+            holder.shrAddress.setText(dataBean.getShr_province() + dataBean.getShr_city() + dataBean.getShr_area() + dataBean.getShr_address());
+        }
         //TODO 设置默认地址
         //当RadioButton被选中时，将其状态记录进States中，并更新其他RadioButton的状态使它们不被选中
-        holder.defaultAddress.setOnClickListener(new View.OnClickListener() {
+        if (states.get(String.valueOf(position)) == null) {
+            states.put(String.valueOf(position), false);
+        }
+        holder.defaultAddress.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 global = new Global();
                 addr_id = dataBean.getAddr_id();
                 String setAddressUrl = global.getUrl() + "api.php/Member/changeStatusaddress";
-                //重置，确保最多只有一项被选中
-                for (String key : states.keySet()) {
-                    states.put(key, false);
+//                //重置，确保最多只有一项被选中
+//                for (String key : states.keySet()) {
+//                    states.put(key, false);
+//                }
+//                states.put(String.valueOf(position), holder.defaultAddress.isChecked());
+
+                if (b){
+                    if (!isFirst){
+                        states.put(String.valueOf(position),true);
+                        setAddress(setAddressUrl);
+                        holder.defaultAddress.setEnabled(false);
+                        notifyDataSetChanged();
+                    }
+                }else {
+                    holder.defaultAddress.setEnabled(true);
                 }
-                states.put(String.valueOf(position), holder.defaultAddress.isChecked());
-                notifyDataSetChanged();
-                setAddress(setAddressUrl,position);
             }
-
         });
-
-        boolean res = true;
         Log.i("set", "默认选中值" + dataBean.getStatus());
 
-        if (states.get(String.valueOf(position)) == null || states.get(String.valueOf(position)) == false) {
-            Log.i("set", "第一步");
-            res = false;
-            states.put(String.valueOf(position), false);
-        } else {
-            Log.i("set", "第二步");
-            res = true;
-            states.put(String.valueOf(position), true);
-
-        }
         if (!isFirst){
-            holder.defaultAddress.setChecked(res);
-            Log.v("646","--------------->"+"66"+position);
+            holder.defaultAddress.setChecked(states.get(String.valueOf(position)));
         }
         if (isFirst){
             if (dataBean.getStatus().equals("1")){
                 isFirst=false;
                 holder.defaultAddress.setChecked(true);
-                Log.v("646","--------------->"+"55"+position);
             }else {
                 holder.defaultAddress.setChecked(false);
-                Log.v("646","--------------->"+"66"+position);
             }
         }
         //TODO 删除地址
@@ -207,12 +201,12 @@ public class ManageAddress_Adapter extends BaseAdapter {
                 try {
                     JSONObject mJson = new JSONObject(result);
                     String myCode = mJson.getString("code");
-                    if (myCode.equals("3000")) {
+                    if (myCode.equals("-3000")) {
+                        ToastUtil.showToast(context,"删除地址失败");
+                    } else  {
                         //TODO 数据删除成功后移除该项，更新界面
                         list.remove(position);
                         notifyDataSetChanged();
-                    } else if (myCode.equals("-3000")) {
-                        Toast.makeText(context, "删除地址失败", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -293,7 +287,7 @@ public class ManageAddress_Adapter extends BaseAdapter {
     }
 
     //TODO 设置默认地址
-    private void setAddress(String setAddressUrl, final int position) {
+    private void setAddress(String setAddressUrl) {
         RequestParams params = new RequestParams(setAddressUrl);
         params.addBodyParameter("userid", userID);
         params.addBodyParameter("addr_id", addr_id);
@@ -301,20 +295,6 @@ public class ManageAddress_Adapter extends BaseAdapter {
             @Override
             public void onSuccess(String result) {
                 Log.i("delete", "默认地址设置成功: " + result);
-                SharedPreferences sp = context.getSharedPreferences("defaultaddress",Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
-                DataBean dataBean =list.get(position);
-                editor.putString("addr_id",dataBean.getAddr_id());
-                editor.putString("shr_name",dataBean.getShr_name());
-                editor.putString("shr_province",dataBean.getShr_province());
-                editor.putString("shr_city",dataBean.getShr_city());
-                editor.putString("shr_area",dataBean.getShr_area());
-                editor.putString("shr_address",dataBean.getShr_address());
-                editor.putString("shr_phone",dataBean.getShr_phone());
-                editor.putString("zip_code",dataBean.getZip_code());
-                editor.putString("userid",dataBean.getUserid());
-                editor.putString("status",dataBean.getStatus());
-                editor.commit();
             }
 
             @Override
@@ -338,4 +318,5 @@ public class ManageAddress_Adapter extends BaseAdapter {
             }
         });
     }
+
 }

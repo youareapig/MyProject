@@ -17,7 +17,6 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -33,6 +32,7 @@ import adpter.GoodsList_ListView_Adapter;
 import adpter.Pop_brand_Adapter;
 import bean.GoodsList_Bean;
 import utils.Global;
+import utils.ToastUtil;
 
 public class GoodsListActivity extends AppCompatActivity implements OnClickListener {
     private RelativeLayout goodslist_brand, goods_sale, goods_details_back, serach;
@@ -40,7 +40,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
     private ListView goodslist_listview;
     private List<GoodsList_Bean.DataBean> list;
     private List<GoodsList_Bean.BrandBean> brandList;
-    private TextView goods_sales, synthesize, goods_pinpai;
+    private TextView goods_sales, synthesize, goods_pinpai,noGoods;
     private GoodsList_ListView_Adapter goodsListListViewAdapter;
     private boolean bool = false;
     private GridView pop_grid_brand;
@@ -72,6 +72,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         edit_search = (EditText) findViewById(R.id.edit_search);
         goods_pinpai = (TextView) findViewById(R.id.goods_pinpai);
         goods_details_back = (RelativeLayout) findViewById(R.id.goods_details_back);
+        noGoods = (TextView) findViewById(R.id.activity_goods_list_none);
         goods_details_back.setOnClickListener(this);
         goodslist_brand.setOnClickListener(this);
         goods_sale.setOnClickListener(this);
@@ -122,7 +123,6 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
             });
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(GoodsListActivity.this, "该分类没有商品,期待后期上架", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -144,7 +144,6 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
             });
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(GoodsListActivity.this, "该分类没有商品,期待后期上架", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -187,7 +186,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
                 try {
                     goodsListListViewAdapter.notifyDataSetChanged();
                 } catch (Exception e) {
-                    Toast.makeText(GoodsListActivity.this, "该分类没有商品,期待后期上架", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
                 }
 
                 break;
@@ -208,7 +207,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
             case R.id.serach:
                 String stringSearch = edit_search.getText().toString().trim();
                 if (TextUtils.isEmpty(stringSearch)) {
-                    Toast.makeText(GoodsListActivity.this, "请输入关键字", Toast.LENGTH_SHORT).show();
+                    ToastUtil.showToast(GoodsListActivity.this,"请输入关键字");
                     return;
                 } else {
                     internetSearch(stringSearch);
@@ -255,12 +254,11 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
             public void onSuccess(String result) {
                 Log.e("tag", "分类" + result);
                 cache(result);
-
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(GoodsListActivity.this, "该分类没有商品,期待后期上架", Toast.LENGTH_SHORT).show();
+                ToastUtil.showToast(GoodsListActivity.this,"网络请求错误");
             }
 
             @Override
@@ -285,12 +283,17 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         Log.d("test", "result:" + result);
         Gson gson = new Gson();
         goodsListBean = gson.fromJson(result, GoodsList_Bean.class);
-        list = goodsListBean.getData();
-        Log.d("test", "接受数据:" + result);
-        goodsListListViewAdapter = new GoodsList_ListView_Adapter(GoodsListActivity.this, list);
-        goodslist_listview.setAdapter(goodsListListViewAdapter);
-        Log.d("test", "商品介绍:" + list.get(0).getGoods_name());
-        brandList = goodsListBean.getBrand();
+        if (goodsListBean.getCode()==1000){
+            list = goodsListBean.getData();
+            Log.d("test", "接受数据:" + result);
+            goodsListListViewAdapter = new GoodsList_ListView_Adapter(GoodsListActivity.this, list);
+            goodslist_listview.setAdapter(goodsListListViewAdapter);
+            Log.d("test", "商品介绍:" + list.get(0).getGoods_name());
+            brandList = goodsListBean.getBrand();
+        }else {
+
+        }
+
 
     }
 
@@ -304,15 +307,19 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
                 //TODO 通过品牌适配数据
                 Gson gson = new Gson();
                 goodsListBean = gson.fromJson(result, GoodsList_Bean.class);
-                list = goodsListBean.getData();
-                goodsListListViewAdapter = new GoodsList_ListView_Adapter(GoodsListActivity.this, list);
-                goodslist_listview.setAdapter(goodsListListViewAdapter);
-                goodsListListViewAdapter.notifyDataSetChanged();
+                if (goodsListBean.getCode()==1000){
+                    list = goodsListBean.getData();
+                    goodsListListViewAdapter = new GoodsList_ListView_Adapter(GoodsListActivity.this, list);
+                    goodslist_listview.setAdapter(goodsListListViewAdapter);
+                    goodsListListViewAdapter.notifyDataSetChanged();
+                }else {
+                }
+
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(GoodsListActivity.this, "该品牌已售罄", Toast.LENGTH_SHORT).show();
+                ToastUtil.showToast(GoodsListActivity.this,"网络请求错误");
             }
 
             @Override
@@ -342,20 +349,21 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
                 Log.e("tag", "搜索" + result);
                 Gson gson = new Gson();
                 goodsListBean = gson.fromJson(result, GoodsList_Bean.class);
-                list = goodsListBean.getData();
-                goodsListListViewAdapter = new GoodsList_ListView_Adapter(GoodsListActivity.this, list);
-                goodslist_listview.setAdapter(goodsListListViewAdapter);
-                // brandList=goodsListBean.getBrand();
-                goodsListListViewAdapter.notifyDataSetChanged();
-
-
+                if (goodsListBean.getCode()==1000){
+                    list = goodsListBean.getData();
+                    goodsListListViewAdapter = new GoodsList_ListView_Adapter(GoodsListActivity.this, list);
+                    goodslist_listview.setAdapter(goodsListListViewAdapter);
+                    // brandList=goodsListBean.getBrand();
+                    goodsListListViewAdapter.notifyDataSetChanged();
+                }else {
+                }
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
 //                list.removeAll(list);
 //                goodsListListViewAdapter.notifyDataSetChanged();
-                Toast.makeText(GoodsListActivity.this, "没有找到符合要求的商品，请重新输入！", Toast.LENGTH_SHORT).show();
+                ToastUtil.showToast(GoodsListActivity.this,"网络请求错误");
             }
 
             @Override

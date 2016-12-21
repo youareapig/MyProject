@@ -13,23 +13,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.myproject.IndentActivity;
 import com.myproject.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
 
 import bean.GoodsDetailsBean;
-import bean.OrderDataBean;
-import init.Init;
 import utils.Global;
-import utils.RequestUtil;
 
 /**
  * Created by Administrator on 2016/11/1 0001.

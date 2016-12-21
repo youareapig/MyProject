@@ -9,22 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.myproject.GoodsListActivity;
 import com.myproject.R;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
 
 import java.util.List;
 
 import bean.ClassifyBean;
-import bean.GoodsList_Bean;
 import myview.Index_GrideView;
 
 /**

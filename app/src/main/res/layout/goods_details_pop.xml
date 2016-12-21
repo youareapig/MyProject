@@ -40,7 +40,7 @@
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="12dp"
                 android:layout_toRightOf="@+id/pop_img"
-                android:text="9.8"
+                android:text="0.00"
                 android:textColor="#f94426"
                 android:textSize="17sp" />
 
@@ -50,7 +50,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="12dp"
                 android:layout_toRightOf="@+id/pop_img"
-                android:text="库存"
+                android:text=""
                 android:textColor="@color/c_black"
                 android:textSize="15sp" />
 
@@ -61,7 +61,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="42dp"
                 android:layout_toRightOf="@+id/pop_img"
-                android:text="665"
+                android:text=""
                 android:textColor="@color/c_black"
                 android:textSize="15sp" />
 
@@ -71,7 +71,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="70dp"
                 android:layout_toRightOf="@+id/pop_img"
-                android:text="件"
+                android:text=""
                 android:textColor="@color/c_black"
                 android:textSize="15sp" />
 

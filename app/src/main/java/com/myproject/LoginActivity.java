@@ -28,6 +28,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private String URL;
+    private boolean isLogin;
+    private String tel;
     private ProgressDialog progressDialog = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         URL=global.getUrl()+"api.php/Member/login";
         sharedPreferences = getSharedPreferences("userLogin", MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        Intent intent = getIntent();
+        Intent intent1 =this.getIntent();
+        if (intent1!=null){
+            isLogin = intent1.getBooleanExtra("login",false);
+        }
+        if (intent!=null){
+            tel=intent.getStringExtra("tel");
+        }
         btn_login = (TextView) findViewById(R.id.login);
         user_regist = (TextView) findViewById(R.id.regist);
         userphone = (EditText) findViewById(R.id.userphone);
@@ -45,8 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         forgetpassword.setOnClickListener(this);
         btn_login.setOnClickListener(this);
         user_regist.setOnClickListener(this);
-        Intent intent =this.getIntent();
-        String tel=intent.getStringExtra("tel");
+
         userphone.setText(tel);
     }
 
@@ -92,8 +101,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     editor.putString("state","1").apply();
                     //TODO 保存用户ID
                     editor.putString("userID",userBean.getData().getUserid()).apply();
-                    Intent intent=new Intent(LoginActivity.this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    if (isLogin){
+                        setResult(RESULT_OK);
+                        finish();
+                    }else {
+                        Intent intent=new Intent(LoginActivity.this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
                 } else if (userBean.getCode() == -3000) {
                     Toast.makeText(LoginActivity.this, "用户名或者密码错误", Toast.LENGTH_SHORT).show();
                 }

@@ -43,16 +43,41 @@
         android:layout_weight="1"
         android:id="@+id/shopcar_swiperefreshlayout"
         >
-        <android.support.v7.widget.RecyclerView
+        <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/shopcar_recyclerview"
-            >
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/shopcar_recyclerview"
+                >
+            </android.support.v7.widget.RecyclerView>
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/shopcar_iv_none"
+                android:visibility="invisible"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="72dp"
+                android:src="@mipmap/shopcar_uncheck"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/shopcar_tv_none"
+                android:visibility="invisible"
+                android:paddingTop="96dp"
+                android:gravity="center_horizontal"
+                android:textColor="#888888"
+                android:textSize="16sp"
+                android:text="你的购物车还是空的，快去挑选商品！"/>
+        </FrameLayout>
+
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <RelativeLayout
         android:layout_marginTop="2dp"
+        android:visibility="invisible"
+        android:id="@+id/shopcar_rl"
         android:layout_width="match_parent"
         android:layout_height="45dp">
 

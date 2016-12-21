@@ -133,11 +133,25 @@
                 />
         </RelativeLayout>
     </LinearLayout>
-    <ListView
-        android:layout_marginTop="8dp"
-        android:id="@+id/goodslist_listview"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:dividerHeight="4dp"
-        android:background="#ffffff"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+        <ListView
+            android:layout_marginTop="8dp"
+            android:id="@+id/goodslist_listview"
+            android:layout_width="match_parent"
+            android:dividerHeight="4dp"
+            android:background="#ffffff"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/activity_goods_list_none"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:visibility="invisible"
+            android:textColor="#888888"
+            android:text="暂无该分类商品，请期待以后上架"/>
+    </FrameLayout>
+
 </LinearLayout>

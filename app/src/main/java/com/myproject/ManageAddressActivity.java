@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -23,6 +22,7 @@ import adpter.ManageAddress_Adapter;
 import bean.AddressBean;
 import bean.DataBean;
 import utils.Global;
+import utils.ToastUtil;
 
 public class ManageAddressActivity extends AppCompatActivity implements View.OnClickListener {
     private RelativeLayout addsite, manageaddress_back;
@@ -86,7 +86,7 @@ public class ManageAddressActivity extends AppCompatActivity implements View.OnC
                     manageaddress_listview.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                 } else if (addressBean.getCode() == -3000) {
-                    Toast.makeText(ManageAddressActivity.this, "亲，你还没有添加收货地址哟！", Toast.LENGTH_SHORT).show();
+                    ToastUtil.showToast(ManageAddressActivity.this,"亲，你还没有添加收货地址哟");
                 }
             }
 

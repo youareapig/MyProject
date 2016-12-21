@@ -17,23 +17,20 @@ import com.myproject.GoodsDetailsActivity;
 import com.myproject.IndentActivity;
 import com.myproject.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.utils.L;
 
 import org.greenrobot.eventbus.EventBus;
-import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Handler;
 
 import bean.OrderMakeSureBean;
 import bean.ShopCarBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import utils.Global;
-import utils.RequestUtil;
+import utils.ToastUtil;
 
 /**
  * Created by Administrator on 2016/12/6.
@@ -133,7 +130,7 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 Intent intent = new Intent(mContext, IndentActivity.class);
                 mContext.startActivity(intent);
             }else {
-                Toast.makeText(mContext,"你还未选择任何商品",Toast.LENGTH_LONG).show();
+                ToastUtil.showToast(mContext,"你还未选择任何商品");
             }
         }
     }
@@ -159,6 +156,9 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void makeSureDelete(){
         for (int i=0;i<list.size();i++){
             mShopCarBeans.remove(list.get(i));
+            if (mShopCarBeans.size()==0){
+                mCallback.callBackVisibility();
+            }
         }
     }
     @Override
@@ -304,5 +304,6 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         void callBackPrice(double price);
         void callBackGoodsID(StringBuilder goodsID);
         void callBackisCheckAll(boolean b);
+        void callBackVisibility();
     }
 }

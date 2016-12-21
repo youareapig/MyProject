@@ -5,6 +5,7 @@ package utils;
  */
 public class Global {
     public  String url="http://192.168.0.126/";
+
     public static final String URL="https://www.ailunwang.cn/";
     public static final String SHOPCARDATA=URL+"/api.php/Cart/carDisplay";
     public static final String SHOPCARDELETEDATA=URL+"/api.php/Cart/carDel";
@@ -12,10 +13,12 @@ public class Global {
     public static final String SHOPCARADDNUMBER=URL+"/api.php/Cart/goods_number_plus";
     public static final String SHOPCARREDUCENUMBER=URL+"/api.php/Cart/goods_number_reduce";
     public static final String SHOPCARORDER=URL+"/api.php/Order/order";
+    public static final String GETADDRESS=URL+"api.php/Member/memberLstaddress";
     public String getUrl() {
         return url;
     }
     public static final String SHOPCARADDDATA=URL+"/api.php/Cart/carAdd";
+    public static final String WXPAYURL=URL+"/api.php/Pay/pay";
     public static final String APP_ID = "wx426b3015555a46be";
     public void setUrl(String url) {
         this.url = url;

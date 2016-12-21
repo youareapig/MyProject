@@ -18,7 +18,6 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.List;
 
-import adpter.NoticeList_Adapter;
 import adpter.Notice_Adapter;
 import bean.NoticeBean;
 import butterknife.BindView;

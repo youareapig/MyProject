@@ -296,7 +296,7 @@
                     android:layout_marginRight="17dp"
                     android:layout_marginTop="5dp"
                     android:id="@+id/activity_indent_price"
-                    android:text="650.00"
+                    android:text="0.00"
                     android:textColor="#f94426"
                     android:textSize="@dimen/half_title" />
 
@@ -335,8 +335,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="145dp"
+            android:layout_marginRight="24dp"
             android:text="合计:"
+            android:layout_toLeftOf="@+id/activity_indent_totalprice"
             android:textColor="@color/c_black"
             android:textSize="@dimen/half_title" />
 
@@ -344,8 +345,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="190dp"
+            android:layout_toLeftOf="@+id/activity_indent_totalprice"
             android:text="¥"
+            android:layout_marginRight="8dp"
             android:textColor="#f94426"
             android:textSize="@dimen/half_title" />
 
@@ -353,9 +355,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="210dp"
+            android:layout_toLeftOf="@+id/buyatonce"
+            android:layout_marginRight="48dp"
             android:id="@+id/activity_indent_totalprice"
-            android:text="650.00"
+            android:text="0.00"
             android:textColor="#f94426"
             android:textSize="@dimen/half_title" />
 

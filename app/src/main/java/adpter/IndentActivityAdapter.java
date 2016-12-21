@@ -1,6 +1,5 @@
 package adpter;
 
-import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +13,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.GoodsDetailsBean;
-import bean.OrderDataBean;
 import bean.OrderMakeSureBean;
-import bean.orderBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import utils.Global;

@@ -13,7 +13,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
-import bean.NoticeBean;
 import bean.NoticeHalfBean;
 import utils.Global;
 
