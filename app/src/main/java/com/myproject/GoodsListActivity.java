@@ -64,7 +64,6 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         resultGoodsID = intent.getStringExtra("goodsID");
         //TODO 首页搜索传过来的搜索内容
         resultSearch = intent.getStringExtra("seach");
-
         sharedPreferences = getSharedPreferences("userLogin", MODE_PRIVATE);
         //TODO 获取用户类型ID
         groupID=sharedPreferences.getString("groupID","0");
@@ -186,6 +185,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
                 }else {
                     Log.e("tag","没有商品");
                 }
+
                 break;
             case R.id.goods_sale_v:
                 if (bool == false) {
@@ -264,6 +264,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         RequestParams params = new RequestParams(URL);
         params.addBodyParameter("cat_id", carID);
         params.addBodyParameter("groupid",groupID);
+        Log.e("tag","车子ID"+carID);
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -299,15 +300,15 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         Log.d("test", "result:" + result);
         Gson gson = new Gson();
         goodsListBean = gson.fromJson(result, GoodsList_Bean.class);
+        list = goodsListBean.getData();
+        Log.d("test", "接受数据:" + result);
         if (goodsListBean.getCode()==1000){
-            list = goodsListBean.getData();
-            Log.d("test", "接受数据:" + result);
             goodsListListViewAdapter = new GoodsList_ListView_Adapter(GoodsListActivity.this, list);
             goodslist_listview.setAdapter(goodsListListViewAdapter);
             Log.d("test", "商品介绍:" + list.get(0).getGoods_name());
             brandList = goodsListBean.getBrand();
         }else {
-
+            Toast.makeText(GoodsListActivity.this, "没商品", Toast.LENGTH_SHORT).show();
         }
 
 
