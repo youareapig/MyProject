@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.myproject.GoodsDetailsActivity;
 import com.myproject.GoodsListActivity;
 import com.myproject.NoticeActivity;
 import com.myproject.R;
@@ -37,15 +38,15 @@ import java.util.List;
 
 import adpter.IndexActivityAdapter;
 import adpter.IndexBannerAdapter;
+import adpter.IndexSeckillAdapter;
 import adpter.Index_GridView_Adpter;
 import bean.IndexBean;
+import cn.iwgang.countdownview.CountdownView;
 import myview.Index_GrideView;
 import myview.Index_ListView;
 import myview.LooperTextView;
 import myview.ObservableScrollView;
 import utils.Global;
-import utils.MainDownTimerView;
-import utils.OnCountDownTimerListener;
 
 /**
  * Created by Administrator on 2016/10/19 0019.
@@ -54,12 +55,11 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
     private LooperTextView notice;
     private List<String> notice_list;
     private List<IndexBean.DataBean.AdBean> indexBannerList;
-    private MainDownTimerView maindown;
     private RelativeLayout indextitle, morenotice;
     private ObservableScrollView scrollView;
-    private ImageView index_search;
+    private ImageView index_search,next_img;
     private int height;
-    private Index_GrideView index_grideView;
+    private Index_GrideView index_grideView,seckill_gridview;
     private List<HashMap<String, Object>> list;
     private HashMap<String, Object> hashMap1, hashMap2, hashMap3, hashMap4, hashMap5, hashMap6, hashMap7, hashMap8;
     private TextView index_searchtext;
@@ -71,13 +71,13 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
     private Handler handler;
     private ProgressDialog progressDialog=null;
     private Index_ListView indexactivitylist;
+    private CountdownView countdownView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.index, container, false);
         global = new Global();
         indexNoticeUrl = global.getUrl() + "api.php/Index/index";
         notice = (LooperTextView) view.findViewById(R.id.index_notice);
-        maindown = (MainDownTimerView) view.findViewById(R.id.maindown);
         scrollView = (ObservableScrollView) view.findViewById(R.id.scrollview);
         indextitle = (RelativeLayout) view.findViewById(R.id.indextitle);
         index_grideView = (Index_GrideView) view.findViewById(R.id.index_gridview);
@@ -87,6 +87,9 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
         index_viewpager = (ViewPager) view.findViewById(R.id.index_viewpager);
         indexviewGroup = (ViewGroup) view.findViewById(R.id.indexviewGroup);
         indexactivitylist= (Index_ListView) view.findViewById(R.id.indexactivitylist);
+        seckill_gridview= (Index_GrideView) view.findViewById(R.id.seckill_gridview);
+        countdownView= (CountdownView) view.findViewById(R.id.cv_countdownViewTest211);
+        next_img= (ImageView) view.findViewById(R.id.next_img);
         morenotice.setOnClickListener(this);
         index_search.setOnClickListener(this);
         index_searchtext.setOnClickListener(this);
@@ -170,15 +173,6 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
         indexInternet();
 
 
-        //TODO 倒计时抢购
-        maindown.setDownTimerListener(new OnCountDownTimerListener() {
-            @Override
-            public void onFinish() {
-                //结束时回调函数
-            }
-        });
-        //TODO 开始计时
-        //maindown.startDownTimer();
         return view;
     }
 
@@ -273,7 +267,6 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
                     }
 
                     notice.setTipList(notice_list);
-                    maindown.setDownTime(10000);
 
                 }
                 //TODO 活动列表
@@ -286,6 +279,36 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
                         Intent intent=new Intent(getActivity(), SalesActivity.class);
                         intent.putExtra("activeid",bean.getActive_id());
                         getActivity().startActivity(intent);
+                    }
+                });
+                //TODO 秒杀
+                List<IndexBean.DataBean.SecondGoodsBean> seckillList=indexBean.getData().getSecond_goods();
+                if (seckillList!=null){
+                    next_img.setVisibility(View.GONE);
+                    seckill_gridview.setVisibility(View.VISIBLE);
+                    seckill_gridview.setAdapter(new IndexSeckillAdapter(getActivity(),seckillList));
+                    seckill_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            IndexBean.DataBean.SecondGoodsBean bean= (IndexBean.DataBean.SecondGoodsBean) parent.getItemAtPosition(position);
+                            Intent intent=new Intent(getActivity(), GoodsDetailsActivity.class);
+                            intent.putExtra("goodsID",bean.getGoods_id());
+                            getActivity().startActivity(intent);
+                        }
+                    });
+                }else {
+                    seckill_gridview.setVisibility(View.GONE);
+                    next_img.setVisibility(View.VISIBLE);
+                }
+
+                //TODO 倒计时抢购
+                countdownView.start(indexBean.getData().getDif_time()*1000);
+                countdownView.setOnCountdownEndListener(new CountdownView.OnCountdownEndListener() {
+                    @Override
+                    public void onEnd(CountdownView cv) {
+                        //倒计时结束回调函数
+                        seckill_gridview.setVisibility(View.GONE);
+                        next_img.setVisibility(View.VISIBLE);
                     }
                 });
             }

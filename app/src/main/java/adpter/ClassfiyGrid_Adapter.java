@@ -35,11 +35,17 @@ public class ClassfiyGrid_Adapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+        if (list==null){
+            return 0;
+        }
         return list.size();
     }
 
     @Override
     public Object getItem(int position) {
+        if (list==null){
+            return null;
+        }
         return list.get(position);
     }
 

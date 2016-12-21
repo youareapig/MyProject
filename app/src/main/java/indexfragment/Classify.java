@@ -72,7 +72,7 @@ public class Classify extends Fragment implements View.OnClickListener {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(getActivity(), "服务器故障,请稍后重试", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "不能连接服务器，请检查您的网络配置", Toast.LENGTH_SHORT).show();
             }
 
             @Override

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -78,6 +79,15 @@ public class SalesActivity extends AppCompatActivity {
                 ImageLoader.getInstance().displayImage(global.getUrl() + bean.getData().getTitle().getActive_logo(), activityBanner);
                 activityHalftitle.setText(bean.getData().getTitle().getActive_name());
                 salesgridview.setAdapter(new SalesGridVIewAdapter(SalesActivity.this, list));
+                salesgridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        SalesBean.DataBean.InfoBean infoBean= (SalesBean.DataBean.InfoBean) parent.getItemAtPosition(position);
+                        Intent intent=new Intent(SalesActivity.this,GoodsDetailsActivity.class);
+                        intent.putExtra("goodsID",infoBean.getGoods_id());
+                        startActivity(intent);
+                    }
+                });
 
             }
 

@@ -35,8 +35,8 @@ import myview.Goods_details_Pop;
 import utils.Global;
 
 public class GoodsDetailsActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
-    private TextView buy, goods_details_introduce, goods_details_price, goods_details_brank, addshopcar;
-    private String IMG, resultGoodsid, URL, userID,state;
+    private TextView buy, goods_details_introduce, goods_details_price, goods_details_brank, addshopcar,goods_details_salenum;
+    private String IMG, resultGoodsid, URL, userID,state,groupID;
     private Goods_details_Pop goodsDetailsPop;
     private ViewPager goods_details_viewpage;
     private ImageView[] goods_details_pager_image, tips;
@@ -85,10 +85,10 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
         Log.i("goods", "商品详情ID" + resultGoodsid);
         //TODO 获取用户ID
         userID = sharedPreferences.getString("userID", null);
-        Log.i("goods", "用户ID" + userID);
+        groupID=sharedPreferences.getString("groupID","0");
+        Log.e("tag", "用户ID---------->" + userID+"类型ID："+groupID);
         internet(resultGoodsid);
-        mWebView.loadUrl("https://www.baidu.com/");
-        mWebView.setWebViewClient(new WebViewClient());
+
     }
 
     public void initview() {
@@ -105,6 +105,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
         goods_details_back= (RelativeLayout) findViewById(R.id.goods_details_back);
         goods_details_back.setOnClickListener(this);
         addshopcar = (TextView) findViewById(R.id.addshopcar);
+        goods_details_salenum= (TextView) findViewById(R.id.goods_details_salenum);
         mWebView = (WebView) findViewById(R.id.activity_goods_detail_webview);
         addshopcar.setOnClickListener(this);
     }
@@ -188,6 +189,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
         progressDialog = ProgressDialog.show(GoodsDetailsActivity.this, "请稍后", "玩命加载中....", true);
         RequestParams params = new RequestParams(URL);
         params.addBodyParameter("goods_id", goodsId);
+        params.addBodyParameter("groupid",groupID);
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -198,6 +200,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                 goods_details_introduce.setText(goodsdetailsbean.getData().getGoods_name());
                 goods_details_price.setText(goodsdetailsbean.getData().getShop_price());
                 goods_details_brank.setText(goodsdetailsbean.getData().getBran_name());
+                goods_details_salenum.setText(goodsdetailsbean.getData().getSales());
                 mDataBean = goodsdetailsbean.getData();
                 list = goodsdetailsbean.getData().getPic();
                 //点点图片数组
@@ -229,6 +232,8 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                 goods_details_viewpage.setOnPageChangeListener(GoodsDetailsActivity.this);
                 goods_details_viewpage.setCurrentItem((goods_details_pager_image.length) * 100);
                 //Log.i("goods", result);
+                mWebView.loadUrl(global.getUrl()+goodsdetailsbean.getData().getGoods_desc());
+                mWebView.setWebViewClient(new WebViewClient());
             }
 
             @Override

@@ -7,14 +7,12 @@ import java.util.List;
  */
 public class IndexBean {
 
-    /**
-     * code : 1000
-     * message : 获取信息成功
-     * data : {"Ad":[{"image_src":"Uploads/Ad/2016-12-13/584fa7b64edb8.png"},{"image_src":"Uploads/Ad/2016-12-13/584fa7e404a38.png"},{"image_src":"Uploads/Ad/2016-12-13/584fa812c8320.png"},{"image_src":"Uploads/Ad/2016-12-13/584fa83a87fc8.png"}],"newsInfo":[{"title":"好的啦"},{"title":"武松打虎"},{"title":"武大郎"}],"activeInfo":[{"active_id":"1","active_logo":"Uploads/Active/2016-12-16//585385de0ebf0.jpg"},{"active_id":"2","active_logo":"Uploads/Active/2016-12-16//5853860e0ccb0.jpg"}]}
-     */
+
 
     private int code;
     private String message;
+
+
     private DataBean data;
 
     public int getCode() {
@@ -42,6 +40,7 @@ public class IndexBean {
     }
 
     public static class DataBean {
+        private int dif_time;
         /**
          * image_src : Uploads/Ad/2016-12-13/584fa7b64edb8.png
          */
@@ -52,12 +51,19 @@ public class IndexBean {
          */
 
         private List<NewsInfoBean> newsInfo;
-        /**
-         * active_id : 1
-         * active_logo : Uploads/Active/2016-12-16//585385de0ebf0.jpg
-         */
+
 
         private List<ActiveInfoBean> activeInfo;
+
+        private List<SecondGoodsBean> second_goods;
+
+        public int getDif_time() {
+            return dif_time;
+        }
+
+        public void setDif_time(int dif_time) {
+            this.dif_time = dif_time;
+        }
 
         public List<AdBean> getAd() {
             return Ad;
@@ -81,6 +87,14 @@ public class IndexBean {
 
         public void setActiveInfo(List<ActiveInfoBean> activeInfo) {
             this.activeInfo = activeInfo;
+        }
+
+        public List<SecondGoodsBean> getSecond_goods() {
+            return second_goods;
+        }
+
+        public void setSecond_goods(List<SecondGoodsBean> second_goods) {
+            this.second_goods = second_goods;
         }
 
         public static class AdBean {
@@ -125,6 +139,45 @@ public class IndexBean {
 
             public void setActive_logo(String active_logo) {
                 this.active_logo = active_logo;
+            }
+        }
+
+        public static class SecondGoodsBean {
+            private String goods_id;
+            private String shop_price;
+            private String active_price;
+            private String thumb;
+
+            public String getGoods_id() {
+                return goods_id;
+            }
+
+            public void setGoods_id(String goods_id) {
+                this.goods_id = goods_id;
+            }
+
+            public String getShop_price() {
+                return shop_price;
+            }
+
+            public void setShop_price(String shop_price) {
+                this.shop_price = shop_price;
+            }
+
+            public String getActive_price() {
+                return active_price;
+            }
+
+            public void setActive_price(String active_price) {
+                this.active_price = active_price;
+            }
+
+            public String getThumb() {
+                return thumb;
+            }
+
+            public void setThumb(String thumb) {
+                this.thumb = thumb;
             }
         }
     }

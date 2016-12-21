@@ -2,6 +2,7 @@ package com.myproject;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -45,11 +47,11 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
     private boolean bool = false;
     private GridView pop_grid_brand;
     private String URL;
-    private String resultGoodsID, resultSearch;
+    private String resultGoodsID, resultSearch,groupID;
     private GoodsList_Bean goodsListBean;
     private EditText edit_search;
     private ProgressDialog progressDialog = null;
-
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,22 +65,11 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         //TODO 首页搜索传过来的搜索内容
         resultSearch = intent.getStringExtra("seach");
 
-        goodslist_brand = (RelativeLayout) findViewById(R.id.goodslist_brand);
-        goodslist_listview = (ListView) findViewById(R.id.goodslist_listview);
-        goods_sale = (RelativeLayout) findViewById(R.id.goods_sale_v);
-        goods_sales = (TextView) findViewById(R.id.goods_sales);
-        synthesize = (TextView) findViewById(R.id.synthesize);
-        serach = (RelativeLayout) findViewById(R.id.serach);
-        edit_search = (EditText) findViewById(R.id.edit_search);
-        goods_pinpai = (TextView) findViewById(R.id.goods_pinpai);
-        goods_details_back = (RelativeLayout) findViewById(R.id.goods_details_back);
-        noGoods = (TextView) findViewById(R.id.activity_goods_list_none);
-        goods_details_back.setOnClickListener(this);
-        goodslist_brand.setOnClickListener(this);
-        goods_sale.setOnClickListener(this);
-        goods_sales.setOnClickListener(this);
-        synthesize.setOnClickListener(this);
-        serach.setOnClickListener(this);
+        sharedPreferences = getSharedPreferences("userLogin", MODE_PRIVATE);
+        //TODO 获取用户类型ID
+        groupID=sharedPreferences.getString("groupID","0");
+        //TODO 获取组件
+        initview();
         if (resultSearch != null) {
             internetSearch(resultSearch);
             if (resultSearch.equals("1")){
@@ -103,6 +94,23 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         });
 
     }
+    private void initview(){
+        goodslist_brand = (RelativeLayout) findViewById(R.id.goodslist_brand);
+        goodslist_listview = (ListView) findViewById(R.id.goodslist_listview);
+        goods_sale = (RelativeLayout) findViewById(R.id.goods_sale_v);
+        goods_sales = (TextView) findViewById(R.id.goods_sales);
+        synthesize = (TextView) findViewById(R.id.synthesize);
+        serach = (RelativeLayout) findViewById(R.id.serach);
+        edit_search = (EditText) findViewById(R.id.edit_search);
+        goods_pinpai = (TextView) findViewById(R.id.goods_pinpai);
+        goods_details_back = (RelativeLayout) findViewById(R.id.goods_details_back);
+        goods_details_back.setOnClickListener(this);
+        goodslist_brand.setOnClickListener(this);
+        goods_sale.setOnClickListener(this);
+        goods_sales.setOnClickListener(this);
+        synthesize.setOnClickListener(this);
+        serach.setOnClickListener(this);
+    }
 
     /**
      * 价格从小到大
@@ -123,6 +131,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
             });
         } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(GoodsListActivity.this, "该分类没有商品,期待后期上架", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -144,6 +153,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
             });
         } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(GoodsListActivity.this, "该分类没有商品,期待后期上架", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -165,12 +175,16 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
 
         switch (v.getId()) {
             case R.id.goodslist_brand:
-                if (popupWindow != null && popupWindow.isShowing()) {
-                    popupWindow.dismiss();
-                    return;
-                } else {
-                    initmPopupWindowView(v);
-                    popupWindow.showAsDropDown(v, 0, 5);
+                if (list!=null){
+                    if (popupWindow != null && popupWindow.isShowing()) {
+                        popupWindow.dismiss();
+                        return;
+                    } else {
+                        initmPopupWindowView(v);
+                        popupWindow.showAsDropDown(v, 0, 5);
+                    }
+                }else {
+                    Log.e("tag","没有商品");
                 }
                 break;
             case R.id.goods_sale_v:
@@ -238,7 +252,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 GoodsList_Bean.BrandBean brandBean = (GoodsList_Bean.BrandBean) parent.getItemAtPosition(position);
-                Log.d("id", "品牌ID：" + brandBean.getBrand_id() + "品牌名称:" + brandBean.getBrand_name());
+                Log.e("id", "品牌ID：" + brandBean.getBrand_id() + "品牌名称:" + brandBean.getBrand_name());
                 internetBrand(brandBean.getBrand_id());
             }
         });
@@ -249,11 +263,13 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         progressDialog = ProgressDialog.show(GoodsListActivity.this, "请稍后", "玩命加载中....", true);
         RequestParams params = new RequestParams(URL);
         params.addBodyParameter("cat_id", carID);
+        params.addBodyParameter("groupid",groupID);
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Log.e("tag", "分类" + result);
                 cache(result);
+
             }
 
             @Override
@@ -343,6 +359,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         progressDialog = ProgressDialog.show(GoodsListActivity.this, "请稍后", "玩命加载中....", true);
         RequestParams params = new RequestParams(URL);
         params.addBodyParameter("keword", word);
+        params.addBodyParameter("groupid",groupID);
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
