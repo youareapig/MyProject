@@ -30,7 +30,7 @@ import utils.Global;
  * Created by Administrator on 2016/10/19 0019.
  */
 public class Classify extends Fragment implements View.OnClickListener {
-    private  String URL;
+    private String URL;
     private RelativeLayout classfiy_search;
     private ListView left_view, main_view;
     private Classfiy_Adapter classfiyAdapter;
@@ -39,8 +39,8 @@ public class Classify extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.classify, container, false);
-        Global global =new Global();
-        URL= global.getUrl()+"api.php/Goods/category";
+        Global global = new Global();
+        URL = global.getUrl() + "api.php/Goods/category";
         inivt();
         left_view = (ListView) view.findViewById(R.id.left_listview);
         main_view = (ListView) view.findViewById(R.id.main_listview);

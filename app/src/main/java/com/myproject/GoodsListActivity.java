@@ -263,6 +263,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
         RequestParams params = new RequestParams(URL);
         params.addBodyParameter("cat_id", carID);
         params.addBodyParameter("groupid",groupID);
+        Log.e("tag","车子ID"+carID);
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -273,7 +274,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(GoodsListActivity.this, "该分类没有商品,期待后期上架", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GoodsListActivity.this, "网络连接失败或者服务器故障", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -295,15 +296,19 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
     }
 
     public void cache(String result) {
-        Log.d("test", "result:" + result);
         Gson gson = new Gson();
         goodsListBean = gson.fromJson(result, GoodsList_Bean.class);
         list = goodsListBean.getData();
         Log.d("test", "接受数据:" + result);
-        goodsListListViewAdapter = new GoodsList_ListView_Adapter(GoodsListActivity.this, list);
-        goodslist_listview.setAdapter(goodsListListViewAdapter);
-        Log.d("test", "商品介绍:" + list.get(0).getGoods_name());
-        brandList = goodsListBean.getBrand();
+        if (goodsListBean.getCode()==1000){
+            goodsListListViewAdapter = new GoodsList_ListView_Adapter(GoodsListActivity.this, list);
+            goodslist_listview.setAdapter(goodsListListViewAdapter);
+            Log.d("test", "商品介绍:" + list.get(0).getGoods_name());
+            brandList = goodsListBean.getBrand();
+        }else {
+            Toast.makeText(GoodsListActivity.this, "没商品", Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 
