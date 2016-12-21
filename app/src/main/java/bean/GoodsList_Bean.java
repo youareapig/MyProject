@@ -10,7 +10,7 @@ public class GoodsList_Bean {
     private int code;
     private String message;
 
-    private List<DataBean> data;
+    private List<DataBean> data=null;
     /**
      * brand_name : 巾帼宝丽曼
      * brand_id : 1
