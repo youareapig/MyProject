@@ -144,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    hintLogin(2);
                 }
 
 
@@ -169,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    hintLogin(3);
 
                 }
                 break;
@@ -227,10 +229,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case 2:
                     currentIndex = 2;
                     showFragment();
+                    index_img.setImageResource(R.mipmap.store_uncheck);
+                    index_name.setTextColor(this.getResources().getColor(R.color.c_black));
+                    store_img.setImageResource(R.mipmap.classify_uncheck);
+                    store_name.setTextColor(this.getResources().getColor(R.color.c_black));
+                    shopcar_img.setImageResource(R.mipmap.shopcar_check);
+                    shopcar_name.setTextColor(this.getResources().getColor(R.color.c_blue));
+                    personal_img.setImageResource(R.mipmap.person_uncheck);
+                    personal_name.setTextColor(this.getResources().getColor(R.color.c_black));
                     break;
                 case 3:
                     currentIndex = 3;
                     showFragment();
+                    index_img.setImageResource(R.mipmap.store_uncheck);
+                    index_name.setTextColor(this.getResources().getColor(R.color.c_black));
+                    store_img.setImageResource(R.mipmap.classify_uncheck);
+                    store_name.setTextColor(this.getResources().getColor(R.color.c_black));
+                    shopcar_img.setImageResource(R.mipmap.shopcar_uncheck);
+                    shopcar_name.setTextColor(this.getResources().getColor(R.color.c_black));
+                    personal_img.setImageResource(R.mipmap.person_check);
+                    personal_name.setTextColor(this.getResources().getColor(R.color.c_blue));
                     break;
             }
         }
