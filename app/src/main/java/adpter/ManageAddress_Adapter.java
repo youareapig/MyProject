@@ -112,15 +112,16 @@ public class ManageAddress_Adapter extends BaseAdapter {
                 global = new Global();
                 addr_id = dataBean.getAddr_id();
                 String setAddressUrl = global.getUrl() + "api.php/Member/changeStatusaddress";
-//                //重置，确保最多只有一项被选中
-//                for (String key : states.keySet()) {
-//                    states.put(key, false);
-//                }
-//                states.put(String.valueOf(position), holder.defaultAddress.isChecked());
+//
 
                 if (b){
                     if (!isFirst){
-                        states.put(String.valueOf(position),true);
+                        //重置，确保最多只有一项被选中
+                            for (String key : states.keySet()) {
+                                states.put(key, false);
+                            }
+                            states.put(String.valueOf(position),true);
+//                        states.put(String.valueOf(position),true);
                         setAddress(setAddressUrl);
                         holder.defaultAddress.setEnabled(false);
                         notifyDataSetChanged();
@@ -131,9 +132,17 @@ public class ManageAddress_Adapter extends BaseAdapter {
             }
         });
         Log.i("set", "默认选中值" + dataBean.getStatus());
+        boolean res = false;
+        if (states.get(String.valueOf(position)) == null
+                || states.get(String.valueOf(position)) == false) {
+            res = false;
+            states.put(String.valueOf(position), false);
+        } else
+            res = true;
 
         if (!isFirst){
-            holder.defaultAddress.setChecked(states.get(String.valueOf(position)));
+            //holder.defaultAddress.setChecked(states.get(String.valueOf(position)));
+            holder.defaultAddress.setChecked(res);
         }
         if (isFirst){
             if (dataBean.getStatus().equals("1")){
