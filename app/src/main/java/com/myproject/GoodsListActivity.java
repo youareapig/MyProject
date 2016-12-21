@@ -46,8 +46,7 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
     private GoodsList_ListView_Adapter goodsListListViewAdapter;
     private boolean bool = false;
     private GridView pop_grid_brand;
-    private String URL;
-    private String resultGoodsID, resultSearch,groupID;
+    private String resultGoodsID, resultSearch, groupID, URL;
     private GoodsList_Bean goodsListBean;
     private EditText edit_search;
     private ProgressDialog progressDialog = null;
@@ -161,14 +160,23 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
     /**
      * 销量排序
      */
-//    public void sales() {
-//        Collections.sort(goodslist_list, new Comparator<GoodsList_Bean>() {
-//            @Override
-//            public int compare(GoodsList_Bean o1, GoodsList_Bean o2) {
-//                return (o2.getGoodslist_person() - o1.getGoodslist_person());
-//            }
-//        });
-//    }
+    public void sales() {
+        try {
+            Collections.sort(list, new Comparator<GoodsList_Bean.DataBean>() {
+
+                @Override
+                public int compare(GoodsList_Bean.DataBean o1, GoodsList_Bean.DataBean o2) {
+                    double sales1 = Double.parseDouble(o1.getSales().trim());
+                    double sales2 = Double.parseDouble(o2.getSales().trim());
+                    return (int) (sales2 - sales1);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -204,17 +212,23 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
                 }
 
                 break;
-//            case R.id.goods_sales:
-//
-//                sales();
-//                goodsListListViewAdapter.notifyDataSetChanged();
-//                break;
+            case R.id.goods_sales:
+
+                sales();
+                try {
+                    goodsListListViewAdapter.notifyDataSetChanged();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                break;
             case R.id.goods_details_back:
                 finish();
                 break;
             //TODO 综合显示该分类下所有的商品
             case R.id.synthesize:
-                internet(resultGoodsID);
+                internetSearch("1");
+                //internet(resultGoodsID);
                 //goodsListListViewAdapter.notifyDataSetChanged();
                 break;
             //TODO 搜索
@@ -297,7 +311,6 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
     }
 
     public void cache(String result) {
-        Log.d("test", "result:" + result);
         Gson gson = new Gson();
         goodsListBean = gson.fromJson(result, GoodsList_Bean.class);
         list = goodsListBean.getData();
@@ -324,12 +337,15 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
                 //TODO 通过品牌适配数据
                 Gson gson = new Gson();
                 goodsListBean = gson.fromJson(result, GoodsList_Bean.class);
-                if (goodsListBean.getCode()==1000){
-                    list = goodsListBean.getData();
+                list = goodsListBean.getData();
+                if (goodsListBean.getCode() == 1000) {
                     goodsListListViewAdapter = new GoodsList_ListView_Adapter(GoodsListActivity.this, list);
                     goodslist_listview.setAdapter(goodsListListViewAdapter);
                     goodsListListViewAdapter.notifyDataSetChanged();
-                }else {
+                    popupWindow.dismiss();
+                } else {
+                    Toast.makeText(GoodsListActivity.this, "该商品已售罄", Toast.LENGTH_SHORT).show();
+                    popupWindow.dismiss();
                 }
 
             }
@@ -367,14 +383,17 @@ public class GoodsListActivity extends AppCompatActivity implements OnClickListe
                 Log.e("tag", "搜索" + result);
                 Gson gson = new Gson();
                 goodsListBean = gson.fromJson(result, GoodsList_Bean.class);
-                if (goodsListBean.getCode()==1000){
+                if (goodsListBean.getCode() == 1000) {
                     list = goodsListBean.getData();
                     goodsListListViewAdapter = new GoodsList_ListView_Adapter(GoodsListActivity.this, list);
                     goodslist_listview.setAdapter(goodsListListViewAdapter);
-                    // brandList=goodsListBean.getBrand();
+                    brandList = goodsListBean.getBrand();
                     goodsListListViewAdapter.notifyDataSetChanged();
-                }else {
+                } else {
+                    Toast.makeText(GoodsListActivity.this, "没有找到符合要求的商品，请重新输入！", Toast.LENGTH_SHORT).show();
                 }
+
+
             }
 
             @Override
