@@ -3,9 +3,13 @@ package com.myproject;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +21,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.jar.Manifest;
 
 import indexfragment.Store;
 import indexfragment.Personal;
@@ -36,11 +41,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SharedPreferences sharedPreferences;
     private DialogInterface mDialogInterface;
     private String state;
-
+    private Bundle savedInstanceState;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.savedInstanceState=savedInstanceState;
+        //危险权限申请
+        checkAndApplyPermission();
+
+    }
+    public void normal(){
         initView();
         sharedPreferences = getSharedPreferences("userLogin", MODE_PRIVATE);
         Intent intent = this.getIntent();
@@ -74,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
     private void initView() {
         btn_index = (RelativeLayout) findViewById(R.id.index);
         btn_store = (RelativeLayout) findViewById(R.id.store);
@@ -280,6 +290,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         builder.create().show();
     }
-
-
+    //申请危险权限
+    public void checkAndApplyPermission(){
+        List<String> permissions = new ArrayList<>();
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE)!= PackageManager.PERMISSION_GRANTED){
+            permissions.add(android.Manifest.permission.READ_PHONE_STATE);
+        }
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)!=PackageManager.PERMISSION_GRANTED){
+            permissions.add(android.Manifest.permission.CALL_PHONE);
+        }
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED){
+            permissions.add(android.Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED){
+            permissions.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (permissions.size()>0){
+            ActivityCompat.requestPermissions(this, permissions.toArray(new String[permissions.size()]), 0);
+        }else {
+            normal();
+        }
+     }
+    //危险权限申请回调方法
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode==0){
+            boolean isPermission = true;
+            for (int i =0;i<grantResults.length;i++){
+                if (grantResults[i]!=PackageManager.PERMISSION_GRANTED){
+                    isPermission=false;
+                }
+            }
+            if (isPermission){
+                normal();
+            }else {
+                finish();
+            }
+        }
+    }
 }

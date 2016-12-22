@@ -45,6 +45,7 @@ public class ManageAddress_Adapter extends BaseAdapter {
     private HashMap<String, Boolean> states = new HashMap<String, Boolean>();
     private  int index=-1;
     private boolean isFirst=true;
+    private boolean isFirst1=false;
 
     public ManageAddress_Adapter(Activity context, List<DataBean> list) {
         this.context = context;
@@ -112,21 +113,36 @@ public class ManageAddress_Adapter extends BaseAdapter {
                 global = new Global();
                 addr_id = dataBean.getAddr_id();
                 String setAddressUrl = global.getUrl() + "api.php/Member/changeStatusaddress";
-//
+
                 if (b){
                     if (!isFirst){
                         //重置，确保最多只有一项被选中
+                        //第一次获取数据有默认地址
+                        for (String key : states.keySet()) {
+                            states.put(key, false);
+                        }
+                        states.put(String.valueOf(position),true);
+                        setAddress(setAddressUrl);
+                        holder.defaultAddress.setEnabled(false);
+                        notifyDataSetChanged();
+                    }else {
+                        //第一次获取数据没有默认地址
+                        if (isFirst){
+                            isFirst1=true;
+                            isFirst=false;
                             for (String key : states.keySet()) {
                                 states.put(key, false);
                             }
                             states.put(String.valueOf(position),true);
-//                        states.put(String.valueOf(position),true);
-                        setAddress(setAddressUrl);
-                        holder.defaultAddress.setEnabled(false);
-                        notifyDataSetChanged();
+                            setAddress(setAddressUrl);
+                            holder.defaultAddress.setEnabled(false);
+                            notifyDataSetChanged();
+                        }else {
+                            holder.defaultAddress.setEnabled(true);
+                        }
                     }
                 }else {
-                    holder.defaultAddress.setEnabled(true);
+                        holder.defaultAddress.setEnabled(true);
                 }
             }
         });
@@ -139,8 +155,10 @@ public class ManageAddress_Adapter extends BaseAdapter {
         } else{
             res = true;
         }
-
         if (!isFirst){
+            holder.defaultAddress.setChecked(res);
+        }
+        if (isFirst1){
             holder.defaultAddress.setChecked(res);
         }
         if (isFirst){
@@ -158,7 +176,15 @@ public class ManageAddress_Adapter extends BaseAdapter {
                 global = new Global();
                 addr_id = dataBean.getAddr_id();
                 String delteUrl = global.getUrl() + "api.php/Member/memberDeladdress";
-                deleteAddress(delteUrl, position);
+                //如果删除的是默认地址，则初始化states
+                if (dataBean.getStatus().equals("1")){
+                    for (String key : states.keySet()) {
+                        states.put(key, false);
+                    }
+                    deleteAddress(delteUrl,position);
+                }else {
+                    deleteAddress(delteUrl, position);
+                }
 
             }
         });
