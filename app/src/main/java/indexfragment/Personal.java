@@ -30,6 +30,7 @@ import org.xutils.x;
 import bean.UserInformationBean;
 import de.hdodenhof.circleimageview.CircleImageView;
 import helpfragment.HelperActivity;
+import myview.CustomDialog;
 import utils.Global;
 
 /**
@@ -141,7 +142,7 @@ public class Personal extends Fragment implements View.OnClickListener {
                 /**
                  * 登录存入状态值1，注销存入2
                  * */
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                CustomDialog.Builder builder = new CustomDialog.Builder(getActivity());
                 builder.setTitle("提示");
                 builder.setMessage("确定退出登录吗？");
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -153,8 +154,13 @@ public class Personal extends Fragment implements View.OnClickListener {
                         startActivity(mIntent);
                     }
                 });
-                builder.setNegativeButton("取消", null);
-                builder.show();
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.create().show();
                 break;
 
         }

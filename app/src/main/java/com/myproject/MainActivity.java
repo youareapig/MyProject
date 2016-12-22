@@ -22,6 +22,7 @@ import indexfragment.Store;
 import indexfragment.Personal;
 import indexfragment.ShopCar;
 import indexfragment.Classify;
+import myview.CustomDialog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private FragmentManager fragmentManager;
@@ -237,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void hintLogin(final int flag) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        CustomDialog.Builder builder = new CustomDialog.Builder(MainActivity.this);
         builder.setTitle("提示");
         builder.setMessage("您还未登陆，确认登陆?");
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -248,8 +249,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivityForResult(intent,flag);
             }
         });
-        builder.setNegativeButton("取消", null);
-        builder.show();
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.create().show();
     }
 
 

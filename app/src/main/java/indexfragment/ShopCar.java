@@ -35,6 +35,7 @@ import java.util.List;
 import adpter.ShopCarAdapter;
 import bean.ShopCarBean;
 import bean.ShopCarData;
+import myview.CustomDialog;
 import utils.Format;
 import utils.Global;
 import utils.SpaceItemDecoration;
@@ -156,7 +157,7 @@ public class ShopCar extends Fragment  {
     //显示购物车界面编辑对话框
     public void showDialog(final StringBuilder builder1){
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                CustomDialog.Builder builder = new CustomDialog.Builder(getActivity());
                 builder.setTitle("确认删除");
                 builder.setMessage("是否删除选中的商品？");
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
