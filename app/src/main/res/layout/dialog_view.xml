@@ -42,8 +42,8 @@
                 android:textSize="16sp"
                 android:textColor="#121212"
                 android:paddingBottom="8dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
                 android:paddingTop="8dp" />
         </LinearLayout>
 
