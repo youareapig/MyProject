@@ -30,6 +30,7 @@ import java.util.List;
 
 import adpter.GoodsDetails_Viewpage_Adapter;
 import bean.GoodsDetailsBean;
+import myview.CustomDialog;
 import myview.GoodsDetailAdd;
 import myview.Goods_details_Pop;
 import utils.Global;
@@ -42,6 +43,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
     private ImageView[] goods_details_pager_image, tips;
     private ViewGroup viewGroup;
     private WebView mWebView;
+    private DialogInterface mDialogInterface;
     private List<GoodsDetailsBean.DataBean.PicBean> list;
     private RelativeLayout goods_details_shopcar,goods_details_back;
     private ProgressDialog progressDialog = null;
@@ -271,20 +273,33 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
             }
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mDialogInterface.dismiss();
+    }
+
     private void hintLogin() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(GoodsDetailsActivity.this);
+        CustomDialog.Builder builder = new CustomDialog.Builder(GoodsDetailsActivity.this);
         builder.setTitle("提示");
         builder.setMessage("您还未登陆，确认登陆?");
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                mDialogInterface=dialog;
                 Intent intent = new Intent(GoodsDetailsActivity.this, LoginActivity.class);
                 intent.putExtra("login",true);
                 startActivityForResult(intent,4);
             }
         });
-        builder.setNegativeButton("取消", null);
-        builder.show();
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
     }
 
 

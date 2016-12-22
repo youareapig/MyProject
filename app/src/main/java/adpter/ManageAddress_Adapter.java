@@ -137,8 +137,9 @@ public class ManageAddress_Adapter extends BaseAdapter {
                 || states.get(String.valueOf(position)) == false) {
             res = false;
             states.put(String.valueOf(position), false);
-        } else
+        } else{
             res = true;
+        }
 
         if (!isFirst){
             //holder.defaultAddress.setChecked(states.get(String.valueOf(position)));

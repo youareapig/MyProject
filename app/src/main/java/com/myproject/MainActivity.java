@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView index_name, store_name, shopcar_name, personal_name;
     private int currentIndex = 0;
     private SharedPreferences sharedPreferences;
+    private DialogInterface mDialogInterface;
     private String state;
 
     @Override
@@ -225,9 +226,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        mDialogInterface.dismiss();
         if (resultCode==RESULT_OK){
             switch (requestCode){
                 case 2:
+
                     currentIndex = 2;
                     showFragment();
                     index_img.setImageResource(R.mipmap.store_uncheck);
@@ -262,6 +265,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                mDialogInterface=dialog;
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 intent.putExtra("login",true);
                 startActivityForResult(intent,flag);
@@ -270,6 +274,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+
                 dialogInterface.dismiss();
             }
         });

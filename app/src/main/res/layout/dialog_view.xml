@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:orientation="vertical"
-    android:padding="72dp" >
+    android:padding="48dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,6 +59,7 @@
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:gravity="center"
+
                 android:background="@drawable/btn_login_down"
                 android:textColor="#449df5"
                 android:text="" />

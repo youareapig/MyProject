@@ -4,9 +4,9 @@ package utils;
  * Created by Administrator on 2016/11/23 0023.接口全局变量
  */
 public class Global {
-    public  String url="https://www.ailunwang.cn/";
+    public  String url="http://192.168.0.126/";
 
-    public static final String URL="https://www.ailunwang.cn/";
+    public static final String URL="http://192.168.0.140/trunk/";
     public static final String SHOPCARDATA=URL+"/api.php/Cart/carDisplay";
     public static final String SHOPCARDELETEDATA=URL+"/api.php/Cart/carDel";
     public static final String SUREODER=URL+"/api.php/Cart/App_Order";
