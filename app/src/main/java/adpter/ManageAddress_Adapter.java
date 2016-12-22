@@ -113,7 +113,6 @@ public class ManageAddress_Adapter extends BaseAdapter {
                 addr_id = dataBean.getAddr_id();
                 String setAddressUrl = global.getUrl() + "api.php/Member/changeStatusaddress";
 //
-
                 if (b){
                     if (!isFirst){
                         //重置，确保最多只有一项被选中
@@ -137,11 +136,11 @@ public class ManageAddress_Adapter extends BaseAdapter {
                 || states.get(String.valueOf(position)) == false) {
             res = false;
             states.put(String.valueOf(position), false);
-        } else
+        } else{
             res = true;
+        }
 
         if (!isFirst){
-            //holder.defaultAddress.setChecked(states.get(String.valueOf(position)));
             holder.defaultAddress.setChecked(res);
         }
         if (isFirst){
