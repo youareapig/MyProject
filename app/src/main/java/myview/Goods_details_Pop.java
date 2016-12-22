@@ -29,7 +29,7 @@ import utils.Global;
 public class Goods_details_Pop extends PopupWindow implements View.OnClickListener {
     private View mMenuView;
     private Button btn_sure;
-    private TextView tv_down, tv_up, tv_num,pop_price;
+    private TextView tv_down, tv_up, tv_num,pop_price,kucun;
     private ImageView pop_img;
     private String IMG;
     private Global global;
@@ -51,6 +51,7 @@ public class Goods_details_Pop extends PopupWindow implements View.OnClickListen
         tv_down = (TextView) mMenuView.findViewById(R.id.pop_down);
         tv_num = (TextView) mMenuView.findViewById(R.id.pop_num);
         pop_img= (ImageView) mMenuView.findViewById(R.id.pop_img);
+        kucun= (TextView) mMenuView.findViewById(R.id.number);
         pop_price= (TextView) mMenuView.findViewById(R.id.pop_price);
         tv_up.setOnClickListener(this);
         tv_down.setOnClickListener(this);
@@ -86,7 +87,9 @@ public class Goods_details_Pop extends PopupWindow implements View.OnClickListen
         if (mDataBean!=null){
             ImageLoader.getInstance().displayImage(IMG+mDataBean.getThumb(),pop_img);
             pop_price.setText(mDataBean.getShop_price());
+            kucun.setText(mDataBean.getAmount());
         }
+
     }
 
     @Override
@@ -106,11 +109,17 @@ public class Goods_details_Pop extends PopupWindow implements View.OnClickListen
 
                 break;
             case R.id.pop_up:
+                if (num==(Integer.parseInt(mDataBean.getAmount())-1)){
+                    tv_up.setEnabled(false);
+
+                }
                 ++num;
                 Log.d("num", num + "个");
                 tv_num.setText(num + "");
+
                 break;
             case R.id.pop_down:
+                tv_up.setEnabled(true);
                 if (num<=1){
                     num=1;
                 }else {

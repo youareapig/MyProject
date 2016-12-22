@@ -129,6 +129,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                     }
                 }catch (Exception e){
                     e.printStackTrace();
+                    hintLogin();
                 }
 
 
@@ -145,6 +146,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                     }
                 }catch (Exception e){
                     e.printStackTrace();
+                    hintLogin();
                 }
 
                 break;
@@ -161,6 +163,7 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                     }
                 } catch (Exception e) {
                    e.printStackTrace();
+                    hintLogin();
                 }
 
                 break;
