@@ -107,15 +107,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#e7ebef">
-        <CheckBox
-            android:id="@+id/regist_deal"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="我已同意《砹轮汽车服务公司用户协议》"
-            android:textSize="16sp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="8dp"
-            android:textColor="#919191"/>
+            android:layout_marginLeft="8dp">
+            <CheckBox
+                android:id="@+id/regist_deal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我已同意"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:textColor="#919191"/>
+            <TextView
+                android:id="@+id/userbook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="100dp"
+                android:textSize="16sp"
+                android:text="《砹轮汽车服务公司用户协议》"
+                android:textColor="@color/c_blue"
+                />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/regist"

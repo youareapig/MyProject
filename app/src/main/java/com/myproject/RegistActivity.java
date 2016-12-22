@@ -30,7 +30,7 @@ public class RegistActivity extends AppCompatActivity {
     private CheckBox checkBox_deal;
     private TextView textView_regist;
     private EditText regist_phone, regist_code, regist_pwd;
-    private TextView regist_getVercode;
+    private TextView regist_getVercode,userbook;
     private String r_getPhone, r_getCode, r_getPassword, r1_getPhone;
     private String URl;
     private SharedPreferences sharedPreferences;
@@ -49,7 +49,14 @@ public class RegistActivity extends AppCompatActivity {
         regist_code = (EditText) findViewById(R.id.regist_vercode);
         regist_pwd = (EditText) findViewById(R.id.regist_pwd);
         regist_getVercode = (TextView) findViewById(R.id.regist_getvercode);
-
+        userbook= (TextView) findViewById(R.id.userbook);
+        userbook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(RegistActivity.this,UserBookActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //TODO 获取验证码
         regist_getVercode.setOnClickListener(new View.OnClickListener() {

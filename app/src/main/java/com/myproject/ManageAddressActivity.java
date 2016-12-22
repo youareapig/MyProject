@@ -58,7 +58,7 @@ public class ManageAddressActivity extends AppCompatActivity implements View.OnC
                 Intent intent = new Intent(ManageAddressActivity.this, CompileAddressActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.compileaddress_back:
+            case R.id.manageaddress_back:
                 finish();
                 break;
         }
