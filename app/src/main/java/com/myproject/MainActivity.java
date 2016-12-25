@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void showFragment() {
-
+        if (fragment==null)return;
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         //如果之前没有添加过
