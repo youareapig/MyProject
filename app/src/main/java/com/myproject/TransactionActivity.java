@@ -76,7 +76,6 @@ public class TransactionActivity extends AppCompatActivity {
     }
 
     private void orderDetail() {
-        Log.i("tag", "订单详情编号：" + orderlist_id);
         RequestParams params = new RequestParams(url);
         params.addBodyParameter("orderlist_id", orderlist_id);
         x.http().post(params, new Callback.CacheCallback<String>() {
@@ -87,7 +86,6 @@ public class TransactionActivity extends AppCompatActivity {
                 OrderDetailsBean bean = gson.fromJson(result, OrderDetailsBean.class);
                 orderID = bean.getData().getOrderlist_id();
                 String isPay = bean.getData().getState();
-                Log.i("tag", "订单详情状态：" + isPay);
                 if (bean.getCode() == 5000) {
 
                     if (isPay.equals("0")) {
