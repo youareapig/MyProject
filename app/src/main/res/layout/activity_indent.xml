@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.myproject.IndentActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -31,11 +32,13 @@
             android:textColor="#ffff"
             android:textSize="@dimen/titele" />
     </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:scrollbars="none"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -43,9 +46,9 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/activity_indent_addressmanmger"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:id="@+id/activity_indent_addressmanmger"
                 android:background="#fff">
 
                 <TextView
@@ -58,21 +61,21 @@
                     android:textSize="@dimen/half_title" />
 
                 <TextView
+                    android:id="@+id/activity_indent_customer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="100dp"
                     android:layout_marginTop="8dp"
                     android:maxLength="7"
-                    android:id="@+id/activity_indent_customer"
                     android:textColor="@color/c_black"
                     android:textSize="@dimen/half_title" />
 
                 <TextView
+                    android:id="@+id/activity_indent_telephone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="216dp"
                     android:layout_marginTop="8dp"
-                    android:id="@+id/activity_indent_telephone"
                     android:textColor="@color/c_black"
                     android:textSize="@dimen/half_title" />
 
@@ -95,12 +98,12 @@
                     android:textColor="@color/c_black" />
 
                 <TextView
+                    android:id="@+id/activity_indent_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="8dp"
                     android:layout_marginLeft="100dp"
-                    android:id="@+id/activity_indent_address"
                     android:textColor="@color/c_black" />
 
                 <RelativeLayout
@@ -118,10 +121,9 @@
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/activity_indent_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/activity_indent_recyclerview">
-            </android.support.v7.widget.RecyclerView>
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -282,21 +284,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="70dp"
+                    android:layout_marginRight="5dp"
                     android:layout_marginTop="5dp"
+                    android:layout_toLeftOf="@+id/activity_indent_price"
                     android:text="¥"
                     android:textColor="#f94426"
                     android:textSize="@dimen/half_title" />
 
                 <TextView
+                    android:id="@+id/activity_indent_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="17dp"
                     android:layout_marginTop="5dp"
-                    android:id="@+id/activity_indent_price"
-                    android:text="0.00"
                     android:textColor="#f94426"
                     android:textSize="@dimen/half_title" />
 
@@ -304,14 +305,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginRight="70dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/textyunfei"
                     android:text="¥"
                     android:textColor="#f94426"
                     android:textSize="@dimen/half_title" />
 
                 <TextView
+                    android:id="@+id/textyunfei"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -336,8 +338,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="24dp"
-            android:text="合计:"
             android:layout_toLeftOf="@+id/activity_indent_totalprice"
+            android:text="合计:"
             android:textColor="@color/c_black"
             android:textSize="@dimen/half_title" />
 
@@ -345,19 +347,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
             android:layout_toLeftOf="@+id/activity_indent_totalprice"
             android:text="¥"
-            android:layout_marginRight="8dp"
             android:textColor="#f94426"
             android:textSize="@dimen/half_title" />
 
         <TextView
+            android:id="@+id/activity_indent_totalprice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/buyatonce"
             android:layout_marginRight="48dp"
-            android:id="@+id/activity_indent_totalprice"
+            android:layout_toLeftOf="@+id/buyatonce"
             android:text="0.00"
             android:textColor="#f94426"
             android:textSize="@dimen/half_title" />

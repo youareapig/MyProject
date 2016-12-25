@@ -258,7 +258,7 @@ public class ShopCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-
+                Log.v(LOG_TAG,"------------->网络故障");
             }
 
             @Override

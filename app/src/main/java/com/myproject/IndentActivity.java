@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -89,11 +90,14 @@ public class IndentActivity extends AppCompatActivity {
         buyatonce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mOrderData!=null&&!mOrderData.getAddr().isEmpty()){
+                String name=mCustomer.getText().toString().trim();
+                String address=mAddress.getText().toString().trim();
+                String tel=mTelephone.getText().toString().trim();
+                if (TextUtils.isEmpty(name)||TextUtils.isEmpty(address)||TextUtils.isEmpty(tel)){
                     Log.v(LOG_TAG,"-------------->"+mOrderData.getAddr());
-                    placeOrder(mOrderData);
-                }else {
                     ToastUtil.showToast(IndentActivity.this,"请选择收货地址");
+                }else {
+                    placeOrder(mOrderData);
                 }
             }
         });

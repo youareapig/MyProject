@@ -32,6 +32,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import helpfragment.HelperActivity;
 import myview.CustomDialog;
 import utils.Global;
+import utils.ToastUtil;
 
 /**
  * Created by Administrator on 2016/10/19 0019.
@@ -118,13 +119,15 @@ public class Personal extends Fragment implements View.OnClickListener {
                 break;
             //TODO 我的车库
             case R.id.order_cargarage:
-                Intent intent5 = new Intent(getActivity(), GarageActivity.class);
-                startActivity(intent5);
+                ToastUtil.showToast(getActivity(), "正在研发中..");
+//                Intent intent5 = new Intent(getActivity(), GarageActivity.class);
+//                startActivity(intent5);
                 break;
             //TODO 保养记录
             case R.id.order_maintain:
-                Intent intent6 = new Intent(getActivity(), MaintainRecordActivity.class);
-                startActivity(intent6);
+                ToastUtil.showToast(getActivity(), "正在研发中..");
+//                Intent intent6 = new Intent(getActivity(), MaintainRecordActivity.class);
+//                startActivity(intent6);
                 break;
             case R.id.help:
                 Intent intent7 = new Intent(getActivity(), HelperActivity.class);
@@ -149,7 +152,7 @@ public class Personal extends Fragment implements View.OnClickListener {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         editor.putString("state", "2").apply();
-                        editor.putString("groupID","0").apply();
+                        editor.putString("groupID", "0").apply();
                         Intent mIntent = new Intent(getActivity(), MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(mIntent);
                     }

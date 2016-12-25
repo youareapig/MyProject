@@ -21,6 +21,7 @@ import org.xutils.x;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import utils.ClassPathResource;
 import utils.Global;
@@ -40,6 +41,8 @@ public class ModificationAddressActivity extends AppCompatActivity {
     EditText modificationPostcode;
     @BindView(R.id.modification_ok)
     TextView modificationOk;
+    @BindView(R.id.modification_back)
+    RelativeLayout modificationBack;
     private Unbinder unbinder;
     private Global global;
     private String url;
@@ -170,5 +173,10 @@ public class ModificationAddressActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    @OnClick(R.id.modification_back)
+    public void onClick() {
+        finish();
     }
 }

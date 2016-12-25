@@ -12,7 +12,9 @@
         android:background="@color/car_title">
 
         <RelativeLayout
+            android:id="@+id/modification_back"
             android:layout_width="36dp"
+            android:background="@drawable/btn"
             android:layout_height="match_parent">
 
             <ImageView
