@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         fragment = fragmentList.get(currentIndex);
 
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
 
     }
 
@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
-        mBeginTreansaction.commit();
+        mBeginTreansaction.commitAllowingStateLoss();
 
         //把当前显示的fragment记录下来
         fragment = fragmentList.get(currentIndex);
@@ -240,7 +240,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (resultCode==RESULT_OK){
             switch (requestCode){
                 case 2:
-
                     currentIndex = 2;
                     showFragment();
                     index_img.setImageResource(R.mipmap.store_uncheck);
