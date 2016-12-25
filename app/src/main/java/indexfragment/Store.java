@@ -47,6 +47,7 @@ import myview.Index_ListView;
 import myview.LooperTextView;
 import myview.ObservableScrollView;
 import utils.Global;
+import utils.ToastUtil;
 
 /**
  * Created by Administrator on 2016/10/19 0019.
@@ -153,6 +154,20 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
                         intent3.putExtra("seach", "1");
                         startActivity(intent3);
                         break;
+                    case 4:
+                        ToastUtil.showToast(getActivity(),"正在研发中...");
+                        break;
+                    case 5:
+                        ToastUtil.showToast(getActivity(),"正在研发中...");
+                        break;
+                    case 6:
+                        ToastUtil.showToast(getActivity(),"正在研发中...");
+                        break;
+                    case 7:
+                        ToastUtil.showToast(getActivity(),"正在研发中...");
+                        break;
+
+
                 }
             }
         });

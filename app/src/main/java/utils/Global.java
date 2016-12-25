@@ -6,7 +6,7 @@ package utils;
 public class Global {
     public  String url="http://192.168.0.126/";
 
-    public static final String URL="http://192.168.0.140/trunk/";
+    public static final String URL="http://192.168.0.130/trunk/";
     public static final String SHOPCARDATA=URL+"/api.php/Cart/carDisplay";
     public static final String SHOPCARDELETEDATA=URL+"/api.php/Cart/carDel";
     public static final String SUREODER=URL+"/api.php/Cart/App_Order";
