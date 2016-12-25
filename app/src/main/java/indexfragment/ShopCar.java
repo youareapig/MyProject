@@ -97,7 +97,7 @@ public class ShopCar extends Fragment  {
             }
         };
         /**添加适配器*/
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        final LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(manager);
         mShopCarAdapter = new ShopCarAdapter(mRecyclerView,mCallback,getActivity());
         int spacing = getResources().getDimensionPixelSize(R.dimen.spacing);//为购物车列表没个Item之间加间隔
@@ -210,6 +210,7 @@ public class ShopCar extends Fragment  {
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 ToastUtil.showToast(getActivity(),"网络故障，请稍后重试");
+
             }
 
             @Override
@@ -219,7 +220,9 @@ public class ShopCar extends Fragment  {
 
             @Override
             public void onFinished() {
-
+                if (mSwipeRefreshLayout.isRefreshing()){
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
             }
 
             @Override

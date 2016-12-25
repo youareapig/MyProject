@@ -25,6 +25,7 @@ import org.xutils.x;
 
 import bean.GoodsDetailsBean;
 import utils.Global;
+import utils.ToastUtil;
 
 /**
  * Created by Administrator on 2016/12/12.
@@ -160,8 +161,7 @@ public class GoodsDetailAdd extends PopupWindow implements View.OnClickListener 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 Log.i("add", "---------请求错误");
-                //ToastUtil.showToast(mContext,"添加失败");
-                //Toast.makeText(mContext,"添加失败",Toast.LENGTH_SHORT).show();
+                ToastUtil.showToast(mContext,"网络请求错误！");
 
             }
 

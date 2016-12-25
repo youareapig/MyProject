@@ -278,6 +278,7 @@ public class IndentActivity extends AppCompatActivity {
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                Log.v(LOG_TAG,"--------------->"+result);
                 Gson gson = new Gson();
                 AddressBean add = gson.fromJson(result,AddressBean.class);
                 mList=add.getData();

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import myview.CustomDialog;
 import utils.DataCleanManager;
 
 
@@ -53,17 +54,24 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.clearcache:
                 //清除缓存
-                AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
+                CustomDialog.Builder builder = new CustomDialog.Builder(SettingActivity.this);
+                builder.setTitle("清除缓存");
                 builder.setMessage("是否清除缓存？");
                 builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         cleanManager.clearAllCache(SettingActivity.this);
+                        dialog.dismiss();
                         cache.setText("0K");
                     }
                 });
-                builder.setNegativeButton("取消", null);
-                builder.show();
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.create().show();
 
                 break;
             case R.id.setting_personal:

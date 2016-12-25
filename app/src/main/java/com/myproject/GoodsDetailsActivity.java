@@ -134,7 +134,6 @@ public class GoodsDetailsActivity extends AppCompatActivity implements View.OnCl
                     hintLogin();
                 }
 
-
                 break;
             case R.id.goods_details_shopcar:
                 try {
