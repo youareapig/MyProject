@@ -2,6 +2,8 @@ package init;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 
 import com.myproject.R;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
@@ -22,11 +24,18 @@ public class Init extends Application {
     public ImageLoaderConfiguration config;
     private String popImg;
     private String popPrice;
-
+    public static int location=1;
     public void onCreate() {
         popImg="";
         popPrice="";
         super.onCreate();
+        //获取本地版本号
+        try {
+            PackageInfo packageInfo = getApplicationContext().getPackageManager().getPackageInfo(getPackageName(),0);
+            location = packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         initImageLoader(getApplicationContext());
         x.Ext.init(this);
     }

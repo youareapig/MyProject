@@ -76,6 +76,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:id="@+id/activity_about_update"
         android:layout_marginTop="2dp"
         android:background="#ffffff">
 

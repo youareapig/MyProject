@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ailunwang.appupdate.service.UpdateService;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.Manifest;
@@ -27,7 +29,9 @@ import indexfragment.Store;
 import indexfragment.Personal;
 import indexfragment.ShopCar;
 import indexfragment.Classify;
+import init.Init;
 import myview.CustomDialog;
+import utils.UpdateVersion;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private FragmentManager fragmentManager;
@@ -42,10 +46,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DialogInterface mDialogInterface;
     private String state;
     private Bundle savedInstanceState;
+    private int locationVersion = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Init init = (Init) getApplication();
+        locationVersion = init.location;
         this.savedInstanceState=savedInstanceState;
         //危险权限申请
         checkAndApplyPermission();
@@ -83,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             fragmentList.add(new Personal());
             showFragment();
         }
-
+        UpdateVersion.checkVersion(this,locationVersion);
     }
     private void initView() {
         btn_index = (RelativeLayout) findViewById(R.id.index);
@@ -328,4 +335,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+
 }
