@@ -238,7 +238,7 @@
                 </RelativeLayout>
             </LinearLayout>
 
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="2dp"
@@ -267,7 +267,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="16dp"
                     android:src="@mipmap/go" />
-            </RelativeLayout>
+            </RelativeLayout>-->
 
             <RelativeLayout
                 android:id="@+id/help"

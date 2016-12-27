@@ -58,7 +58,7 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
     private List<IndexBean.DataBean.AdBean> indexBannerList;
     private RelativeLayout indextitle, morenotice;
     private ObservableScrollView scrollView;
-    private ImageView index_search,next_img;
+    private ImageView index_search,next_img,erweima;
     private int height;
     private Index_GrideView index_grideView,seckill_gridview;
     private List<HashMap<String, Object>> list;
@@ -83,7 +83,7 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
         indextitle = (RelativeLayout) view.findViewById(R.id.indextitle);
         index_grideView = (Index_GrideView) view.findViewById(R.id.index_gridview);
         index_searchtext = (TextView) view.findViewById(R.id.index_searchtext);
-        index_search = (ImageView) view.findViewById(R.id.index_search);
+        //index_search = (ImageView) view.findViewById(R.id.index_search);
         morenotice = (RelativeLayout) view.findViewById(R.id.morenotice);
         index_viewpager = (ViewPager) view.findViewById(R.id.index_viewpager);
         indexviewGroup = (ViewGroup) view.findViewById(R.id.indexviewGroup);
@@ -91,8 +91,10 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
         seckill_gridview= (Index_GrideView) view.findViewById(R.id.seckill_gridview);
         countdownView= (CountdownView) view.findViewById(R.id.cv_countdownViewTest211);
         next_img= (ImageView) view.findViewById(R.id.next_img);
+        erweima= (ImageView) view.findViewById(R.id.erweima);
+        erweima.setOnClickListener(this);
         morenotice.setOnClickListener(this);
-        index_search.setOnClickListener(this);
+        //index_search.setOnClickListener(this);
         index_searchtext.setOnClickListener(this);
 
 
@@ -214,6 +216,9 @@ public class Store extends Fragment implements ObservableScrollView.ScrollViewLi
             case R.id.morenotice:
                 Intent intent1 = new Intent(getActivity(), NoticeActivity.class);
                 startActivity(intent1);
+                break;
+            case R.id.erweima:
+                ToastUtil.showToast(getActivity(),"正在研发中...");
                 break;
         }
     }

@@ -34,7 +34,7 @@
                 android:id="@+id/index_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="商城"
+                android:text="首页"
                 android:textColor="@color/c_blue"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="32dp"/>
