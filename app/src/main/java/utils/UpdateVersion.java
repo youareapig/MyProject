@@ -42,9 +42,8 @@ import myview.CustomDialog;
  * Created by Administrator on 2016/12/27.
  */
 public class UpdateVersion {
-    HashMap<String, String> hashMap = new HashMap<String, String>();
 
-    public static HashMap<String, String> checkVersion(final Context context, final int locationVersion) {
+    public  HashMap<String, String> checkVersion(final Context context, final int locationVersion) {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         String url = "http://www.ailunwang.cn/version.xml";
         try {
