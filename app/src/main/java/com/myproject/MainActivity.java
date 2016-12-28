@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new Thread(new Runnable() {
             @Override
             public void run() {
-                HashMap<String,String> hashMap = UpdateVersion.checkVersion(MainActivity.this,locationVersion);
+                HashMap<String,String> hashMap =new UpdateVersion().checkVersion(MainActivity.this,locationVersion);
                 if (hashMap!=null){
                     Message message = new Message();
                     message.obj = hashMap;
