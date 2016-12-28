@@ -1,14 +1,21 @@
 package com.myproject;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.ailunwang.appupdate.service.UpdateService;
+
+import java.util.HashMap;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import init.Init;
+import myview.CustomDialog;
 import utils.UpdateVersion;
 
 public class AboutActivity extends AppCompatActivity {
@@ -34,6 +41,32 @@ public class AboutActivity extends AppCompatActivity {
 
     @OnClick(R.id.activity_about_update)
     public void onClick() {
-        UpdateVersion.checkVersion(this,locationVersion);
+        final HashMap<String,String> hashMap = UpdateVersion.checkVersion(this,locationVersion);
+        if (hashMap!=null){
+            if (Integer.parseInt(hashMap.get("version"))>locationVersion){
+                CustomDialog.Builder builder1 = new CustomDialog.Builder(this);
+                builder1.setTitle("升级提示");
+                builder1.setMessage("发现新版本，请及时更新");
+                builder1.setPositiveButton("立即升级", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        Intent intent = new Intent(AboutActivity.this, UpdateService.class);
+                        intent.putExtra("apkUrl", hashMap.get("url"));
+                        startService(intent);
+                    }
+                });
+                builder1.setNegativeButton("下次再说", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                builder1.create().show();
+            }
+        }
     }
 }

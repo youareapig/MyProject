@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import com.ailunwang.appupdate.service.UpdateService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.jar.Manifest;
 
@@ -90,8 +93,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             fragmentList.add(new Personal());
             showFragment();
         }
-        UpdateVersion.checkVersion(this,locationVersion);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                HashMap<String,String> hashMap = UpdateVersion.checkVersion(MainActivity.this,locationVersion);
+                if (hashMap!=null){
+                    Message message = new Message();
+                    message.obj = hashMap;
+                    handler.sendMessage(message);
+                }
+
+            }
+        }).start();
     }
+    private Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message message) {
+            final HashMap<String,String> hashMap = (HashMap<String, String>) message.obj;
+            if (hashMap!=null){
+                if (Integer.parseInt(hashMap.get("version"))>locationVersion){
+                    CustomDialog.Builder builder1 = new CustomDialog.Builder(MainActivity.this);
+                    builder1.setTitle("升级提示");
+                    builder1.setMessage("发现新版本，请及时更新");
+                    builder1.setPositiveButton("立即升级", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            Intent intent = new Intent(MainActivity.this, UpdateService.class);
+                            intent.putExtra("apkUrl", hashMap.get("url"));
+                            startService(intent);
+                        }
+                    });
+                    builder1.setNegativeButton("下次再说", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    builder1.create().show();
+                }
+            }
+            return false;
+        }
+    });
     private void initView() {
         btn_index = (RelativeLayout) findViewById(R.id.index);
         btn_store = (RelativeLayout) findViewById(R.id.store);
