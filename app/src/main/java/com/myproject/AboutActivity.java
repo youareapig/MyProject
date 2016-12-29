@@ -88,7 +88,6 @@ public class AboutActivity extends AppCompatActivity {
             }
         }).start();
 
-
         }
 
 }

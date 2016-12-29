@@ -45,6 +45,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     private RelativeLayout pay_back;
     private String OrderNumber;
     private String mOrder_id;
+    private String mTotal_Price;
     private static final int SDK_PAY_FLAG = 1;
 
     @Override
@@ -69,7 +70,8 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_pay_weixin:
-                RequestWXpay();
+                ToastUtil.showToast(PayActivity.this,"暂未开通");
+                //RequestWXpay();
                 break;
             case R.id.activity_pay_zhifubao:
                 RequestZFBKey();
@@ -139,9 +141,9 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         };
     };
     public void RequestZFBKey(){
-        RequestParams params = new RequestParams("http://192.168.0.125/trunk/api.php/AliPay/pay");
-        params.addBodyParameter("total_fee","0.01");
-        params.addBodyParameter("partner","2088102168962939");
+        RequestParams params = new RequestParams(Global.ZFBSIGNATRRE);
+        params.addBodyParameter("total_fee",mTotal_Price);
+        params.addBodyParameter("partner","2088812636250223");
         params.addBodyParameter("out_trade_no",mOrder_id);
         params.addBodyParameter("service","mobile.securitypay.pay");
         x.http().post(params, new Callback.CommonCallback<String>() {

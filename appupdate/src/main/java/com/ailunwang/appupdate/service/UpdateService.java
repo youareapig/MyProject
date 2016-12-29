@@ -108,7 +108,6 @@ public class UpdateService extends Service {
         notification = builder.build();
         notificationManager.notify(0, notification);
 
-
     }
 
     /**

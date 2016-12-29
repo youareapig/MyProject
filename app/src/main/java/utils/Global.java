@@ -6,7 +6,6 @@ package utils;
 public class Global {
     //https://www.ailunwang.cn/
     public  String url="https://www.ailunwang.cn/";
-
     public static final String URL="https://www.ailunwang.cn/";
     public static final String SHOPCARDATA=URL+"/api.php/Cart/carDisplay";
     public static final String SHOPCARDELETEDATA=URL+"/api.php/Cart/carDel";
@@ -15,6 +14,7 @@ public class Global {
     public static final String SHOPCARREDUCENUMBER=URL+"/api.php/Cart/goods_number_reduce";
     public static final String SHOPCARORDER=URL+"/api.php/Order/order";
     public static final String GETADDRESS=URL+"api.php/Member/memberLstaddress";
+    public static final String ZFBSIGNATRRE = "http://192.168.0.130/trunks/signatures_url.php";
     public String getUrl() {
         return url;
     }
