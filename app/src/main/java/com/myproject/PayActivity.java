@@ -56,11 +56,10 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         pay_sale = (TextView) findViewById(R.id.pay_sale);
         Intent intent = getIntent();
         setResult(1);
-        String getSale = intent.getStringExtra("total_price");
+        mTotal_Price = intent.getStringExtra("total_price");
         OrderNumber=intent.getStringExtra("order_number");
         mOrder_id=intent.getStringExtra("order_id");
-        Log.d("tag", "价格" + getSale);
-        pay_sale.setText(getSale);
+        pay_sale.setText(mTotal_Price);
         pay_back = (RelativeLayout) findViewById(R.id.pay_back);
         pay_back.setOnClickListener(this);
 

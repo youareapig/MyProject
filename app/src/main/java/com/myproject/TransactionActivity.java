@@ -24,6 +24,7 @@ import bean.OrderDetailsBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import myview.CustomDialog;
 import utils.Global;
 
 public class TransactionActivity extends AppCompatActivity {
@@ -120,21 +121,26 @@ public class TransactionActivity extends AppCompatActivity {
                     orderItemDelete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(TransactionActivity.this);
+                            CustomDialog.Builder builder = new CustomDialog.Builder(TransactionActivity.this);
                             builder.setTitle("提示");
                             builder.setMessage("确定删除该订单？");
                             builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     orderDetailDelete();
+                                    dialog.dismiss();
                                 }
                             });
-                            builder.setNegativeButton("取消", null);
-                            builder.show();
+                            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            builder.create().show();
 
                         }
                     });
-
 
                 }
             }
@@ -142,8 +148,8 @@ public class TransactionActivity extends AppCompatActivity {
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 Log.i("tag", "订单详情失败");
-            }
 
+            }
             @Override
             public void onCancelled(CancelledException cex) {
 
