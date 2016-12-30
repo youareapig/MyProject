@@ -90,7 +90,7 @@ public class UpdateService extends Service {
      */
     private void notifyUser(String result, String msg, int progress){
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setSmallIcon(R.mipmap.ic_launcher)
+        builder.setSmallIcon(R.mipmap.logo)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setContentTitle(getString(R.string.app_name));
         if(progress>0 && progress<=100){

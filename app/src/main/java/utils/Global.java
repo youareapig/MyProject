@@ -14,7 +14,7 @@ public class Global {
     public static final String SHOPCARREDUCENUMBER=URL+"/api.php/Cart/goods_number_reduce";
     public static final String SHOPCARORDER=URL+"/api.php/Order/order";
     public static final String GETADDRESS=URL+"api.php/Member/memberLstaddress";
-    public static final String ZFBSIGNATRRE = "http://192.168.0.130/trunks/signatures_url.php";
+    public static final String ZFBSIGNATRRE = "http://192.168.0.130/trunk/api.php/AliPay/pay";
     public String getUrl() {
         return url;
     }

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import org.xutils.x;
 import bean.OrderDetailsBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import utils.Global;
 
@@ -51,6 +53,8 @@ public class TransactionActivity extends AppCompatActivity {
     TextView orderItemPinglun;
     @BindView(R.id.order_item_delete)
     TextView orderItemDelete;
+    @BindView(R.id.order_back1)
+    RelativeLayout orderBack1;
     private String url, orderlist_id, delteUrl, orderID;
     private Global global;
     private Unbinder unbinder;
@@ -206,4 +210,8 @@ public class TransactionActivity extends AppCompatActivity {
         });
     }
 
+    @OnClick(R.id.order_back1)
+    public void onClick() {
+        finish();
+    }
 }

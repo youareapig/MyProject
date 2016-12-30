@@ -5,7 +5,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.myproject.TransactionActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/car_title">
 
+        <RelativeLayout
+            android:id="@+id/order_back1"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn">
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/back" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="订单详情"
+            android:textColor="#ffff"
+            android:textSize="@dimen/titele" />
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -181,7 +207,6 @@
                 android:layout_alignBottom="@+id/transaction_img"
                 android:layout_marginLeft="128dp"
                 android:layout_toRightOf="@+id/transaction_img"
-                android:text="普通胎"
                 android:textColor="#888888"
                 android:textSize="12sp" />
 
@@ -285,6 +310,7 @@
             android:background="@drawable/hotsearch"
             android:gravity="center"
             android:text="查看物流"
+            android:visibility="gone"
             android:textColor="#888888"
             android:textSize="12sp" />
 
@@ -297,9 +323,8 @@
             android:layout_marginRight="86dp"
             android:background="@drawable/hotsearch"
             android:gravity="center"
-
-
-            android:text="删除订单"
+            android:text="马上支付"
+            android:visibility="gone"
             android:textColor="#888888"
             android:textSize="12sp" />
     </RelativeLayout>
