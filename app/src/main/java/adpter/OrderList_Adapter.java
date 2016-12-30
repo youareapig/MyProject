@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 import bean.Order_Bean;
+import myview.CustomDialog;
 import utils.Global;
 
 /**
@@ -51,7 +52,6 @@ public class OrderList_Adapter extends BaseAdapter {
             return list.size();
         }
         return 0;
-
     }
 
     @Override
@@ -124,17 +124,24 @@ public class OrderList_Adapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
             final String orderID=bean.getOrderlist_id();
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                CustomDialog.Builder builder = new CustomDialog.Builder(v.getContext());
                 builder.setTitle("提示");
                 builder.setMessage("确定删除该订单？");
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteOrder(orderID,position);
+                        dialog.dismiss();
                     }
                 });
-                builder.setNegativeButton("取消", null);
-                builder.show();
+
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.create().show();
 
             }
         });

@@ -24,6 +24,16 @@ public class Init extends Application {
     public ImageLoaderConfiguration config;
     private String popImg;
     private String popPrice;
+    private boolean isUpdateWarning = true;
+
+    public boolean isUpdateWarning() {
+        return isUpdateWarning;
+    }
+
+    public void setUpdateWarning(boolean updateWarning) {
+        isUpdateWarning = updateWarning;
+    }
+
     public static int location=1;
     public void onCreate() {
         popImg="";

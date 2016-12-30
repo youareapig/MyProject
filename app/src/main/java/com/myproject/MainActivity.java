@@ -59,7 +59,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.savedInstanceState=savedInstanceState;
         //危险权限申请
         checkAndApplyPermission();
+        if (init.isUpdateWarning()){
+            init.setUpdateWarning(false);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    HashMap<String,String> hashMap =new UpdateVersion().checkVersion(MainActivity.this,locationVersion);
+                    if (hashMap!=null){
+                        Message message = new Message();
+                        message.obj = hashMap;
+                        handler.sendMessage(message);
+                    }
 
+                }
+            }).start();
+        }
     }
     public void normal(){
         initView();
@@ -94,18 +108,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             showFragment();
         }
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                HashMap<String,String> hashMap =new UpdateVersion().checkVersion(MainActivity.this,locationVersion);
-                if (hashMap!=null){
-                    Message message = new Message();
-                    message.obj = hashMap;
-                    handler.sendMessage(message);
-                }
-
-            }
-        }).start();
     }
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
