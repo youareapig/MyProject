@@ -125,16 +125,14 @@ public class OrderActivity extends AppCompatActivity {
         return str;
     }
 
-
     private void getOrder() {
         progressDialog = ProgressDialog.show(this, "请稍后", "获取数据中...", true);
         RequestParams params = new RequestParams(url);
         params.addBodyParameter("userid", userID);
-        x.http().post(params, new Callback.CacheCallback<String>() {
+        x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 method(result);
-
             }
 
             @Override
@@ -152,10 +150,7 @@ public class OrderActivity extends AppCompatActivity {
                 progressDialog.cancel();
             }
 
-            @Override
-            public boolean onCache(String result) {
-                return false;
-            }
+
         });
     }
 
@@ -185,6 +180,7 @@ public class OrderActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==0&&resultCode==1){
+
             getOrder();
             adapter.notifyDataSetChanged();
         }
