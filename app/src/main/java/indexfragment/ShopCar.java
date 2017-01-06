@@ -198,6 +198,8 @@ public class ShopCar extends Fragment  {
                 }else {
                     mShopCarAdapter.addData(carData.getData());
                     mRelativeLayout.setVisibility(View.VISIBLE);
+                    noCommedity.setVisibility(View.GONE);
+                    noImage.setVisibility(View.GONE);
                     if (mSwipeRefreshLayout.isRefreshing()){
                         mSwipeRefreshLayout.setRefreshing(false);
                     }

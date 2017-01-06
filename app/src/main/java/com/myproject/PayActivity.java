@@ -70,7 +70,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         switch (view.getId()) {
             case R.id.activity_pay_weixin:
                 ToastUtil.showToast(PayActivity.this,"暂未开通");
-                //RequestWXpay();
+                RequestWXpay();
                 break;
             case R.id.activity_pay_zhifubao:
                 RequestZFBKey();
